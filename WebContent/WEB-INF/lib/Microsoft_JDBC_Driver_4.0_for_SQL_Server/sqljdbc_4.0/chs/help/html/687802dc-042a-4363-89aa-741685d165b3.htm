@@ -1,0 +1,301 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 Kerberos 集成身份验证连接到 SQL Server</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="687802dc-042a-4363-89aa-741685d165b3" />
+<meta name="Description"
+	content="从 Microsoft JDBC Driver 4.0 for SQL Server 开始，应用程序可使用 authenticationScheme 连接属性指示它希望连接到使用类型 4 Kerberos 集成身份验证的数据库。有关连接属性的详细信息，请参阅Setting the Connection Properties。有关 Kerberos 的详细信息，请参阅 Windows Kerberos 技术补充http://go.microsoft." />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 Kerberos
+						集成身份验证连接到 SQL Server</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					从 Microsoft JDBC Driver 4.0 for SQL Server 开始，应用程序可使用 <span
+						sdata="langKeyword" value="authenticationScheme"><span
+						class="keyword">authenticationScheme</span></span> 连接属性指示它希望连接到使用类型 4
+					Kerberos 集成身份验证的数据库。有关连接属性的详细信息，请参阅<span sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。有关
+					Kerberos 的详细信息，请参阅 <a
+						href="http://go.microsoft.com/fwlink/?LinkId=101449">Windows
+						Kerberos 技术补充</a>和 <a
+						href="http://go.microsoft.com/fwlink/?LinkID=100758">Microsoft
+						Kerberos</a>。
+				</p>
+				<p>
+					对 Java <span sdata="langKeyword" value="Krb5LoginModule"><span
+						class="keyword">Krb5LoginModule</span></span> 使用集成身份验证时，可使用 <a
+						href="http://download.oracle.com/javase/1.5.0/docs/guide/security/jaas/spec/com/sun/security/auth/module/Krb5LoginModule.html">类
+						Krb5LoginModule</a> 配置该模块。
+				</p>
+				<p>Microsoft JDBC Driver for SQL Server 针对 IBM Java VM 设置了以下属性：</p>
+				<ul>
+					<li><p>
+							<span sdata="langKeyword" value="useDefaultCcache = true"><span
+								class="keyword">useDefaultCcache = true</span></span>
+						</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="moduleBanner = false"><span
+								class="keyword">moduleBanner = false</span></span>
+						</p></li>
+				</ul>
+				<p>Microsoft JDBC Driver for SQL Server 针对所有其他 Java VM 设置了以下属性：</p>
+				<ul>
+					<li><p>
+							<span sdata="langKeyword" value="useTicketCache = true"><span
+								class="keyword">useTicketCache = true</span></span>
+						</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="doNotPrompt = true"><span
+								class="keyword">doNotPrompt = true</span></span>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在 Microsoft JDBC Driver 4.0 for SQL Server 之前，应用程序可通过使用 <span
+						sdata="langKeyword" value="integratedSecurity"><span
+						class="keyword">integratedSecurity</span></span> 连接属性并引用 <span
+						sdata="langKeyword" value="sqljdbc_auth.dll"><span
+						class="keyword">sqljdbc_auth.dll</span></span> 来指定集成身份验证（使用 Kerberos 或
+					NTLM，具体取决于所提供的对象），如<span sdata="link"><a
+						href="44996746-d373-4f59-9863-a8a20bb8024a.htm">创建连接 URL</a></span> 中所述。
+				</p>
+				<p>
+					从 Microsoft JDBC Driver 4.0 for SQL Server 开始，应用程序可使用 <span
+						sdata="langKeyword" value="authenticationScheme"><span
+						class="keyword">authenticationScheme</span></span> 连接属性指示它希望通过纯 Java
+					Kerberos 实现连接到使用 Kerberos 集成身份验证的数据库：
+				</p>
+				<ul>
+					<li><p>
+							如果要选择使用 <span sdata="langKeyword" value="Krb5LoginModule"><span
+								class="keyword">Krb5LoginModule</span></span> 的集成身份验证，仍然必须指定 <span
+								sdata="langKeyword" value="integratedSecurity=true"><span
+								class="keyword">integratedSecurity=true</span></span> 连接属性。然后，还要指定 <span
+								sdata="langKeyword" value="authenticationScheme=JavaKerberos"><span
+								class="keyword">authenticationScheme=JavaKerberos</span></span> 连接属性。
+						</p></li>
+					<li><p>
+							若要继续通过 <span sdata="langKeyword" value="sqljdbc_auth.dll"><span
+								class="keyword">sqljdbc_auth.dll</span></span> 使用集成身份验证，仅需指定 <span
+								sdata="langKeyword" value="integratedSecurity=true"><span
+								class="keyword">integratedSecurity=true</span></span> 连接属性（而且还可以指定 <span
+								sdata="langKeyword"
+								value="authenticationScheme=NativeAuthentication"><span
+								class="keyword">authenticationScheme=NativeAuthentication</span></span>）。
+						</p></li>
+					<li><p>
+							如果指定 <span sdata="langKeyword"
+								value="authenticationScheme=JavaKerberos"><span
+								class="keyword">authenticationScheme=JavaKerberos</span></span> 但未同时指定
+							<span sdata="langKeyword" value="integratedSecurity=true"><span
+								class="keyword">integratedSecurity=true</span></span>，则驱动程序将忽略 <span
+								sdata="langKeyword" value="authenticationScheme"><span
+								class="keyword">authenticationScheme</span></span>
+							连接属性，并希望在连接字符串中找到用户名和密码凭据。
+						</p></li>
+				</ul>
+				<p>
+					使用数据源创建连接时，可使用 <a href="b942f78e-7ce1-44ef-923d-a7c3d7c76b83.htm">setAuthenticationScheme</a>
+					以编程方式设置身份验证架构。
+				</p>
+				<p>
+					新增了一个记录程序以支持 Kerberos
+					身份验证：com.microsoft.sqlserver.jdbc.internals.KerbAuthentication。有关详细信息，请参阅<span
+						sdata="link"><a
+						href="723aeae7-6504-4585-ba8b-3525115bea8b.htm">跟踪驱动程序操作</a></span>。
+				</p>
+				<p>以下准则将有助于您配置 Kerberos：</p>
+				<ol>
+					<li><p>
+							在 Windows 注册表中，将 <span sdata="langKeyword"
+								value="AllowTgtSessionKey"><span class="keyword">AllowTgtSessionKey</span></span>
+							设置为 1。有关详细信息，请参阅 <a href="http://support.microsoft.com/kb/837361">Windows
+								Server 2003 中的 Kerberos 协议注册表项和 KDC 配置项</a>。
+						</p></li>
+					<li><p>请确保 Kerberos 配置（UNIX 环境中的 krb5.conf）指向您的环境中正确的领域和
+							KDC。</p></li>
+					<li><p>通过使用 kinit 或登录到域来初始化 TGT 缓存。</p></li>
+					<li><p>
+							当在 Windows Vista 或 Windows 7 操作系统上运行使用 <span sdata="langKeyword"
+								value="authenticationScheme=JavaKerberos"><span
+								class="keyword">authenticationScheme=JavaKerberos</span></span>
+							的应用程序时，您应使用标准用户帐户。但如果以管理员帐户运行应用程序，则必须使用管理员特权运行该应用程序。
+						</p></li>
+				</ol>
+			</div>
+			<h1 class="heading">服务主体名称</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>服务主体名称 (SPN) 是客户端用来唯一标识服务实例的名称。有关服务主体名称 (SPN) 的详细信息，请参阅：</p>
+				<ul>
+					<li><p>
+							<a href="http://support.microsoft.com/kb/319723">如何在 SQL
+								Server 中使用 Kerberos 身份验证</a>
+						</p></li>
+					<li><p>
+							<a href="http://go.microsoft.com/fwlink/?LinkId=207814">对 SQL
+								Server 使用 Kerberos</a>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">创建登录模块配置文件</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>您也可选择指定 Kerberos 配置文件。如果未指定配置文件，则以下设置有效：</p>
+				<dl class="authored">
+					<dt>Sun JVM</dt>
+					<dd>
+						<p>com.sun.security.auth.module.Krb5LoginModule required
+							useTicketCache=true doNotPrompt=true;</p>
+					</dd>
+					<dt>IBM JVM</dt>
+					<dd>
+						<p>com.ibm.security.auth.module.Krb5LoginModule required
+							useDefaultCcache = true moduleBanner = false;</p>
+					</dd>
+				</dl>
+				<p>如果您决定创建登录模块配置文件，则该文件必须遵循以下格式：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>&lt;<i>name</i>&gt; {
+    &lt;<i>LoginModule</i>&gt; &lt;<i>flag</i>&gt; &lt;<i>LoginModule options</i>&gt;;
+    &lt;<i>optional_additional_LoginModules</i>, <i>flags_and_options</i>&gt;;
+};</pre></span>
+				</div>
+				<p>登录配置文件包含一个或多个条目，每个条目分别指定应用于某个特定应用程序或多个应用程序的基础身份验证技术。例如，</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>SQLJDBCDriver {
+   com.sun.security.auth.module.Krb5LoginModule required useTicketCache=true doNotPrompt=true;
+};</pre></span>
+				</div>
+				<p>因此，每个登录模块配置文件条目均包含一个名称，该名称后跟一个或多个特定于 LoginModule 的条目，其中每个特定于
+					LoginModule 的条目以分号结尾，并且整个特定于 LoginModule
+					的条目组都包含在大括号中。每个配置文件条目均以分号结尾。</p>
+				<p>除了允许驱动程序使用登录配置模块文件中指定的设置获取 Kerberos
+					凭据之外，驱动程序还可使用现有凭据。这在您的应用程序需要使用多个用户的凭据创建连接时非常有用。</p>
+				<p>在尝试使用指定登录模块登录之前，如果现有凭据可用，则驱动程序将尝试使用它们。因此，使用 Subject.doAs
+					方法在特定上下文下执行代码时，将使用传递给 Subject.doAs 调用的凭据创建连接。</p>
+				<p>
+					有关详细信息，请参阅 <a
+						href="http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/tutorials/LoginConfigFile.html">JAAS
+						登录配置文件</a>和<a
+						href="http://download.oracle.com/javase/1.5.0/docs/guide/security/jgss/tutorials/KerberosReq.html">类
+						Krb5LoginModule</a>。
+				</p>
+			</div>
+			<h1 class="heading">创建 Kerberos 配置文件</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					有关 Kerberos 配置文件的详细信息，请参阅 <a
+						href="http://download.oracle.com/javase/1.4.2/docs/guide/security/jaas/tutorials/LoginConfigFile.html">Kerberos
+						要求</a>。
+				</p>
+				<p>下面是一个示例域配置文件，其中 YYYY 和 ZZZZ 是您网站的域名称。</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>[libdefaults]
+default_realm = YYYY.CORP.CONTOSO.COM
+dns_lookup_realm = false
+dns_lookup_kdc = true
+ticket_lifetime = 24h
+forwardable = yes
+
+[domain_realm]
+.yyyy.corp.contoso.com = YYYY.CORP.CONTOSO.COM
+.zzzz.corp.contoso.com = ZZZZ.CORP.CONTOSO.COM
+
+[realms]
+        YYYY.CORP.CONTOSO.COM = {
+  kdc = krbtgt/YYYY.CORP. CONTOSO.COM @ YYYY.CORP. CONTOSO.COM
+  default_domain = YYYY.CORP. CONTOSO.COM
+}
+
+        ZZZZ.CORP. CONTOSO.COM = {
+  kdc = krbtgt/ZZZZ.CORP. CONTOSO.COM @ ZZZZ.CORP. CONTOSO.COM
+  default_domain = ZZZZ.CORP. CONTOSO.COM
+}
+</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">启用域配置文件和登录模块配置文件</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>
+					您可以使用 -Djava.security.krb5.conf 启用域配置文件。您可以使用 <span
+						sdata="langKeyword" value="-Djava.security.auth.login.config"><span
+						class="keyword">-Djava.security.auth.login.config</span></span>
+					启用登录模块配置文件。
+				</p>
+				<p>例如，启动应用程序时，您可使用以下命令行：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Java.exe -Djava.security.auth.login.config=SQLJDBCDriver.conf -Djava.security.krb5.conf=krb5.ini &lt;<i>APPLICATION_NAME</i>&gt;
+</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">验证可通过 Kerberos 访问 SQL Server</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>在 SQL Server Management Studio 中运行以下查询：</p>
+				<p>
+					<span sdata="langKeyword"
+						value="select auth_scheme from sys.dm_exec_connections where session_id=@@spid"><span
+						class="keyword">select auth_scheme from
+							sys.dm_exec_connections where session_id=@@spid</span></span>
+				</p>
+				<p>请确保您具有运行此查询的必要权限。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

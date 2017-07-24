@@ -1,0 +1,235 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>稀疏列</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="7d4237e0-818f-4639-9093-d5ac9683fc71" />
+<meta name="Description"
+	content="稀疏列是对 Null 值采用优化的存储方式的普通列。稀疏列减少了 Null 值的空间需求，但代价是检索非 Null 值的开销增加。当至少能够节省 20% 到 40% 的空间时，才应考虑使用稀疏列。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">稀疏列</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>稀疏列是对 Null 值采用优化的存储方式的普通列。稀疏列减少了 Null 值的空间需求，但代价是检索非 Null
+					值的开销增加。当至少能够节省 20% 到 40% 的空间时，才应考虑使用稀疏列。</p>
+				<p>
+					当您连接到 SQL Server 2008 或更高版本的服务器时，SQL Server JDBC Driver 3.0
+					支持稀疏列。可以使用 <a href="f173fa5d-e114-4a37-a5c4-2baad9ff3af1.htm">SQLServerDatabaseMetaData.getColumns</a>、<a
+						href="e2b0e0f7-717c-48e6-bcd2-a325d938a833.htm">SQLServerDatabaseMetaData.getFunctionColumns</a>
+					或 <a href="4f0df8fe-3cd6-46e4-ae3c-dc23c35676b2.htm">SQLServerDatabaseMetaData.getProcedureColumns</a>
+					确定哪个列是稀疏列以及哪个列是列集列。
+				</p>
+				<p>列集是返回非类型化 XML 形式的所有稀疏列的计算列。当表中有很多列、大于 1024
+					或分别对这些稀疏列进行操作很烦琐时，应考虑使用列集。列集最多可以包含 30,000 个列。</p>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<h1 class="heading">说明</h1>
+				<div class="subsection">
+					<p>此示例说明如何检测列集。它还显示如何分析列集的 XML 输出，以便从稀疏列获取数据。</p>
+					<p>所列的第一个代码部分是您应该对服务器运行的 Transact-SQL。</p>
+					<p>所列的第二个代码部分是 Java 源代码。在编译应用程序之前，应更改连接字符串中服务器的名称。</p>
+				</div>
+				<h1 class="heading">代码</h1>
+				<div class="subsection">
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>use AdventureWorks
+CREATE TABLE ColdCalling
+(
+ID int IDENTITY(1,1) PRIMARY KEY,
+[Date] date,
+[Time] time,
+PositiveFirstName nvarchar(50) SPARSE,
+PositiveLastName nvarchar(50) SPARSE,
+SpecialPurposeColumns XML COLUMN_SET FOR ALL_SPARSE_COLUMNS
+);
+GO
+
+INSERT ColdCalling ([Date], [Time])
+VALUES ('10-13-09','07:05:24')
+GO
+      
+INSERT ColdCalling ([Date], [Time], PositiveFirstName, PositiveLastName)
+VALUES ('07-20-09','05:00:24', 'AA', 'B')
+GO
+      
+INSERT ColdCalling ([Date], [Time], PositiveFirstName, PositiveLastName)
+VALUES ('07-20-09','05:15:00', 'CC', 'DD')
+GO</pre></span>
+					</div>
+				</div>
+				<h1 class="heading">代码</h1>
+				<div class="subsection">
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>import java.sql.*;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.xml.sax.InputSource;
+
+import java.io.StringReader;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class SparseColumns {
+
+   public static void main(String args[]) {
+      final String connectionUrl = "jdbc:sqlserver://my_server;databaseName=AdventureWorks;integratedSecurity=true;";
+      
+      Connection conn = null;
+      Statement stmt = null;
+      ResultSet rs = null;
+      
+      try {
+         conn = DriverManager.getConnection(connectionUrl);
+         
+         stmt = conn.createStatement();
+         // Determine the column set column
+         String columnSetColName = null;
+         String strCmd = "SELECT name FROM sys.columns WHERE object_id=(SELECT OBJECT_ID('ColdCalling')) AND is_column_set = 1";
+         rs = stmt.executeQuery(strCmd);
+         
+         if (rs.next()) {
+            columnSetColName = rs.getString(1);
+            System.out.println(columnSetColName + " is the column set column!");
+         }
+         rs.close();
+
+         rs = null; 
+             
+         strCmd = "SELECT * FROM ColdCalling";
+         rs = stmt.executeQuery(strCmd);
+            
+         // Iterate through the result set
+         ResultSetMetaData rsmd = rs.getMetaData();
+         
+         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+         DocumentBuilder db = dbf.newDocumentBuilder();
+         InputSource is = new InputSource();
+         while (rs.next()) {
+            // Iterate through the columns
+            for (int i = 1; i &lt;= rsmd.getColumnCount(); ++i) {
+               String name = rsmd.getColumnName(i);
+               String value = rs.getString(i);
+   
+               // If this is the column set column
+               if (name.equalsIgnoreCase(columnSetColName)) {
+                  System.out.println(name);
+                  
+                  // Instead of printing the raw XML, parse it
+                  if (value != null) {
+                     // Add artificial root node "sparse" to ensure XML is well formed
+                     String xml = "&lt;sparse&gt;" + value + "&lt;/sparse&gt;";
+   
+                     is.setCharacterStream(new StringReader(xml));
+                     Document doc = db.parse(is);
+   
+                     // Extract the NodeList from the artificial root node that was added
+                     NodeList list = doc.getChildNodes();
+                     // This is the &lt;sparse&gt; node
+                     Node root = list.item(0); 
+                     // These are the xml column nodes
+                     NodeList sparseColumnList = root.getChildNodes(); 
+   
+                     // Iterate through the XML document
+                     for (int n = 0; n &lt; sparseColumnList.getLength(); ++n) {
+                        Node sparseColumnNode = sparseColumnList.item(n);
+                        String columnName = sparseColumnNode.getNodeName();
+                        // Note that the column value is not in the sparseColumNode, it is the value of the first child of it
+                        Node sparseColumnValueNode = sparseColumnNode.getFirstChild();
+                        String columnValue = sparseColumnValueNode.getNodeValue();
+                        
+                        System.out.println("\t" + columnName + "\t: " + columnValue);
+                     }
+                  }
+               } else {   // Just print the name + value of non-sparse columns
+                  System.out.println(name + "\t: " + value);
+               }
+            }
+            System.out.println();//New line between rows
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         if (rs != null) {
+            try {
+               rs.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         if (stmt != null) {
+            try {
+               stmt.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         if (conn != null) {
+            try {
+               conn.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+      }
+   }      
+}</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="e1592499-b87b-45ee-bab8-beaba8fde841.htm">借助 JDBC
+							驱动程序提高性能和可靠性</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

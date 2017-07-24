@@ -1,0 +1,47 @@
+<form id="addMetadataForm" data-dojo-type="dojox.form.Manager">
+    <span dojoType="dojox.layout.TableContainer" cols="1" id="metaTableContainer"
+          customClass="greyLNF" style="width: 300px;" data-dojo-props="labelWidth:'75'">
+		<div dojoType="dijit.InlineEditBox" title="元数据名称:" name="metadataName" id="metadata_name" data-dojo-props="
+		    editor:'dijit.form.ValidationTextBox',width:'*',editorParams:'required:true,trim:true'" style="color: red;width:180px">
+        </div>
+        <div>
+            <select title="元数据类型:" id="metadata_type" data-dojo-id="metadata_type" data-dojo-type="dijit/form/Select" data-dojo-props='name:"metadataType" '>
+                <option value="INT">整形</option>
+                <option value="FLOAT" selected="selected">浮点型</option>
+                <option value="STRING">字符型</option>
+                <option value="ARRAY">数组</option>
+            </select>
+        </div>
+        <div id="metaCategory_select" name="metaCategory_select" data-dojo-type="dijit.form.ComboBox"
+                data-dojo-props='store:metadata_store,
+                title:"所属分类:",
+                query:{type:"category"},
+                searchAttr:"pyName",
+                labelAttr:"name",
+                pageSize:10,
+                validator:validateNotNull,
+                invalidMessage:"未找到该元数据类型",
+                autoComplete:false,
+                highlightMatch:"all",
+                onChange:inputChanged
+            '>
+            <!--<span data-dojo-type="dijit.Tooltip" data-dojo-props="connectId:['metaCategory_select']">-->
+            <!--<i>请输入元数据类型的<font color='#ff0000'>名称或拼音</font>,并从候选项中选中一个分类，该值<br><font color='#ff0000'>可以为空</font></i>-->
+            <!--</span>-->
+        </div>
+        <div dojoType="dijit.form.CheckBox" id="autoSelect" name="autoSelect" title="添加并选中:" checked="true">
+            <span data-dojo-type="dijit.Tooltip" data-dojo-props="connectId:['autoSelect']"><i>添加完成后自动选中该元数据</i></span>
+        </div>
+		<div dojoType="dijit.form.ValidationTextBox" id="metadata_pinyin" name="metadata_pinyin" title="拼音:" data-dojo-props="required:true,
+		    trim:true,missingMessage:'请输入拼音以方便检索'"></div>
+        <div dojoType="dijit.form.CheckBox" id="saveInDatabase" name="useStyle" title="存入数据库:" checked="false">
+            <span data-dojo-type="dijit.Tooltip" data-dojo-props="connectId:['saveInDatabase']">
+                <font color='#ff0000'>存入数据库</font><i>意味着该元数据以后将能够被重用</i>
+            </span>
+        </div>
+	</span>
+    <div style="text-align: center;">
+        <button dojoType="dijit.form.Button" onClick="addMetadata">确定</button>
+        <button dojoType="dijit.form.Button" onClick="hideMetaDlg">取消</button>
+    </div>
+</form>

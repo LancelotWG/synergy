@@ -1,0 +1,290 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>JDBC 驱动程序 API 参考</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="API 参考" />
+<meta name="Microsoft.Help.Id"
+	content="e4e1ae9d-18a6-41db-8bd2-9cf0eee4cccb" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 提供可在 Java 编程代码内使用的 API，以连接到 Microsoft SQL Server 数据库并与之进行交互。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">JDBC 驱动程序 API 参考</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server 提供可在 Java 编程代码内使用的
+					API，以连接到 Microsoft SQL Server 数据库并与之进行交互。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						有关使用 JDBC 驱动程序的概念性信息，请参阅<span sdata="link"><a
+							href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">接口</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>接口名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="030a1631-cfcd-41e0-beb5-47f93c01e8e0.htm">ISQLServerCallableStatement
+											接口</a></span>
+								</p></td>
+							<td><p>允许您指定要与输入和输出参数一起使用的要调用的存储过程名称。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="031c01e2-2c65-4fe4-9700-fdbcc7a39f30.htm">ISQLServerConnection
+											接口</a></span>
+								</p></td>
+							<td><p>表示连接至 SQL Server 数据库的 JDBC 连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+											类</a></span>
+								</p></td>
+							<td><p>
+									表示通过使用 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">ISQLServerConnection</a>
+									对象特定于连接至 SQL Server 数据库的属性列表。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="cf87892e-5c34-4ac6-8258-c2a81e117b26.htm">ISQLServerPreparedStatement</a>
+								</p></td>
+							<td><p>表示 JDBC 预定义语句功能的基本实现。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="002496f7-8ec0-4267-b4e6-ba095e2ef306.htm">ISQLServerResultSet</a>
+								</p></td>
+							<td><p>表示 JDBC 结果集。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="7f83b514-6e76-4f37-baf3-a10db2010e7c.htm">ISQLServerStatement</a>
+								</p></td>
+							<td><p>表示 JDBC 语句功能的基本实现。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">类</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="20bbeacd-ccca-4a46-8184-ff941ae2ec5f.htm">DateTimeOffset</a>
+								</p></td>
+							<td><p>表示 microsoft.sql.DateTimeOffset 类型的对象。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="88bd8623-889d-4b5d-99ff-c85b32f3ff5c.htm">SQLServerBlob</a>
+								</p></td>
+							<td><p>表示二进制大型对象 (BLOB)。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+								</p></td>
+							<td><p>实现 ISQLServerCallableStatement。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="24170524-e1ab-4e80-8fd1-6688efacfbde.htm">SQLServerClob</a>
+								</p></td>
+							<td><p>表示字符型二进制大型对象 (CLOB)。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+								</p></td>
+							<td><p>实现 ISQLServerConnection。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource</a>
+								</p></td>
+							<td><p>表示用于连接池管理器的物理数据库连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="8b8049d0-8c6d-4476-866b-098709f37eec.htm">SQLServerDatabaseMetaData</a>
+								</p></td>
+							<td><p>表示数据库的元数据。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="ba1d3242-19ca-4321-83fe-867a4f69f1d4.htm">SQLServerDataSource</a>
+								</p></td>
+							<td><p>
+									表示通过使用 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+									对象特定于连接至 SQL Server 数据库的属性列表。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="b616632b-5987-470d-b36c-b22fa9213145.htm">SQLServerDataSourceObjectFactory</a>
+								</p></td>
+							<td><p>表示将来自 Java 命名和目录接口 (JNDI) 的数据源具体化的对象工厂。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="fbdceae5-7e7b-4edb-8c33-c701ca6b2d53.htm">SQLServerDriver</a>
+								</p></td>
+							<td><p>表示 JDBC 驱动程序。此类包括连接至 SQL Server 数据库的方法以及取得有关 JDBC
+									驱动程序的信息的方法。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+								</p></td>
+							<td><p>表示 SQL 语句运行不成功或不完整。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="3d3883a2-c39c-439f-bbc0-01e73968672b.htm">SQLServerNClob
+										类</a>
+								</p></td>
+							<td><p>使用区域字符集表示字符型二进制大型对象。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="546290e0-9411-4a2b-aa36-61251e70e9cf.htm">SQLServerParameterMetaData</a>
+								</p></td>
+							<td><p>表示用于预定义语句参数的元数据。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="4c87e9d3-904a-4b86-90cc-3684034c86ee.htm">SQLServerPooledConnection</a>
+								</p></td>
+							<td><p>表示连接池中的物理数据库连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+								</p></td>
+							<td><p>实现 ISQLServerPreparedStatement。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="e7e362d1-6b5f-4e8c-8862-2001102cf4f9.htm">SQLServerResource</a>
+								</p></td>
+							<td><p>表示本地化错误字符串资源。此类仅计划供内部使用。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+								</p></td>
+							<td><p>实现 ISQLServerResultSet。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="9a36885f-83f3-44af-85f0-2b849dfd20d4.htm">SQLServerResultSetMetaData</a>
+								</p></td>
+							<td><p>表示结果集内包含的列的元数据。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="1ae7db7b-959f-4142-8d9f-aa427869c6ac.htm">SQLServerSavepoint</a>
+								</p></td>
+							<td><p>表示事务可回滚到的检查点。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+								</p></td>
+							<td><p>实现 ISQLServerStatement。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="5ecb4bf1-b8d1-47cf-9cb1-7a18acc11ce2.htm">SQLServerXAConnection</a>
+								</p></td>
+							<td><p>表示可参与分布式 (XA) 事务的 JDBC 连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4.htm">SQLServerXADataSource</a>
+								</p></td>
+							<td><p>
+									表示在内部使用的 <a href="5ecb4bf1-b8d1-47cf-9cb1-7a18acc11ce2.htm">SQLServerXAConnection</a>
+									的对象工厂。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="df957b79-536f-4db7-b6ac-3d59343559fc.htm">SQLServerXAResource</a>
+								</p></td>
+							<td><p>
+									表示用于 XA 分布式事务管理的 <b>XAResource</b>。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用不带参数的 SQL 语句</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="4b0728bd-059b-4b71-895c-999335bc7427" />
+<meta name="Description"
+	content="若要使用不带参数的 SQL 语句处理 SQL Server 数据库中的数据，可以使用 SQLServerStatement 类的 executeQuery 方法返回包含所需数据的 SQLServerResultSet。若要执行此操作，必须首先使用 SQLServerConnection 类的 createStatement 方法创建一个 SQLServerStatement 对象。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用不带参数的 SQL 语句</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					若要使用不带参数的 SQL 语句处理 SQL Server 数据库中的数据，可以使用 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类的 <a href="599cf463-e19f-4baa-bacb-513cad7c6cd8.htm">executeQuery</a>
+					方法返回包含所需数据的 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>。若要执行此操作，必须首先使用
+					<a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					类的 <a href="6d043ba9-b8ec-41d3-bb22-ad2c4aebda6f.htm">createStatement</a>
+					方法创建一个 <b>SQLServerStatement</b> 对象。
+				</p>
+				<p>在下面的实例中，将向此函数传递 SQL Server 2005AdventureWorks
+					示例数据库的打开连接，构造并运行一条 SQL 语句，然后从结果集读取结果。</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>public static void executeStatement(Connection con) {
+   try {
+      String SQL = "SELECT LastName, FirstName FROM Person.Contact ORDER BY LastName";
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(SQL);
+
+      while (rs.next()) {
+         System.out.println(rs.getString("LastName") + ", " + rs.getString("FirstName"));
+      }
+      rs.close();
+      stmt.close();
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+</pre></span>
+					</div>
+				</div>
+				<p>
+					有关使用结果集的详细信息，请参阅<span sdata="link"><a
+						href="9ed5ad41-22e0-4e4a-8a79-10512db60d50.htm">通过 JDBC
+							驱动程序管理结果集</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="fe28f48a-e1bc-48ff-a5e7-c24cd6e5ecc7.htm">使用 SQL 语句</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

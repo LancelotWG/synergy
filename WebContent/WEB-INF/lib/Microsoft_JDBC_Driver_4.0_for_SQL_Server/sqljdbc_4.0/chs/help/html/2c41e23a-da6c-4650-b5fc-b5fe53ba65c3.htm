@@ -1,0 +1,147 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解隔离级别</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="事务隔离级别" />
+<meta name="Microsoft.Help.Id"
+	content="2c41e23a-da6c-4650-b5fc-b5fe53ba65c3" />
+<meta name="Description"
+	content="事务指定一个隔离级别，该隔离级别定义一个事务必须与由其他事务进行的资源或数据更改相隔离的程度。隔离级别从允许的并发副作用（例如，脏读或虚拟读取）的角度进行描述。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解隔离级别</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>事务指定一个隔离级别，该隔离级别定义一个事务必须与由其他事务进行的资源或数据更改相隔离的程度。隔离级别从允许的并发副作用（例如，脏读或虚拟读取）的角度进行描述。</p>
+				<p>事务隔离级别控制以下各项：</p>
+				<ul>
+					<li><p>读取数据时是否占用锁以及所请求的锁类型。</p></li>
+					<li><p>占用读取锁的时间。</p></li>
+					<li><p>引用其他事务修改的行的读取操作是否：</p>
+						<ul>
+							<li><p>在该行上的排他锁被释放之前阻塞其他事务。</p></li>
+							<li><p>检索在启动语句或事务时存在的行的已提交版本。</p></li>
+							<li><p>读取未提交的数据修改。</p></li>
+						</ul></li>
+				</ul>
+				<p>选择事务隔离级别不影响为保护数据修改而获取的锁。事务总是在其修改的任何数据上获取排他锁并在事务完成之前持有该锁，不管为该事务设置了什么样的隔离级别。对于读取操作，事务隔离级别主要定义保护级别，以防受到其他事务所做更改的影响。</p>
+				<p>较低的隔离级别可以增强许多用户同时访问数据的能力，但也增加了用户可能遇到的并发副作用（例如脏读或丢失更新）的数量。相反，较高的隔离级别减少了用户可能遇到的并发副作用的类型，但需要更多的系统资源，并增加了一个事务阻塞其他事务的可能性。应平衡应用程序的数据完整性要求与每个隔离级别的开销，在此基础上选择相应的隔离级别。最高隔离级别（可序列化）保证事务在每次重复读取操作时都能准确检索到相同的数据，但需要通过执行某种级别的锁定来完成此操作，而锁定可能会影响多用户系统中的其他用户。最低隔离级别（未提交读）可以检索其他事务已经修改、但未提交的数据。在未提交读中，所有并发副作用都可能发生，但因为没有读取锁定或版本控制，所以开销最少。</p>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>下表显示了不同隔离级别允许的并发副作用。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>隔离级别</p></th>
+							<th><p>脏读</p></th>
+							<th><p>不可重复读</p></th>
+							<th><p>虚拟读取</p></th>
+						</tr>
+						<tr>
+							<td><p>未提交读</p></td>
+							<td><p>是</p></td>
+							<td><p>是</p></td>
+							<td><p>是</p></td>
+						</tr>
+						<tr>
+							<td><p>已提交读</p></td>
+							<td><p>否</p></td>
+							<td><p>是</p></td>
+							<td><p>是</p></td>
+						</tr>
+						<tr>
+							<td><p>可重复读</p></td>
+							<td><p>否</p></td>
+							<td><p>否</p></td>
+							<td><p>是</p></td>
+						</tr>
+						<tr>
+							<td><p>快照</p></td>
+							<td><p>否</p></td>
+							<td><p>否</p></td>
+							<td><p>否</p></td>
+						</tr>
+						<tr>
+							<td><p>可序列化</p></td>
+							<td><p>否</p></td>
+							<td><p>否</p></td>
+							<td><p>否</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>事务必须至少在可重复读的隔离级别运行，才能在两个事务都检索同一行，然后根据原先检索的值更新行时，防止出现丢失更新的情况。如果两个事务使用一个
+					UPDATE 语句更新行，而且更新并不以先前检索的值为基础，则在默认的已提交读的隔离级别上不会发生丢失更新的情况。</p>
+				<p>
+					若要为事务设置隔离级别，可以使用 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					类的 <a href="6a8fa4d3-5237-40f8-8a02-b40a3d7a1131.htm">setTransactionIsolation</a>
+					方法。此方法接受 <span sdata="langKeyword" value="int"><span
+						class="keyword">int</span></span> 值作为其参数，此参数基于如下所示的连接常量之一：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);</pre></span>
+				</div>
+				<p>
+					若要使用 SQL Server 的新的快照隔离级别，可以使用以下所示的 <b>SQLServerConnection</b>
+					常量之一：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>con.setTransactionIsolation(SQLServerConnection.TRANSACTION_SNAPSHOT);</pre></span>
+				</div>
+				<p>或者，您可以使用：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED + 4094);</pre></span>
+				</div>
+				<p>有关 SQL Server 隔离级别的详细信息，请参阅 SQL Server 联机丛书中的“数据库引擎 中的隔离级别”。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">通过 JDBC
+							驱动程序执行事务</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

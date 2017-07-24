@@ -1,0 +1,154 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解并发控制</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="并发" />
+<meta name="Microsoft.Help.Id"
+	content="98b7dabe-9b12-4e1d-adeb-e5b5cb0c96f3" />
+<meta name="Description"
+	content="并发控制指的是当多个用户同时更新行时，用于保护数据库完整性的各种技术。并发机制不正确可能导致脏读、虚拟读取和不可重复读等问题。Microsoft JDBC Driver for SQL Server 向 SQL Server 使用的所有并发技术提供了接口以解决这些问题。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解并发控制</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>并发控制指的是当多个用户同时更新行时，用于保护数据库完整性的各种技术。并发机制不正确可能导致脏读、虚拟读取和不可重复读等问题。Microsoft
+					JDBC Driver for SQL Server 向 SQL Server 使用的所有并发技术提供了接口以解决这些问题。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>有关 SQL Server 并发的详细信息，请参阅 SQL Server 联机丛书中的“管理并发数据访问”。</p>
+				</div>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 驱动程序支持以下并发类型：</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>并发类型</p></th>
+							<th><p>特征</p></th>
+							<th><p>行锁</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>CONCUR_READ_ONLY</p></td>
+							<td><p>只读</p></td>
+							<td><p>否</p></td>
+							<td><p>不允许通过游标进行更新，并且针对组成结果集的行不持有锁。</p></td>
+						</tr>
+						<tr>
+							<td><p>CONCUR_UPDATABLE</p></td>
+							<td><p>乐观读写</p></td>
+							<td><p>否</p></td>
+							<td><p>数据库假定未必会发生行争用现象，但存在这种可能性。使用时间戳比较来检查行完整性。</p></td>
+						</tr>
+						<tr>
+							<td><p>CONCUR_SS_SCROLL_LOCKS</p></td>
+							<td><p>悲观读写</p></td>
+							<td><p>是</p></td>
+							<td><p>数据库假定可能会发生行争用现象。通过行锁定来确保行完整性。</p></td>
+						</tr>
+						<tr>
+							<td><p>CONCUR_SS_OPTIMISTIC_CC</p></td>
+							<td><p>乐观读写</p></td>
+							<td><p>否</p></td>
+							<td><p>数据库假定未必会发生行争用现象，但存在这种可能性。使用时间戳比较来验证行的完整性。</p>
+								<p>对于 SQL Server 2005 和更高版本，如果表中不包含 timestamp 列，则服务器会将这一项改为
+									CONCUR_SS_OPTIMISTIC_CCVAL。</p>
+								<p>对于 SQL Server 2000，如果基础表具有时间戳列，则将使用 OPTIMISTIC WITH ROW
+									VERSIONING，即使指定了 OPTIMISTIC WITH VALUES 也不例外。如果指定了 OPTIMISTIC
+									WITH ROW VERSIONING 并且表不具有时间戳，则使用 OPTIMISTIC WITH VALUES。</p></td>
+						</tr>
+						<tr>
+							<td><p>CONCUR_SS_OPTIMISTIC_CCVAL</p></td>
+							<td><p>乐观读写</p></td>
+							<td><p>否</p></td>
+							<td><p>数据库假定未必会发生行争用现象，但存在这种可能性。使用行数据比较来检查行完整性。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">不可更新的结果集</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>可更新的结果集是指可以在其中插入、更新和删除行的结果集。在下列情况下，SQL Server
+					无法创建可更新的游标。生成的异常为“结果集不可更新”。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>原因</p></th>
+							<th><p>说明</p></th>
+							<th><p>纠正方法</p></th>
+						</tr>
+						<tr>
+							<td><p>语句不是使用 JDBC 2.0（或更高版本）语法创建的</p></td>
+							<td><p>JDBC 2.0 引入了新的方法来创建语句。如果使用 JDBC 1.0 语法，则结果集默认为只读。</p></td>
+							<td><p>创建语句时，指定结果集类型和并发机制。</p></td>
+						</tr>
+						<tr>
+							<td><p>语句是使用 TYPE_SCROLL_INSENSITIVE 创建的</p></td>
+							<td><p>SQL Server
+									创建一个静态快照游标。这将从基础表行中断开连接，以帮助保护游标，从而防止其他用户进行更新。</p></td>
+							<td><p>将
+									TYPE_SCROLL_SENSITIVE、TYPE_SS_SCROLL_KEYSET、TYPE_SS_SCROLL_DYNAMIC
+									或 TYPE_FORWARD_ONLY 用于 CONCUR_UPDATABLE 以避免创建静态游标。</p></td>
+						</tr>
+						<tr>
+							<td><p>表设计排除了 KEYSET 或 DYNAMIC 游标。</p></td>
+							<td><p>基础表没有唯一键以启用 SQL Server 来唯一地标识一行。</p></td>
+							<td><p>向表中添加唯一键，以便为每行提供唯一的标识。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="9ed5ad41-22e0-4e4a-8a79-10512db60d50.htm">通过 JDBC
+							驱动程序管理结果集</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

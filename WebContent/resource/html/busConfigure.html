@@ -1,0 +1,30 @@
+
+	<div style="width: 210px;height:370px;float: left;">
+		<div style="width:100%;height:40px;float:left;">
+			 <div style="width:100%;height:50%;float:left;">
+				 <input id="busConfigureModel0" name="busConfigureModel" value="0" checked="true" dojoType="dijit.form.RadioButton" >从本地选择
+			 </div>
+			 <div style="width:100%;height:50%;float:left;">
+				 文件名: <input style="width: 100px;" id="busConfigureName" dojoType="dijit.form.ValidationTextBox" promptMessage="请输入Bus配置文件路径。" regExp="^.*?\.cfg$" required=true>
+				 <div id="busConfigurePath" style="width: 50px;float: right;margin-right: 5px;"></div>
+			 </div>
+		</div>
+		<div style="width:100%;height:330px;float:left;margin-top: 5px;">
+			 <div style="width:100%;height:20px;float:left;">
+				 <input id="busConfigureModel1" name="busConfigureModel" value="1" dojoType="dijit.form.RadioButton" >从服务器模板中选择
+			 </div>
+			 <div style="width:100%;height:300px;float:left;">
+				 <select id="busConfigureMutiSelect" ></select>
+			 </div>
+		</div>
+	</div>
+	<div id="busConfigureContentPane" style="width:545px;height:363px;float:right;border:1px solid rgb(169, 169, 169)" data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"center"' align="left">
+		<span>文件内容:</span>
+		<pre name="fileContent" id="busConfigureContent" style="background-color:#ffffff;border:0px"></pre>
+	</div>
+	<div style="width:760px;height:40px;float:right;">
+		 <button style="float:right;margin-right:10px;margin-top: 5px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onClick="bus.busVersionAbolish()"></button>
+		 <button style="float:right;margin-right:10px;margin-top: 5px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="应用" iconClass="dijitNoIcon" onClick="bus.busVersionApply()"></button>
+	</div>
+
+			  

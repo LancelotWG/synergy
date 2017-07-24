@@ -1,0 +1,131 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>updateAsciiStream 方法 (int, java.io.InputStream)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerResultSet.updateAsciiStream 方法" />
+<meta name="Microsoft.Help.Id"
+	content="1dcc3d4f-ae30-45c0-afad-a531358807af" />
+<meta name="Description" content="使用 ASCII 流值更新指定列。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">updateAsciiStream
+						方法 (int, java.io.InputStream)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>使用 ASCII 流值更新指定列。</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void <b>updateAsciiStream</b>(int <span class="parameter"
+								sdata="paramReference">columnIndex</span>,
+                              java.io.InputStream <span
+								class="parameter" sdata="paramReference">x</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">columnIndex</span>
+				</p>
+				<p>
+					指示列索引的 <span sdata="langKeyword" value="int"><span
+						class="keyword">int</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">x</span>
+				</p>
+				<p>
+					<b>InputStream</b> 对象。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>updateAsciiStream</b> 方法由 java.sql.ResultSet 接口中的 <b>updateAsciiStream</b>
+					方法指定。
+				</p>
+				<p>
+					此方法将来自 <b>InputStream</b> 对象的 ASCII 字符（字节）传递给可转换的字符列，即 Unicode 的
+					ASCII 范围 [0x00 – 0x7F] 以及 874、932、936、949、950 和 1250 到 1258
+					代码页。此方法执行到目标排序规则页的转换。尝试更新不可转换的目标列将引发异常。对于二进制列，会传递原始字节。
+				</p>
+				<p>
+					将此方法应用于 <span sdata="langKeyword" value="image"><span
+						class="keyword">image</span></span>、<span sdata="langKeyword"
+						value="text"><span class="keyword">text</span></span> 和 <span
+						sdata="langKeyword" value="ntext"><span class="keyword">ntext</span></span>
+					SQL Server 数据类型可能会影响性能。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="4959a0a9-ae55-4c4e-80a8-21119aaceb92.htm">updateAsciiStream
+							方法 (ISQLServerResultSet)</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="2a438d5d-2d6a-46a0-a2ae-f35fbae4a472.htm">ISQLServerResultSet
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

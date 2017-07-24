@@ -1,0 +1,130 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>unwrap 方法 (SQLServerConnectionPoolDataSource)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="f5c9b734-2096-4ae4-a284-6b4d1b4a00d4" />
+<meta name="Description"
+	content="返回一个实现指定接口的对象，从而允许访问特定于 Microsoft JDBC Driver for SQL Server 的方法。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">unwrap 方法
+						(SQLServerConnectionPoolDataSource)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>返回一个实现指定接口的对象，从而允许访问特定于 Microsoft JDBC Driver for SQL Server
+					的方法。</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public &lt;T&gt; T <b>unwrap</b>(Class&lt;T&gt; <span class="parameter"
+								sdata="paramReference">iface</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">iface</span>
+				</p>
+				<p>
+					定义接口的类型为 <b>T</b> 的类。
+				</p>
+			</div>
+			<h1 class="heading">返回值</h1>
+			<div id="returnValueSection" class="section"
+				name="collapseableSection" style="">
+				<p>实现指定接口的对象。</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="f5c9b734-2096-4ae4-a284-6b4d1b4a00d4.htm">unwrap</a> 方法由在
+					JDBC 4.0 规范中引入的 java.sql.Wrapper 接口定义。
+				</p>
+				<p>
+					应用程序可能需要访问特定于 Microsoft JDBC Driver for SQL Server 的 JDBC API
+					扩展。如果类公开供应商扩展插件，则 <b>unwrap</b> 方法支持对此对象扩展的公共类取消包装。
+				</p>
+				<p>
+					<a href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource</a>
+					类扩展了 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+					类。调用此方法时，该对象会取消对 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+					类和 <a href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource</a>
+					类的包装。
+				</p>
+				<p>
+					有关详细信息，请参阅<span sdata="link"><a
+						href="27fc9b72-9f21-4728-abcb-5c015f28a6ab.htm">包装和接口</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="b021a248-e046-4709-bece-9966d3961677.htm">SQLServerConnectionPoolDataSource
+							方法</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="dac0337e-8088-488c-a25a-801a2190f6ca.htm">SQLServerConnectionPoolDataSource
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

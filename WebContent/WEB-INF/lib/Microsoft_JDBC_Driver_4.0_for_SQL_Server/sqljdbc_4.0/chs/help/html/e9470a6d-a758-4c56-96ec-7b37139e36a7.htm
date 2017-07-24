@@ -1,0 +1,115 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用不带参数的存储过程</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="e9470a6d-a758-4c56-96ec-7b37139e36a7" />
+<meta name="Description"
+	content="在可以调用的 SQL Server 存储过程中，最简单的类型是不包含任何参数并且返回单个结果集的存储过程。可以使用 Microsoft JDBC Driver for SQL Server 提供的 SQLServerStatement 类，调用此类存储过程并处理其返回的数据。 " />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用不带参数的存储过程</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					在可以调用的 SQL Server 存储过程中，最简单的类型是不包含任何参数并且返回单个结果集的存储过程。可以使用 Microsoft
+					JDBC Driver for SQL Server 提供的 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类，调用此类存储过程并处理其返回的数据。 
+				</p>
+				<p>
+					使用 JDBC 驱动程序调用不带参数的存储过程时，必须使用<span class="code"> call </span>SQL
+					转义序列。不带参数的<span class="code"> call </span>转义序列的语法如下所示：
+				</p>
+				<p>
+					<span class="code">{call procedure-name}</span>
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						有关 SQL 转义序列的详细信息，请参阅<span sdata="link"><a
+							href="00f9e25a-088e-4ac6-aa75-43eacace8f03.htm">使用 SQL 转义序列</a></span>。
+					</p>
+				</div>
+				<p>作为实例，在 SQL Server 2005 AdventureWorks 示例数据库中创建以下存储过程：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>CREATE PROCEDURE GetContactFormalNames 
+AS
+BEGIN
+   SELECT TOP 10 Title + ' ' + FirstName + ' ' + LastName AS FormalName 
+   FROM Person.Contact
+END</pre></span>
+				</div>
+				<p>此存储过程返回单个结果集，其中包含一列数据（由 Person.Contact 表中前十个联系人的称呼、名称和姓氏组成）。</p>
+				<p>
+					在下面的实例中，将向此函数传递 AdventureWorks 示例数据库的打开连接，然后使用 <a
+						href="599cf463-e19f-4baa-bacb-513cad7c6cd8.htm">executeQuery</a>
+					方法调用 GetContactFormalNames 存储过程。
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>public static void executeSprocNoParams(Connection con) {
+   try {
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery("{call dbo.GetContactFormalNames}");
+
+      while (rs.next()) {
+         System.out.println(rs.getString("FormalName"));
+      }
+      rs.close();
+      stmt.close();
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="0041f9e1-09b6-4487-b052-afd636c8e89a.htm">使用带有存储过程的语句</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

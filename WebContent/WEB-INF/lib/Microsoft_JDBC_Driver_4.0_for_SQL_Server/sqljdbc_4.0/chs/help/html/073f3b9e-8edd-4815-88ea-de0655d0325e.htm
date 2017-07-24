@@ -1,0 +1,323 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解 SSL 支持</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="加密" />
+<meta name="System.Keywords" content="SSL" />
+<meta name="Microsoft.Help.Id"
+	content="073f3b9e-8edd-4815-88ea-de0655d0325e" />
+<meta name="Description"
+	content="当连接到 SQL Server 时，如果应用程序请求加密并且 SQL Server 的实例已配置为支持 SSL 加密，则 Microsoft JDBC Driver for SQL Server 将启动 SSL 握手。握手允许服务器和客户端协商将用于保护数据的加密方式和加密算法。在完成 SSL 握手之后，客户端和服务器可以安全地发送已加密的数据。在 SSL 握手期间，服务器向客户端发送其公钥证书。公钥证书的颁发者称为证书颁发机构 (CA)。客户端负责验证证书颁发机构是否为客户端信任的证书颁发机构。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解 SSL 支持</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>当连接到 SQL Server 时，如果应用程序请求加密并且 SQL Server 的实例已配置为支持 SSL 加密，则
+					Microsoft JDBC Driver for SQL Server 将启动 SSL
+					握手。握手允许服务器和客户端协商将用于保护数据的加密方式和加密算法。在完成 SSL
+					握手之后，客户端和服务器可以安全地发送已加密的数据。在 SSL
+					握手期间，服务器向客户端发送其公钥证书。公钥证书的颁发者称为证书颁发机构
+					(CA)。客户端负责验证证书颁发机构是否为客户端信任的证书颁发机构。</p>
+				<p>如果应用程序未请求加密，则 Microsoft JDBC Driver for SQL Server 将不强制 SQL
+					Server 支持 SSL 加密。如果 SQL Server 实例未配置为强制 SSL 加密，将建立连接而不进行加密。如果 SQL
+					Server 实例已配置为强制 SSL 加密，则当驱动程序在经正确配置的 Java 虚拟机 (JVM) 上运行时，它将自动启用 SSL
+					加密，否则连接将终止并且驱动程序将报错。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						确保传递给 <span sdata="langKeyword" value="serverName"><span
+							class="keyword">serverName</span></span> 的值与服务器证书的公用名 (CN) 或使用者替代名称
+						(SAN) 中的 DNS 名称完全匹配，以便成功建立 SSL 连接。
+					</p>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>有关如何为 SQL Server 配置 SSL 的详细信息，请参阅 SQL Server 联机丛书中的“加密与 SQL
+						Server 的连接”主题。</p>
+				</div>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					为了允许应用程序使用 SSL 加密，从 1.2 版开始，Microsoft JDBC Driver for SQL Server
+					引入了以下连接属性：<span class="label">encrypt</span>、<span class="label">trustServerCertificate</span>、<span
+						class="label">trustStore</span>、<span class="label">trustStorePassword</span>
+					和 <span class="label">hostNameInCertificate</span>。有关详细信息，请参阅<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+				<p>下表总结了此 Microsoft JDBC Driver for SQL Server 版本对于可能的 SSL
+					连接方案的行为方式。每种方案使用一组不同的 SSL 连接属性。该表包含：</p>
+				<ul>
+					<li><p>
+							<span sdata="langKeyword" value="blank"><span
+								class="keyword">blank</span></span>：“连接字符串中不存在此属性”
+						</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="value"><span
+								class="keyword">value</span></span>：“连接字符串中存在此属性且属性的值有效”
+						</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="any"><span
+								class="keyword">any</span></span>：“连接字符串中是否存在此属性或属性的值是否有效均无关紧要”
+						</p></li>
+				</ul>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>同样的行为适用于 SQL Server 用户身份验证和 Windows 集成身份验证。</p>
+				</div>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>encrypt</p></th>
+							<th><p>trustServerCertificate</p></th>
+							<th><p>hostNameInCertificate</p></th>
+							<th><p>trustStore</p></th>
+							<th><p>trustStorePassword</p></th>
+							<th><p>行为</p></th>
+						</tr>
+						<tr>
+							<td><p>false 或 blank</p></td>
+							<td><p>any</p></td>
+							<td><p>any</p></td>
+							<td><p>any</p></td>
+							<td><p>any</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 将不强制 SQL
+									Server 支持 SSL 加密。如果服务器具有自签名证书，驱动程序将启动 SSL 证书交换。将不会验证 SSL
+									证书，而只加密登录数据包中的凭据。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，驱动程序将启动 SSL 证书交换。将不验证 SSL
+									证书，但将加密整个通信。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>true</p></td>
+							<td><p>any</p></td>
+							<td><p>any</p></td>
+							<td><p>any</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>
+									如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。请注意，如果 <span
+										class="label">trustServerCertificate</span>
+									属性设置为“true”，驱动程序将不验证 SSL 证书。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用在连接 URL 上指定的 <span class="label">serverName</span>
+									属性以验证服务器 SSL 证书，并依赖于信任关系管理器工厂的查找规则以确定要使用哪一个证书存储区。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>value</p></td>
+							<td><p>blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用为 <span class="label">hostNameInCertificate</span>
+									属性指定的值验证 SSL 证书的 subject 值。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>value</p></td>
+							<td><p>value</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStore</span> 属性值以查找证书
+									trustStore 文件，并使用 <span class="label">trustStorePassword</span>
+									属性值以检查 trustStore 文件的完整性。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>value</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStorePassword</span> 属性值以检查默认
+									trustStore 文件的完整性。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>blank</p></td>
+							<td><p>value</p></td>
+							<td><p>blank</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStore</span> 属性值以查找 trustStore
+									文件的位置。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>value</p></td>
+							<td><p>blank</p></td>
+							<td><p>value</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStorePassword</span> 属性值以检查默认
+									trustStore 文件的完整性。此外，驱动程序还将使用 <span class="label">hostNameInCertificate</span>
+									属性值以验证 SSL 证书。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>value</p></td>
+							<td><p>value</p></td>
+							<td><p>blank</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStore</span> 属性值以查找 trustStore
+									文件的位置。此外，驱动程序还将使用 <span class="label">hostNameInCertificate</span>
+									属性值以验证 SSL 证书。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>true</p></td>
+							<td><p>false 或 blank</p></td>
+							<td><p>value</p></td>
+							<td><p>value</p></td>
+							<td><p>value</p></td>
+							<td><p>Microsoft JDBC Driver for SQL Server 要求对 SQL
+									Server 使用 SSL 加密。</p>
+								<p>如果服务器要求客户端支持 SSL 加密，或者服务器支持加密，则驱动程序将启动 SSL 证书交换。</p>
+								<p>
+									驱动程序将使用 <span class="label">trustStore</span> 属性值以查找证书
+									trustStore 文件，并使用 <span class="label">trustStorePassword</span>
+									属性值以检查 trustStore 文件的完整性。此外，驱动程序还将使用 <span class="label">hostNameInCertificate</span>
+									属性值以验证 SSL 证书。
+								</p>
+								<p>如果服务器未配置为支持加密，驱动程序将报错并终止连接。</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>
+					如果 encrypt 属性设置为 <span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>，则 Microsoft JDBC Driver for SQL Server
+					将使用 JVM 的默认 JSSE 安全提供程序与 SQL Server 协商 SSL 加密。默认的安全提供程序可能不支持成功协商
+					SSL 加密所需的全部功能。例如，默认的安全提供程序可能不支持在 SQL Server SSL 证书中使用的 RSA
+					公钥的大小。在这种情况下，默认的安全提供程序可能报错，此错误将导致 JDBC 驱动程序终止连接。为了解决这一问题，请执行下列操作之一：
+				</p>
+				<ul>
+					<li><p>使用具有较小 RSA 公钥的服务器证书配置 SQL Server</p></li>
+					<li><p>在“&lt;java
+							主文件夹&gt;/lib/security/java.security”安全属性文件中将 JVM 配置为使用其他 JSSE
+							安全提供程序</p></li>
+					<li><p>使用其他 JVM</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">验证服务器 SSL 证书</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>在 SSL 握手期间，服务器向客户端发送其公钥证书。JDBC
+					驱动程序或客户端必须验证服务器证书是由客户端信任的证书颁发机构颁发的。驱动程序要求服务器证书必须满足以下条件：</p>
+				<ul>
+					<li><p>证书是由受信任的证书颁发机构颁发的。</p></li>
+					<li><p>必须颁发证书才能进行服务器身份验证。</p></li>
+					<li><p>证书未过期。</p></li>
+					<li><p>
+							证书使用者中的公用名 (CN) 或使用者替代名称 (SAN) 中的 DNS 名称与连接字符串中指定的 <span
+								sdata="langKeyword" value="serverName"><span
+								class="keyword">serverName</span></span> 值完全匹配，或与 <span
+								sdata="langKeyword" value="hostNameInCertificate"><span
+								class="keyword">hostNameInCertificate</span></span> 属性值（如果指定）完全匹配。
+						</p></li>
+					<li><p>DNS 名称可包含通配符。但 Microsoft JDBC Driver for SQL Server
+							不支持通配符匹配。也就是说，abc.com 与 *.com 不匹配，但 *.com 与 *.com 匹配。</p></li>
+				</ul>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="8e566243-2f93-4b21-8065-3c8336649309.htm">使用 SSL 加密</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="90724ec6-a9cb-43ef-903e-793f89410bc0.htm">保护 JDBC Driver
+							应用程序</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

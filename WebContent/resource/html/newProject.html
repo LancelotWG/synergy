@@ -1,0 +1,6 @@
+<div style="width:200px;height:20px;float:left;margin:5px;">
+    <span style='float:left;'>工程名：</span>
+    <input id="newProjectName" style='width:120px;float:left;' dojoType="dijit.form.ValidationTextBox" trim=true required=true value='process' invalidMessage="Required.">
+</div>
+<button style="float:right;margin:5px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="确定" iconClass="dijitNoIcon" onClick='onCreateProcess()'></button>
+<button style="float:right;margin:5px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onClick='dijit.byId("newProjectDlg").hide()'></button>

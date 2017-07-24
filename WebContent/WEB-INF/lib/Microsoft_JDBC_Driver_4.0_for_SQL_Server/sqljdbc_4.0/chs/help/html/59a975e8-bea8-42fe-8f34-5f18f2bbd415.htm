@@ -1,0 +1,137 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>getObject 方法 (java.lang.String) (ISQLServerResultSet)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="59a975e8-bea8-42fe-8f34-5f18f2bbd415" />
+<meta name="Description"
+	content="检索此 SQLServerResultSet 对象的当前行中指定列名称的值作为 Java 编程语言中的一个对象。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">getObject 方法
+						(java.lang.String) (ISQLServerResultSet)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					检索此 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					对象的当前行中指定列名称的值作为 Java 编程语言中的一个对象。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public java.lang.Object <b>getObject</b>(java.lang.String <span
+								class="parameter" sdata="paramReference">columnName</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">columnName</span>
+				</p>
+				<p>
+					包含列名称的<span sdata="langKeyword" value=" String"><span
+						class="keyword"> String</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">返回值</h1>
+			<div id="returnValueSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span sdata="langKeyword" value="Object "><span
+						class="keyword">Object </span></span>值。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>getObject</b> 方法由 java.sql.ResultSet 接口中的 <b>getObject</b>
+					方法指定。
+				</p>
+				<p>此方法将返回给定列的值作为一个 Java 对象。根据 JDBC 规范中指定的内置类型映射，Java
+					对象的类型将为对应于此列 SQL 类型的默认 Java 对象类型。如果此值为 SQL NULL，则驱动程序会返回 Java null。</p>
+				<p>
+					也可使用此方法来读取数据库特定的抽象数据类型。在 JDBC 2.0 API 中，<b>getObject</b>
+					方法的行为已扩展为具体化 SQL 用户定义类型的数据。如果列包含了结构化或非重复值，则此方法的行为类似于调用 <span
+						class="code">getObject(columnIndex,
+						this.getStatement().getConnection().getTypeMap())</span>。
+				</p>
+				<p>从 SQL Server JDBC Driver 3.0 开始：</p>
+				<ul>
+					<li><p>date 类型的值将作为 java.sql.Date 对象返回。</p></li>
+					<li><p>time 类型的值将作为 java.sql.Time 对象返回。</p></li>
+					<li><p>datetime2 类型的值将作为 java.sql.Timestamp 对象返回。</p></li>
+					<li><p>datetimeoffset 类型的值将作为 microsoft.sql.DateTimeOffset
+							对象返回。</p></li>
+				</ul>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="924df406-14b2-40b8-a7bc-c2fd145d7d7c.htm">getObject 方法
+							(ISQLServerResultSet)</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="2a438d5d-2d6a-46a0-a2ae-f35fbae4a472.htm">ISQLServerResultSet
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

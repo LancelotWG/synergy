@@ -1,0 +1,226 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>更新大型数据的示例</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="自适应缓冲" />
+<meta name="System.Keywords" content="自适应缓冲示例" />
+<meta name="System.Keywords" content="isWrapperFor" />
+<meta name="System.Keywords" content="大型数据" />
+<meta name="System.Keywords" content="响应缓冲" />
+<meta name="System.Keywords" content="unwrap" />
+<meta name="System.Keywords" content="使用自适应缓冲" />
+<meta name="Microsoft.Help.Id"
+	content="76ecc05f-a77d-40a2-bab9-91a7fcf17347" />
+<meta name="Description"
+	content="此 Microsoft JDBC Driver for SQL Server 示例应用程序说明了如何更新数据库中的大型列。" />
+<meta name="Microsoft.Help.ContentType" content="Samples" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">更新大型数据的示例</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>此 Microsoft JDBC Driver for SQL Server 示例应用程序说明了如何更新数据库中的大型列。</p>
+				<p>此示例的代码文件名为 updateLargeData.java，该文件可在以下位置找到：</p>
+				<p>
+					&lt;<i>安装目录</i>&gt;\sqljdbc_&lt;<i>版本</i>&gt;\&lt;<i>语言</i>&gt;\help\samples\adaptive
+				</p>
+			</div>
+			<h1 class="heading">要求</h1>
+			<div id="requirementsTitleSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					要运行此示例应用程序，需要访问 SQL Server 2005 AdventureWorks 示例数据库。还必须将 classpath
+					设置为包含 sqljdbc4.jar 文件。如果 classpath 缺少 sqljdbc4.jar
+					项，示例应用程序将引发“找不到类”的常见异常。有关如何设置 classpath 的详细信息，请参阅<span sdata="link"><a
+						href="6faaf05b-8b70-4ed2-9b44-eee5897f1cd0.htm">使用 JDBC Driver</a></span>。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						Microsoft JDBC Driver for SQL Server 提供两个类库文件：sqljdbc.jar 和
+						sqljdbc4.jar，具体使用哪个文件取决于首选的 Java 运行时环境 (JRE) 设置。此示例使用 <a
+							href="53f3291f-d43a-476b-a656-d86168dacf6c.htm">isWrapperFor</a>
+						和 <a href="ce680176-ef04-4e44-bb6c-ec50bd06e7e6.htm">unwrap</a>
+						方法，这两个方法是在 JDBC 4.0 API 中引入的，用于访问特定于驱动程序的响应缓冲方法。为了编译和运行此示例，您需要对
+						JDBC 4.0 提供支持的 sqljdbc4.jar 类库。有关选择哪个 JAR 文件的详细信息，请参阅 <span
+							sdata="link"><a
+							href="447792bb-f39b-49b4-9fd0-1ef4154c74ab.htm">JDBC Driver
+								的系统要求</a></span>。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="exampleSection" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在下面的示例中，示例代码建立到 SQL Server 2005 AdventureWorks 数据库的连接。接下来，示例代码创建一个
+					Statement 对象并使用 <a href="53f3291f-d43a-476b-a656-d86168dacf6c.htm">isWrapperFor</a>
+					方法来检查 Statement 对象是否是指定的 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类的包装。<a href="ce680176-ef04-4e44-bb6c-ec50bd06e7e6.htm">unwrap</a>
+					方法用于访问特定于驱动程序的响应缓冲方法。 
+				</p>
+				<p>
+					接下来，示例代码使用 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类的 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+					方法将响应缓冲模式设置为“<span sdata="langKeyword" value="adaptive"><span
+						class="keyword">adaptive</span></span>”，并演示如何获取自适应缓冲模式。
+				</p>
+				<p>
+					然后，它运行 SQL 语句，并将返回的数据放入可更新的 <a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					对象中。
+				</p>
+				<p>
+					最后，示例代码将循环访问结果集中包含的数据行。如果找到空的文档摘要，将结合使用 <a
+						href="0cf286c7-9dcd-4b02-a568-ba6b6eb27e82.htm">updateString</a> 和
+					<a href="cfced0ca-a281-40dc-8d2f-370d5f0bf12b.htm">updateRow</a>
+					方法来更新数据行，并再次将它保存到数据库中。如果已有数据，将使用 <a
+						href="f81dde01-d328-4b32-8871-1efac645b68e.htm">getString</a>
+					方法来显示所包含的部分数据。
+				</p>
+				<p>
+					驱动程序的默认行为为“<span sdata="langKeyword" value="adaptive."><span
+						class="keyword">adaptive.</span></span>”。但是，对于只进的可更新结果集，以及当结果集中的数据大于应用程序内存时，应用程序必须使用
+					<a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类的 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+					方法显式设置自适应缓冲模式。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>import java.sql.*;
+import java.io.*;
+import com.microsoft.sqlserver.jdbc.SQLServerStatement;
+
+public class updateLargeData {
+	
+   public static void main(String[] args) {
+
+      // Create a variable for the connection string.
+      String connectionUrl = 
+    	    "jdbc:sqlserver://localhost:1433;" +
+            "databaseName=AdventureWorks;integratedSecurity=true;";
+
+      // Declare the JDBC objects.
+      Connection con = null;
+      Statement stmt = null;
+      ResultSet rs = null;  
+      Reader reader = null;
+
+      try {
+          // Establish the connection.
+          Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+          con = DriverManager.getConnection(connectionUrl);
+
+          stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+
+          // Since the summaries could be large, make sure that
+          // the driver reads them incrementally from a database, 
+          // even though a server cursor is used for the updatable result sets.
+
+          // The recommended way to access the Microsoft JDBC Driver for SQL Server 
+          // specific methods is to use the JDBC 4.0 Wrapper functionality. 
+          // The following code statement demonstrates how to use the 
+          // Statement.isWrapperFor and Statement.unwrap methods
+          // to access the driver specific response buffering methods.
+
+          if (stmt.isWrapperFor(com.microsoft.sqlserver.jdbc.SQLServerStatement.class)) {
+              SQLServerStatement SQLstmt = 
+                 stmt.unwrap(com.microsoft.sqlserver.jdbc.SQLServerStatement.class);
+        	  
+              SQLstmt.setResponseBuffering("adaptive");
+              System.out.println("Response buffering mode has been set to " +
+                 SQLstmt.getResponseBuffering());
+          }
+
+          // Select all of the document summaries.
+          rs = stmt.executeQuery("SELECT Title, DocumentSummary FROM Production.Document");
+
+          // Update each document summary.
+          while (rs.next()) {
+
+               // Retrieve the original document summary.
+               reader = rs.getCharacterStream("DocumentSummary");
+
+               if (reader == null)
+               {
+                   // Update the document summary.
+                   System.out.println("Updating " + rs.getString("Title"));
+                   rs.updateString("DocumentSummary", "Work in progress");
+                   rs.updateRow();
+               }
+               else
+               {
+            	   // Do something with the chunk of the data that was                   
+                   // read.
+                   System.out.println("reading " + rs.getString("Title"));
+                   reader.close();
+                   reader = null;
+               }
+          }
+      }
+      // Handle any errors that may have occurred.
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      finally {
+          if (reader != null) try { reader.close(); } catch(Exception e) {}
+          if (rs != null) try { rs.close(); } catch(Exception e) {}
+          if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+    	  if (con != null) try { con.close(); } catch(Exception e) {}
+      }
+   }
+}
+
+</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="5b93569f-eceb-4f05-b49c-067564cd3c85.htm">处理大型数据</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

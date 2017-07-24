@@ -1,0 +1,49 @@
+<form method="" enctype="multipart/form-data" id="cooperPVForm" dojoType="dijit.form.Form" style="width: 100%;height: 95%;">
+	<table class="no_border" cellspacing="20px">
+		<tr>
+			<td>
+				<table id="cooperPVTable" class="no_border">
+					<tr>
+						<td class="label">变量名:</td>
+						<td class="text">
+							<select data-dojo-type="dijit.form.Select" id="cooperPVName" required=true style="width:100px"></select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">协同类型:</td>
+						<td class="text">
+							<select dojoType="dijit.form.Select" id="cooperTypeSelect" style="width:100px">
+								<option value="1:1">1:1</option>
+								<option value="1:n">1:n</option>
+								<option value="n:1">n:1</option>
+								<option value="n:n">n:n</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">源任务:</td>
+						<td class="text"><!--要想使用dojo.dnd.Source对象，要给它添加一个data-dojo-id属性，然后可以直接使用dnd_target1来引用dojo.dnd.Source对象-->
+							<div id="dnd_target1" data-dojo-id="dnd_target1" class="container" dojoType="js.Source" style="padding:0px;width:95px;"></div>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">目标任务:</td>
+						<td class="text">
+							<div id="dnd_target2" data-dojo-id="dnd_target2" class="container" dojoType="js.Source" style="margin-top:10px;padding:0px;width:95px;"></div>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td align="left">
+				<label>从这里拖拽</label><br/>
+				<div id="dnd_source" data-dojo-id="dnd_source" class="container" dojoType="js.Source">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<button dojoType="dijit.form.Button" type="button" onClick="OnSaveCooperPV">保存</button>
+			</td>
+		</tr>
+	</table>
+</form>

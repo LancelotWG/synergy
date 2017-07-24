@@ -1,0 +1,47 @@
+{
+    "drawers":[
+        {
+
+            "title":"飞控组件",
+            "initOpen":false,
+            "children":[
+                {
+                "displayName":"操作系统",
+                "imgSrc":"OS.png",
+                "type":"OS",
+                "treeIcon":"OS.png"
+                },
+                {
+                "displayName":"余度",
+                "imgSrc":"RM.png",
+                "type":"RM",
+                "treeIcon":"RM.png"
+                },
+                {
+                "displayName":"控制律",
+                "imgSrc":"CL.png",
+                "type":"CL",
+                "treeIcon":"CL.png"
+                },
+                {
+                "displayName":"IO",
+                "imgSrc":"IO.png",
+                "type":"IO",
+                "treeIcon":"IO.png"
+                }
+            ]
+        },
+        {
+
+            "title":"传输组件",
+            "initOpen":false,
+            "children":[
+                {
+                    "displayName":"总线交联",
+                    "imgSrc":"BusConnect.png",
+                    "type":"BusConnect"
+                }
+            ]
+        }
+    ]
+}

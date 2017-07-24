@@ -1,0 +1,191 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 JDBC Driver</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="JDBC 驱动程序概述, 使用 JDBC 驱动程序" />
+<meta name="Microsoft.Help.Id"
+	content="6faaf05b-8b70-4ed2-9b44-eee5897f1cd0" />
+<meta name="Description"
+	content="本部分提供使用 Microsoft JDBC Driver for SQL Server 与 SQL Server 数据库建立简单连接的快速入门指导。在连接到 SQL Server 数据库之前，必须首先在本地计算机或服务器上安装 SQL Server，并且必须在本地计算机上安装 JDBC 驱动程序。 " />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 JDBC Driver</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>本部分提供使用 Microsoft JDBC Driver for SQL Server 与 SQL Server
+					数据库建立简单连接的快速入门指导。在连接到 SQL Server 数据库之前，必须首先在本地计算机或服务器上安装 SQL
+					Server，并且必须在本地计算机上安装 JDBC 驱动程序。 </p>
+			</div>
+			<h1 class="heading">选择正确的 JAR 文件</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					Microsoft JDBC Driver for SQL Server 提供两个类库文件：<span
+						sdata="langKeyword" value="sqljdbc.jar"><span
+						class="keyword">sqljdbc.jar</span></span> 和 <span sdata="langKeyword"
+						value="sqljdbc4.jar"><span class="keyword">sqljdbc4.jar</span></span>，具体使用哪个文件取决于首选的
+					Java 运行时环境 (JRE) 设置。有关选择哪个 JAR 文件的详细信息，请参阅 <span sdata="link"><a
+						href="447792bb-f39b-49b4-9fd0-1ef4154c74ab.htm">JDBC Driver
+							的系统要求</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">设置 Classpath</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC Driver 并未包含在 Java SDK 中。如果要使用该驱动程序，必须将 classpath 设置为包含
+					sqljdbc.jar 文件或 sqljdbc4.jar 文件。如果 classpath 缺少 sqljdbc.jar 项或
+					sqljdbc4.jar 项，应用程序将引发“找不到类”的常见异常。</p>
+				<p>sqljdbc.jar 文件和 sqljdbc4.jar 文件的安装位置如下：</p>
+				<p>
+					&lt;<span class="placeholder">installation directory</span>&gt;\sqljdbc_&lt;<span
+						class="placeholder">version</span>&gt;\&lt;<span
+						class="placeholder">language</span>&gt;\sqljdbc.jar
+				</p>
+				<p>
+					&lt;<span class="placeholder">installation directory</span>&gt;\sqljdbc_&lt;<span
+						class="placeholder">version</span>&gt;\&lt;<span
+						class="placeholder">language</span>&gt;\sqljdbc4.jar
+				</p>
+				<p>下面是用于 Windows 应用程序的 CLASSPATH 语句示例：</p>
+				<p>
+					<span class="code">CLASSPATH =.;C:\Program Files\Microsoft
+						JDBC Driver 4.0 for SQL Server\sqljdbc_4.0\enu\sqljdbc.jar</span>
+				</p>
+				<p>下面是用于 Unix/Linux 应用程序的 CLASSPATH 语句示例：</p>
+				<p>
+					<span class="code">CLASSPATH
+						=.:/home/usr1/mssqlserverjdbc/Driver/sqljdbc_4.0/enu/sqljdbc.jar</span>
+				</p>
+				<p>必须确保 CLASSPATH 语句仅包含一个 Microsoft JDBC Driver for SQL
+					Server，例如 sqljdbc.jar 或 sqljdbc4.jar。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						在 Windows 系统中，如果目录名长于 8.3 或文件夹名中包含空格，将会导致 classpath
+						出现问题。如果怀疑存在这类问题，应暂时将 sqljdbc.jar 文件或 sqljdbc4.jar 文件移动到名称简单的目录中，例如<span
+							class="code"> C:\Temp</span>，更改 classpath，然后测试这样是否解决了问题。
+					</p>
+				</div>
+				<h1 class="heading">直接在命令提示符运行的应用程序</h1>
+				<div class="subsection">
+					<p>
+						classpath 是在操作系统中配置的。将 sqljdbc.jar 或 sqljdbc4.jar 追加到系统的 classpath
+						中。或者，使用<span class="code"> java -classpath </span>选项，可以在运行此应用程序的
+						Java 命令行上指定 classpath。
+					</p>
+				</div>
+				<h1 class="heading">在 IDE 中运行的应用程序</h1>
+				<div class="subsection">
+					<p>每个 IDE 供应商都提供了在 IDE 中设置 classpath 的不同方法。仅在操作系统中设置 classpath
+						将无法正常工作。必须将 sqljdbc.jar 或 sqljdbc4.jar 添加到 IDE classpath。</p>
+				</div>
+				<h1 class="heading">Servlet 和 JSP</h1>
+				<div class="subsection">
+					<p>Servlet 和 JSP 在 servlet/JSP 引擎（如 Tomcat）中运行。必须根据 servlet/JSP
+						引擎文档来设置 classpath。仅在操作系统中设置 classpath 将无法正常工作。一些 servlet/JSP
+						引擎提供了设置屏幕，用于设置引擎的 classpath。在这种情况下，必须将正确的 JDBC Driver JAR
+						文件追加到现有的引擎 classpath，然后重新启动引擎。在其他情况下，通过在引擎安装期间将 sqljdbc.jar 或
+						sqljdbc4.jar 复制到 lib 之类的特定目录，可以部署此驱动程序。也可以在引擎专用的配置文件中指定引擎驱动程序的
+						classpath。</p>
+				</div>
+				<h1 class="heading">Enterprise Java Beans</h1>
+				<div class="subsection">
+					<p>
+						Enterprise Java Bean (EJB) 在 EJB 容器中运行。EJB 容器来自多家供应商。Java
+						小程序在浏览器中运行，但是从 Web 服务器上下载的。将 sqljdbc.jar 或 sqljdbc4.jar 复制到 Web
+						服务器根目录，并在小程序的 HTML 存档选项卡中指定 JAR 文件的名称，例如 <span class="code">&lt;applet
+							... archive=sqljdbc.jar&gt;</span>。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">与数据库建立简单连接</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>使用 sqljdbc.jar 类库时，应用程序必须首先按如下所示注册驱动程序：</p>
+				<p>
+					<span class="code">Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");</span>
+				</p>
+				<p>
+					加载驱动程序后，可通过使用连接 URL 和 <b>DriverManager</b> 类的 <b>getConnection</b>
+					方法来建立连接：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
+   "databaseName=AdventureWorks;user=MyUserName;password=*****;";
+Connection con = DriverManager.getConnection(connectionUrl);</pre></span>
+				</div>
+				<p>
+					在 JDBC API 4.0 中，<b>DriverManager.getConnection</b> 方法得到了增强，可自动加载
+					JDBC Driver。因此，使用 sqljdbc4.jar 类库时，应用程序无需调用 <b>Class.forName</b>
+					方法来注册或加载驱动程序。
+				</p>
+				<p>
+					调用 <b>DriverManager</b> 类的 <b>getConnection</b> 方法时，会从已注册的 JDBC
+					Driver 集中找到相应的驱动程序。sqljdbc4.jar
+					文件包括“META-INF/services/java.sql.Driver”文件，后者包含 <span
+						sdata="langKeyword"
+						value="com.microsoft.sqlserver.jdbc.SQLServerDriver"><span
+						class="keyword">com.microsoft.sqlserver.jdbc.SQLServerDriver</span></span>
+					作为已注册的驱动程序。现有的应用程序（当前通过使用 <b>Class.forName</b>
+					方法加载驱动程序）将继续工作，而无需修改。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>sqljdbc4.jar 类库要求使用 6.0 或更高版本的 Java 运行时环境 (JRE)。</p>
+				</div>
+				<p>
+					有关如何连接数据源和使用连接 URL 的详细信息，请参阅<span sdata="link"><a
+						href="44996746-d373-4f59-9863-a8a20bb8024a.htm">创建连接 URL</a></span> 和<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.nwpu.lwg.model.user.User" table="tb_user">
+		<id column="id" name="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+		<property name="name" type="string" not-null="true" length="50">
+			<column name="name" />
+		</property>
+		<property name="password" type="string" not-null="true"
+			length="50">
+			<column name="password" />
+		</property>
+		<set name="workflows" table="tb_role" lazy="false" fetch="select" outer-join="true" inverse="true" cascade="delete">
+			<key column="user_id"/>
+			<many-to-many class="com.nwpu.lwg.model.project.Workflow" lazy="false" fetch="select" outer-join="true" column="workflow_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

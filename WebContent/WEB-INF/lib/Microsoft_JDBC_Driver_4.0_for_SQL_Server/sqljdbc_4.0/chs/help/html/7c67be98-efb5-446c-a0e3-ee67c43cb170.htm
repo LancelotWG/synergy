@@ -1,0 +1,220 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>SQLXML 接口</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="sqlxml" />
+<meta name="System.Keywords" content="sqlxml 接口" />
+<meta name="System.Keywords" content="xml" />
+<meta name="Microsoft.Help.Id"
+	content="7c67be98-efb5-446c-a0e3-ee67c43cb170" />
+<meta name="Description"
+	content="JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者引入了 java.sql.SQLXML 接口。SQLXML 接口定义与 XML 数据交互以及操作 XML 数据的方法。SQLXML 数据类型映射到 SQL Server xml 数据类型。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">SQLXML 接口</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者引入了 java.sql.SQLXML 接口。SQLXML 接口定义与
+					XML 数据交互以及操作 XML 数据的方法。<span sdata="langKeyword" value="SQLXML"><span
+						class="keyword">SQLXML</span></span> 数据类型映射到 SQL Server <span
+						sdata="langKeyword" value="xml"><span class="keyword">xml</span></span>
+					数据类型。
+				</p>
+				<p>
+					SQLXML 接口提供用于以 <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span>、<span sdata="langKeyword"
+						value="Reader"><span class="keyword">Reader</span></span> 或 <span
+						sdata="langKeyword" value="Writer"><span class="keyword">Writer</span></span>
+					或者 <span sdata="langKeyword" value="Stream"><span
+						class="keyword">Stream</span></span> 形式访问 XML 值的方法。XML 值还可以通过 <span
+						sdata="langKeyword" value="Source"><span class="keyword">Source</span></span>
+					来访问，或者设置为 <span sdata="langKeyword" value="Result"><span
+						class="keyword">Result</span></span>，两者与 XML 分析器 API（如文档对象模型 (DOM)、Simple
+					API for XML (SAX) 和 Streaming API for XML (StAX)）以及 XSLT 转换和 XPath
+					一起使用。
+				</p>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>下表介绍了 SQLXML 接口中定义的方法：</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>方法语法</p></th>
+							<th><p>方法说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131685">void
+										free()</a>
+								</p></td>
+							<td><p>此方法释放 SQLXML 对象以及它所持有的资源。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131754">InputStream
+										getBinaryStream()</a>
+								</p></td>
+							<td><p>返回一个用于从 SQLXML 中读取数据的输入流。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131755">Reader
+										getCharacterStream()</a>
+								</p></td>
+							<td><p>
+									将 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 数据作为 <b>java.io.Reader</b>
+									对象或字符流返回。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131756">T
+										extends Source T getSource(Class&lt;T&gt; sourceClass)</a>
+								</p></td>
+							<td><p>
+									返回一个 <span sdata="langKeyword" value="Source"><span
+										class="keyword">Source</span></span>，用于读取此 <span sdata="langKeyword"
+										value="SQLXML"><span class="keyword">SQLXML</span></span>
+									对象所指定的 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 值。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										<b>getSource</b>
+										方法支持下列源：javax.xml.transform.dom.DOMSource、javax.xml.transform.sax.SAXSource、javax.xml.transform.stax.StAXSource
+										和 java.io.InputStream。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131757">String
+										getString()</a>
+								</p></td>
+							<td><p>
+									返回此 SQLXML 对象所指定的 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 值的字符串表示形式。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131758">OutputStream
+										setBinaryStream()</a>
+								</p></td>
+							<td><p>
+									检索可用于写入此 SQLXML 对象所表示的 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 值的流。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131759">Writer
+										setCharacterStream()</a>
+								</p></td>
+							<td><p>
+									返回可用于写入此 SQLXML 对象所表示的 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 值的流。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131760">T
+										extends Result T setResult(Class&lt;T&gt; resultClass)</a>
+								</p></td>
+							<td><p>
+									返回一个 <span sdata="langKeyword" value="Result"><span
+										class="keyword">Result</span></span>，用于设置此 <span sdata="langKeyword"
+										value="SQLXML"><span class="keyword">SQLXML</span></span>
+									对象所指定的 <span sdata="langKeyword" value="XML"><span
+										class="keyword">XML</span></span> 值。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										<b>setResult</b>
+										方法支持下列源：javax.xml.transform.dom.DOMResult、javax.xml.transform.sax.SAXResult、javax.xml.transform.stax.StaxResult
+										和 java.io.OutputStream。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>
+									<a href="http://go.microsoft.com/fwlink/?LinkId=131762">void
+										setString(String value)</a>
+								</p></td>
+							<td><p>
+									将此 SQLXML 对象所指定的 XML 值设置为指定的 <span sdata="langKeyword"
+										value="String"><span class="keyword">String</span></span>
+									表示形式。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>应用程序只能从/向 SQLXML 对象中读取/写入 XML 值一次。</p>
+				<p>
+					调用 <b>free()</b> 方法后，SQLXML 对象将变为无效，既不可读也不可写。如果应用程序尝试对该 SQLXML 对象调用
+					<b>free()</b> 方法以外的方法，将引发异常。
+				</p>
+				<p>
+					当应用程序调用下列任意 getter 方法时，SQLXML 对象将变为既不可读也不可写：<b>getSource</b>、<b>getCharacterStream</b>、<b>getBinaryStream</b>
+					和 <b>getString</b>。
+				</p>
+				<p>
+					当应用程序调用下列任意 setter 方法时，SQLXML 对象将变为既不可写也不可读：<b>setResult</b>、<b>setCharacterStream</b>、<b>setBinaryStream</b>
+					和 <b>setString</b>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="32b7217e-1f0c-473d-9a45-176daa81584e.htm">支持 XML 数据</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

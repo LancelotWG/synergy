@@ -1,0 +1,256 @@
+
+	html,body,#main{
+				width:100%;height:100%;
+				padding:0;margin:0;
+				overflow:auto;
+				overflow-x:hidden;
+			}
+			h1,h2,h3{margin:0.5em 0 1em 0}
+			p{margin:0 0 1em 0}
+			.content{padding:0.5em;overflow:auto;}
+			.Component{
+				 background-color:#c0c0c0;
+				 font-size    : 11px;
+			}
+			.Activity{
+				float: left;
+			}
+			.Inactivity{
+				float: left;
+				background-color:#c0c0c0;
+				font-size    : 11px;
+			}
+			.dropAfter{
+				background-color:#80ffff;
+				display:none;							
+			}
+			.dropBefore{
+				background-color:#80ffff;
+				display:none;							
+			}
+			.busConnectDrop{
+				background-color:#66ccff;
+				display:none;
+			}
+			.OSPlaceholder{
+				background-color:#66FF33;
+				/*display:none;
+				float: left;*/
+			}
+			.icon-abaqus { height: 20px; background: transparent url(../resource/image/icons/treeicons/Abaqus.png) no-repeat; }
+			.icon-adams {  height: 20px; background: transparent url(../resource/image/icons/treeicons/Adams.png) no-repeat; }
+			.icon-ansys {  height: 20px; background: transparent url(../resource/image/icons/treeicons/Ansys.png) no-repeat; }
+			.icon-approval { height: 20px; background: transparent url(../resource/image/icons/treeicons/Approval.png) no-repeat; }
+			.icon-catia { height: 20px; background: transparent url(../resource/image/icons/treeicons/Catia.png) no-repeat; }
+			.icon-foreach { height: 20px; background: transparent url(../resource/image/icons/treeicons/ForEach.png) no-repeat; }
+			.icon-ifelse { height: 20px; background: transparent url(../resource/image/icons/treeicons/IfElse.png) no-repeat; }
+			.icon-matlab { height: 20px; background: transparent url(../resource/image/icons/treeicons/Matlab.png) no-repeat; }
+			.icon-parallel { height: 20px; background: transparent url(../resource/image/icons/treeicons/Parallel.png) no-repeat; }
+			.icon-Patran { height: 20px; background: transparent url(../resource/image/icons/treeicons/Patran.png) no-repeat; }
+			.icon-process { height: 20px; background: transparent url(../resource/image/icons/treeicons/Process.png) no-repeat; }
+			.icon-process_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/Process_locked.png) no-repeat; }
+			.icon-proe { height: 20px; background: transparent url(../resource/image/icons/treeicons/ProE.png) no-repeat; }
+			.icon-sequence { height: 20px; background: transparent url(../resource/image/icons/treeicons/Sequence.png) no-repeat; }
+			.icon-solidworks { height: 20px; background: transparent url(../resource/image/icons/treeicons/Solidworks.png) no-repeat; }
+			/*.icon-switch { height: 20px; background: transparent url(../icons/treeicons/Switch.png) no-repeat; }*/
+			.icon-ug { height: 20px; background: transparent url(../resource/image/icons/treeicons/UG.png) no-repeat; }
+			.icon-virtuallab { height: 20px; background: transparent url(../resource/image/icons/treeicons/VirtualLab.png) no-repeat; }
+            .icon-userdefined { height: 20px; background: transparent url(../resource/image/icons/treeicons/Default.png) no-repeat; }
+
+			.icon-os { height: 20px; background: transparent url(../resource/image/icons/treeicons/OS.png) no-repeat; }
+			.icon-os_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/OS_locked.png) no-repeat; }
+			.icon-rm { height: 20px; background: transparent url(../resource/image/icons/treeicons/RM.png) no-repeat; }
+			.icon-rm_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/RM_locked.png) no-repeat; }
+			.icon-cl { height: 20px; background: transparent url(../resource/image/icons/treeicons/CL.png) no-repeat; }
+			.icon-cl_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/CL_locked.png) no-repeat; }
+			.icon-io { height: 20px; background: transparent url(../resource/image/icons/treeicons/IO.png) no-repeat; }
+			.icon-io_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/IO_locked.png) no-repeat; }
+
+			.icon-custom { height: 20px; background: transparent url(../resource/image/icons/treeicons/Custom.png) no-repeat; }
+			.icon-custom_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/Custom_locked.png) no-repeat; }
+			.icon-ana { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA.png) no-repeat; }
+			.icon-ana_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_locked.png) no-repeat; }
+			.icon-ana_init { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_INIT.png) no-repeat; }
+			.icon-ana_init_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_INIT_locked.png) no-repeat; }
+			.icon-ana_mon { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_MON.png) no-repeat; }
+			.icon-ana_mon_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_MON_locked.png) no-repeat; }
+			.icon-ana_rcf { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_RCF.png) no-repeat; }
+			.icon-ana_rcf_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_RCF_locked.png) no-repeat; }
+			.icon-ana_vote { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_VOTE.png) no-repeat; }
+			.icon-ana_vote_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/ANA_VOTE_locked.png) no-repeat; }
+			.icon-dis { height: 20px; background: transparent url(../resource/image/icons/treeicons/DIS.png) no-repeat; }
+			.icon-dis_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/DIS_locked.png) no-repeat; }
+			.icon-fint { height: 20px; background: transparent url(../resource/image/icons/treeicons/FINT.png) no-repeat; }
+			.icon-fint_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/FINT_locked.png) no-repeat; }
+			.icon-frcv { height: 20px; background: transparent url(../resource/image/icons/treeicons/FRCV.png) no-repeat; }
+			.icon-frcv_locked { height: 20px; background: transparent url(../resource/image/icons/treeicons/FRCV_locked.png) no-repeat; }
+
+			#header{background-color:transparent;}
+			
+			#sidebar{width:150px;}
+			#content{padding:1em;}
+			#footer{height:25px;padding:0.25em;text-align:right;}
+			#sidebar ul{margin-left:0em;}
+				
+			.palette{padding:0.5em;}
+			.palette:hover{background-color:#b3ffff;cursor:hand;}
+			.palette label:hover{color:red;}
+			
+			#propsDialog{padding-left:0.5em;}
+			#PropsTab{width:500px;height:300px;margin-left:0.5em;}
+			.PropsTable{width:400px;height:200px;position:absolute;left:50%;top:50%;margin:-100px 0 0 -200px;}
+			.PropsTable tr td{border:none;}
+			#PropsBtnPanel{width:500px;}
+			#PropsBtnPanel tr td{border:none;padding-top:10px;}
+			.err_border{border:1px red solid !important;}			
+		/*	#dataMapTable tr td{border:none;}*/
+			.label{text-align:right;}
+			.text{text-align:left;width:100px;}
+			.dojoxGrid table{margin:0;}	
+		/*	#cooperPVTable tr td{border:none;}*/
+			/*��fork�õײ�*/
+			.fork{z-index:-1;}
+			.containerSelected{border-color:#ff0000;border-width:2px !important;}
+			.container{float:left;margin:2px;}
+			.no_border tr td{border:none;}			
+			#dnd_source{width:100px;padding:20px !important;margin:0;}
+			.propsGrid{width:480px;}
+			
+			.dijitTitlePane .gripNode {
+			 	cursor: move;
+			}
+			
+			.dijitTitlePane .gripNode span {
+			 	cursor: pointer;
+			}
+			.dijitTitlePane{
+			/*	margin-left:1em !important;*/
+				text-align:left;
+				text-indent:1em;
+			}
+			.cpane{
+				border:1px solid #666;
+				font:bold 12px Arial;
+				color:#666;
+				background:#FFF;
+				padding:10px;
+				margin:2px;
+			}
+			/*��sidebar��padding��GC1��margin����Ϊ0����������֮�仹��1���������ҵļ�϶����˽�GC1��border�������Ϊ0*/
+			#sidebar{padding:0px;}
+			#GC1{
+				margin:0px;
+				padding:0px;
+				border:0 !important;
+				overflow-x:hidden;
+				overflow-y:auto;
+				border-collapse:collapse;
+				border : 1px solid #ededed;
+				text-align:left;
+				cursor:hand;
+			}
+			
+			#GC1 .gridContainerTable {				
+				border-collapse:collapse;
+				width:100%;
+			}
+			#GC1 .gridContainerTable tr td{
+				border:none;
+			}
+			.dndDropIndicator {
+			  border: 2px dashed #99BBE8;
+			  cursor:default;
+			  margin-bottom:5px;
+			}
+			.dojoxFishSelected{z-index:100 !important;}
+			#logo,#title_lbl{float:left;}
+			.outerbar img {
+				top:0;
+				margin-right:0;
+				position:relative;
+				vertical-align:super;
+				float:right;
+			}
+			#expires_theme{color:red;}	
+			fieldset{ border: 2px; margin: 1em; padding: 1em; float:left;border-left-style:inset;border-top-style:inset;border-bottom-style:outset;border-right-style:outset;}
+			legend{ font-weight: bolder; font-size: larger;}
+			#logo img:hover{cursor:hand;}
+			.outerbar img:hover{cursor:hand;}
+            .dijitDialogTitle{font-size: 10pt !important;}
+            /*����FineUpload��css*/
+            .qq-upload-button {
+                width: 40px !important;
+				height: 14px !important;
+                border: 1px solid #8ba0bd !important;
+                border-bottom:1px solid #657c9c !important;
+                padding: 0.1em 0.2em 0.2em 0.2em !important;
+                background: #bcd5f0 repeat-x top left !important;
+                color: #000 !important;
+            }
+            .qq-upload-list {
+                display: none;
+            }
+			/*.Connection{
+				width: 18px;
+				height: 18px;
+				float: left;
+			}*/
+			/*.ControlFlow{
+				width: 18px;
+				height: 18px;
+			}*/
+			/*.BusConnect{
+				width: 18px;
+				height: 18px;
+			}*/
+			.Start{
+				width: 32px;
+				height: 32px;
+				float: left;
+			}
+			.notConnect{
+				-webkit-filter:grayscale(100%);
+				filter: grayscale(100%);
+			}
+			.notConfigure{
+				-webkit-filter:grayscale(100%);
+				filter: grayscale(100%);
+			}
+			.cannotDelete{
+				color: red;
+			}
+			.online{
+				color: deepskyblue;
+			}
+			.notOnline{
+				color: grey;
+			}
+			.notSpecified{
+				color:red;
+			}
+			.role_SystemDesigner{
+				background-color: orangered;
+				color:whitesmoke;
+			}
+			.role_ComponentMember{
+				 background-color:lawngreen;
+				 color:whitesmoke;
+			 }
+			.role_ComponentMembers{
+				background-color:lightseagreen;
+				color:whitesmoke;
+			}
+			.role_SoftwareDesigner{
+				background-color:royalblue;
+				color:whitesmoke;
+			}
+	/*.textLWG{
+        border: 1px solid black;
+        /*.mouseHover{
+        cursor: pointer;
+    }
+    */
+	.processLocked{
+		-webkit-filter:grayscale(100%);
+		filter: grayscale(100%);
+	}

@@ -1,0 +1,333 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解数据类型转换</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="数据类型转换" />
+<meta name="Microsoft.Help.Id"
+	content="98fa7488-aac3-45b4-8aa4-83ed6ab638b4" />
+<meta name="Description"
+	content="为了简化 Java 编程语言数据类型到 SQL Server 数据类型的转换，Microsoft JDBC Driver for SQL Server 根据 JDBC 规范的要求提供了数据类型转换。为了提高灵活性，所有类型都可以与 Object、String 和 byte[] 数据类型相互转换。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解数据类型转换</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					为了简化 Java 编程语言数据类型到 SQL Server 数据类型的转换，Microsoft JDBC Driver for
+					SQL Server 根据 JDBC 规范的要求提供了数据类型转换。为了提高灵活性，所有类型都可以与 <span
+						sdata="langKeyword" value="Object"><span class="keyword">Object</span></span>、<span
+						sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+					和 <span sdata="langKeyword" value="byte[]"><span
+						class="keyword">byte[]</span></span> 数据类型相互转换。
+				</p>
+			</div>
+			<h1 class="heading">Getter 方法转换</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					基于 SQL Server 的数据类型，以下图表包含 <a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					类的 <b>get&lt;Type&gt;()</b> 方法的 JDBC Driver 转换图，以及 <a
+						href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+					类的 <b>get&lt;Type&gt;</b> 方法支持的转换。
+				</p>
+				<img alt="JDBCGetterConversions"
+					src="../art/JDBCGetterConversions.gif" />
+				<p>JDBC Driver 的 getter 方法支持三类转换：</p>
+				<ul>
+					<li><p>
+							<span class="label">非丢失 (x)</span>：适用于 getter
+							类型与基础服务器类型相同或者小于基础服务器类型时的转换。例如，对基础服务器十进制数列调用 <b>getBigDecimal</b>
+							时，无需进行转换。
+						</p></li>
+					<li><p>
+							<span class="label">已转换 (y)</span>：从数值服务器类型转换为 Java
+							语言类型，其中转换是常规的并遵循 Java
+							语言转换规则。对于这些转换，总是直接截取有效位数（从不四舍五入），而溢出则按目标类型取模处理，以较小者为准。例如，对于包含“1.9999”的基础
+							<span sdata="langKeyword" value="decimal"><span
+								class="keyword">decimal</span></span> 列调用 <b>getInt</b> 时将返回“1”，或者，如果基础
+							<span sdata="langKeyword" value="decimal"><span
+								class="keyword">decimal</span></span> 值为“3000000000”，则 <span
+								sdata="langKeyword" value="int"><span class="keyword">int</span></span>
+							值溢出为“-1294967296”。
+						</p></li>
+					<li><p>
+							<span class="label">依赖于数据 (z)</span>：如果从基础字符类型转换到数值类型，则要求字符类型包含可转换为数值类型的值。不执行其他转换。如果值对于
+							getter 类型过大，则该值无效。例如，如果对包含“53”的 varchar(50) 列调用 <b>getInt</b>，则值将作为
+							<span sdata="langKeyword" value="int"><span
+								class="keyword">int</span></span> 返回；如果基础值为“xyz”或“3000000000”，则将引发错误。
+						</p></li>
+				</ul>
+				<p>
+					如果对 <span sdata="langKeyword" value="binary"><span
+						class="keyword">binary</span></span>、<span sdata="langKeyword"
+						value="varbinary"><span class="keyword">varbinary</span></span>、<span
+						sdata="langKeyword" value="varbinary(max)"><span
+						class="keyword">varbinary(max)</span></span> 或 <span sdata="langKeyword"
+						value="image"><span class="keyword">image</span></span> 列数据类型调用 <b>getString</b>，则值将作为十六进制字符串值返回。
+				</p>
+			</div>
+			<h1 class="heading">Updater 方法转换</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于传递给 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					类的 <b>update&lt;Type&gt;()</b> 方法的 Java 类型的数据，可应用下列转换。
+				</p>
+				<img alt="JDBCUpdaterConversions"
+					src="../art/JDBC_JDBCUpdatterConversions.gif" />
+				<p>JDBC Driver 的 updater 方法支持三类转换：</p>
+				<ul>
+					<li><p>
+							<span class="label">非丢失 (x)</span>：适用于 updater
+							类型与基础服务器类型相同或者小于基础服务器类型时的转换。例如，对基础服务器十进制数列调用 <b>updateBigDecimal</b>
+							时，无需进行转换。
+						</p></li>
+					<li><p>
+							<span class="label">已转换 (y)</span>：从数值服务器类型转换为 Java
+							语言类型，其中转换是常规的并遵循 Java
+							语言转换规则。对于这些转换，总是直接截取有效位数（从不四舍五入），而溢出则按目标（较小者）类型取模处理。例如，对包含“1.9999”的基础
+							<span sdata="langKeyword" value="int"><span
+								class="keyword">int</span></span> 列调用 <b>updateDecimal</b> 时将返回“1”，如果基础
+							<span sdata="langKeyword" value="decimal"><span
+								class="keyword">decimal</span></span> 值为“3000000000”，则 <span
+								sdata="langKeyword" value="int"><span class="keyword">int</span></span>
+							值溢出为“-1294967296”。
+						</p></li>
+					<li><p>
+							<span class="label">依赖于数据 (z)</span>：如果从基础源数据类型转换到目标数据类型，则要求源数据类型包含可转换为目标数据类型的值。不执行其他转换。如果值对于
+							getter 类型过大，则该值无效。例如，如果对包含“53”的 int 列调用 <b>updateString</b>，更新将成功；如果基础字符串值为“foo”或“3000000000”，将引发错误。
+						</p></li>
+				</ul>
+				<p>
+					对 <span sdata="langKeyword" value="binary"><span
+						class="keyword">binary</span></span>、<span sdata="langKeyword"
+						value="varbinary"><span class="keyword">varbinary</span></span>、<span
+						sdata="langKeyword" value="varbinary(max)"><span
+						class="keyword">varbinary(max)</span></span> 或 <span sdata="langKeyword"
+						value="image"><span class="keyword">image</span></span> 列数据类型调用 <b>updateString</b>
+					时，会将字符串值作为十六进制字符串值进行处理。
+				</p>
+				<p>
+					当 SQL Server 列的数据类型为 <span sdata="langKeyword" value="XML"><span
+						class="keyword">XML</span></span> 时，数据值必须是有效的 <span sdata="langKeyword"
+						value="XML"><span class="keyword">XML</span></span>。调用 <b>updateBytes</b>、<b>updateBinaryStream</b>
+					或 <b>updateBlob</b> 方法时，数据值应为 XML 字符的十六进制字符串表示形式。例如：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>&lt;hello&gt;world&lt;/hello&gt; = 0x3C68656C6C6F3E776F726C643C2F68656C6C6F3E </pre></span>
+				</div>
+				<p>请注意，如果 XML 字符使用特殊的字符编码，则需要字节顺序标记 (BOM)。</p>
+			</div>
+			<h1 class="heading">Setter 方法转换</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于传递给 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+					类和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+					类的 <b>set&lt;Type&gt;()</b> 方法的 Java 类型的数据，可应用下列转换。
+				</p>
+				<img alt="JDBCSetterConversions"
+					src="../art/JDBC_JDBCSetterConversions_v2.gif" />
+				<p>服务器会尝试所有转换，并在失败时返回错误。</p>
+				<p>
+					对于 <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span> 数据类型，如果值超过了 <span
+						sdata="langKeyword" value="VARCHAR"><span class="keyword">VARCHAR</span></span>
+					的长度，则将映射为 <span sdata="langKeyword" value="LONGVARCHAR"><span
+						class="keyword">LONGVARCHAR</span></span>。同样，对于 <span sdata="langKeyword"
+						value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>
+					数据类型，如果值超过了 <span sdata="langKeyword" value="NVARCHAR"><span
+						class="keyword">NVARCHAR</span></span> 的支持长度，则将映射为 <span
+						sdata="langKeyword" value="LONGNVARCHAR"><span
+						class="keyword">LONGNVARCHAR</span></span>。这同样适用于 <span
+						sdata="langKeyword" value="byte[]"><span class="keyword">byte[]</span></span>。比
+					<span sdata="langKeyword" value="VARBINARY"><span
+						class="keyword">VARBINARY</span></span> 长的值将成为 <span sdata="langKeyword"
+						value="LONGVARBINARY"><span class="keyword">LONGVARBINARY</span></span>。
+				</p>
+				<p>JDBC Driver 的 setter 方法支持两类转换：</p>
+				<ul>
+					<li><p>
+							<span class="label">非丢失 (x)</span>：适用于 setter
+							类型与基础服务器类型相同或者小于基础服务器类型时的数值转换。例如，当对基础服务器 <span
+								sdata="langKeyword" value="decimal"><span class="keyword">decimal</span></span>
+							列调用 <b>setBigDecimal</b> 时，不需要进行转换。对于数值转换为字符的情形，Java <span
+								sdata="langKeyword" value="numeric"><span class="keyword">numeric</span></span>
+							数据类型转换为 <span sdata="langKeyword" value="String"><span
+								class="keyword">String</span></span>。例如，使用值“53”对 varchar(50) 列调用 <b>setDouble</b>
+							时将在该目标列中生成字符值“53”。
+						</p></li>
+					<li><p>
+							<span class="label">已转换 (y)</span>：从 Java <span
+								sdata="langKeyword" value="numeric"><span class="keyword">numeric</span></span>
+							类型转换为更小的基础服务器 <span sdata="langKeyword" value="numeric"><span
+								class="keyword">numeric</span></span> 类型。该转换为常规转换，并且遵循 SQL Server
+							转换约定。总是直接截取有效位数（从不四舍五入），而溢出将引发“不支持的转换”错误。例如，通过值“1.9999”对基础整数列使用 <b>updateDecimal</b>
+							时，将在目标列中生成“1”；但如果传递的值为“3000000000”，驱动程序将引发错误。
+						</p></li>
+					<li><p>
+							<span class="label">依赖于数据 (z)</span>：从 Java <span
+								sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+							类型转换到基础 SQL Server 数据类型取决于以下条件：如有必要，驱动程序会将 <span
+								sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+							值发送给 SQL Server，SQL Server 再执行转换。如果 <b>sendStringParametersAsUnicode</b>
+							设置为 True，并且基础 SQL Server 数据类型为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，则 SQL
+							Server 将不允许将 <span sdata="langKeyword" value="nvarchar"><span
+								class="keyword">nvarchar</span></span> 转换为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，并会引发 <b>SQLServerException</b>。如果
+							sendStringParametersAsUnicode 设置为 False，并且基础 SQL Server 数据类型为 <span
+								sdata="langKeyword" value="image"><span class="keyword">image</span></span>，则
+							SQL Server 将允许将 <span sdata="langKeyword" value="varchar"><span
+								class="keyword">varchar</span></span> 转换为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，而不会引发异常。
+						</p></li>
+				</ul>
+				<p>SQL Server 执行转换，并在出现问题时将错误传回 JDBC 驱动程序。</p>
+				<p>
+					当 SQL Server 列的数据类型为 <span sdata="langKeyword" value="XML"><span
+						class="keyword">XML</span></span> 时，数据值必须是有效的 <span sdata="langKeyword"
+						value="XML"><span class="keyword">XML</span></span>。调用 <b>updateBytes</b>、<b>updateBinaryStream</b>
+					或 <b>updateBlob</b> 方法时，数据值应为 XML 字符的十六进制字符串表示形式。例如：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>&lt;hello&gt;world&lt;/hello&gt; = 0x3C68656C6C6F3E776F726C643C2F68656C6C6F3E </pre></span>
+				</div>
+				<p>请注意，如果 XML 字符使用特殊的字符编码，则需要字节顺序标记 (BOM)。</p>
+			</div>
+			<h1 class="heading">setObject 的转换</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于传递给 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+					类的 <b>setObject(&lt;Type&gt;)</b> 方法的 Java 类型的数据，可应用下列转换。
+				</p>
+				<img alt="JDBCSetObjectConversions"
+					src="../art/JDBC_JDBCSetObjectConversions.gif" />
+				<p>
+					没有指定目标类型的 <b>setObject</b> 方法将使用默认映射。对于 <span sdata="langKeyword"
+						value="String"><span class="keyword">String</span></span>
+					数据类型，如果值超过了 <span sdata="langKeyword" value="VARCHAR"><span
+						class="keyword">VARCHAR</span></span> 的长度，则将映射为 <span sdata="langKeyword"
+						value="LONGVARCHAR"><span class="keyword">LONGVARCHAR</span></span>。同样，对于
+					<span sdata="langKeyword" value="NVARCHAR"><span
+						class="keyword">NVARCHAR</span></span> 数据类型，如果值超过了 <span
+						sdata="langKeyword" value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>
+					的支持长度，则将映射为 <span sdata="langKeyword" value="LONGNVARCHAR"><span
+						class="keyword">LONGNVARCHAR</span></span>。这同样适用于 <span
+						sdata="langKeyword" value="byte[]"><span class="keyword">byte[]</span></span>。比
+					<span sdata="langKeyword" value="VARBINARY"><span
+						class="keyword">VARBINARY</span></span> 长的值将成为 <span sdata="langKeyword"
+						value="LONGVARBINARY"><span class="keyword">LONGVARBINARY</span></span>。
+				</p>
+				<p>JDBC Driver 的 setObject 方法支持三类转换：</p>
+				<ul>
+					<li><p>
+							<span class="label">非丢失 (x)</span>：适用于 setter
+							类型与基础服务器类型相同或者小于基础服务器类型时的数值转换。例如，当对基础服务器 <span
+								sdata="langKeyword" value="decimal"><span class="keyword">decimal</span></span>
+							列调用 <b>setBigDecimal</b> 时，不需要进行转换。对于数值转换为字符的情形，Java <span
+								sdata="langKeyword" value="numeric"><span class="keyword">numeric</span></span>
+							数据类型转换为 <span sdata="langKeyword" value="String"><span
+								class="keyword">String</span></span>。例如，使用值“53”对 varchar(50) 列调用 <b>setDouble</b>
+							时将在该目标列中生成字符值“53”。
+						</p></li>
+					<li><p>
+							<span class="label">已转换 (y)</span>：从 Java <span
+								sdata="langKeyword" value="numeric"><span class="keyword">numeric</span></span>
+							类型转换为更小的基础服务器 <span sdata="langKeyword" value="numeric"><span
+								class="keyword">numeric</span></span> 类型。该转换为常规转换，并且遵循 SQL Server
+							转换约定。总是直接截取有效位数（从不四舍五入），而溢出将引发不支持转换的错误。例如，通过值“1.9999”对基础整数列使用 <b>updateDecimal</b>
+							时，将在目标列中生成“1”；但如果传递的值为“3000000000”，驱动程序将引发错误。
+						</p></li>
+					<li><p>
+							<span class="label">依赖于数据 (z)</span>：从 Java <span
+								sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+							类型转换到基础 SQL Server 数据类型取决于以下条件：如有必要，驱动程序会将 <span
+								sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+							值发送给 SQL Server，SQL Server 再执行转换。如果 <b>sendStringParametersAsUnicode</b>
+							连接属性设置为 True，并且基础 SQL Server 数据类型为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，则 SQL
+							Server 将不允许将 <span sdata="langKeyword" value="nvarchar"><span
+								class="keyword">nvarchar</span></span> 转换为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，并会引发
+							SQLServerException。如果 <b>sendStringParametersAsUnicode</b> 设置为
+							False，并且基础 SQL Server 数据类型为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，则 SQL
+							Server 将允许将 <span sdata="langKeyword" value="varchar"><span
+								class="keyword">varchar</span></span> 转换为 <span sdata="langKeyword"
+								value="image"><span class="keyword">image</span></span>，而不会引发异常。
+						</p></li>
+				</ul>
+				<p>
+					SQL Server 执行大部分设置转换，并且在出现问题时将错误传回 JDBC 驱动程序。客户端转换是例外情况，仅在值为 <span
+						sdata="langKeyword" value="date"><span class="keyword">date</span></span>、<span
+						sdata="langKeyword" value="time"><span class="keyword">time</span></span>、<span
+						sdata="langKeyword" value="timestamp"><span class="keyword">timestamp</span></span>、<span
+						sdata="langKeyword" value="Boolean"><span class="keyword">Boolean</span></span>
+					和 <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span> 的情况下才执行。
+				</p>
+				<p>
+					当 SQL Server 列的数据类型为 <span sdata="langKeyword" value="XML"><span
+						class="keyword">XML</span></span> 时，数据值必须是有效的 <span sdata="langKeyword"
+						value="XML"><span class="keyword">XML</span></span>。调用
+					setObject(byte[], SQLXML)、setObject(inputStream, SQLXML) 或
+					setObject(Blob, SQLXML) 方法时，数据值应为 XML 字符的十六进制字符串表示形式。例如：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>&lt;hello&gt;world&lt;/hello&gt; = 0x3C68656C6C6F3E776F726C643C2F68656C6C6F3E </pre></span>
+				</div>
+				<p>请注意，如果 XML 字符使用特殊的字符编码，则需要字节顺序标记 (BOM)。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

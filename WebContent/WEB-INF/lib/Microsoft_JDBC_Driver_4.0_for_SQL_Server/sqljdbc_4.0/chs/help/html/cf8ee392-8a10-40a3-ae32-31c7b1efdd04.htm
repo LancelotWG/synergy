@@ -1,0 +1,201 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用连接</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="连接" />
+<meta name="Microsoft.Help.Id"
+	content="cf8ee392-8a10-40a3-ae32-31c7b1efdd04" />
+<meta name="Description"
+	content="以下各部分提供了使用 Microsoft JDBC Driver for SQL Server 的 SQLServerConnection 类来连接到 SQL Server 数据库的不同方法的示例。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用连接</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					以下各部分提供了使用 Microsoft JDBC Driver for SQL Server 的 <a
+						href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					类来连接到 SQL Server 数据库的不同方法的示例。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						如果在使用 JDBC 驱动程序连接到 SQL Server 时遇到问题，请参阅“<a
+							href="bfba0b49-2e1f-411d-a625-d25fad9ea12d.htm">连接疑难解答</a>”获取有关解决方法的建议。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">使用 DriverManager 类创建连接</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					创建到 SQL Server 数据库的连接的最简便方法是加载 JDBC 驱动程序，然后调用 <b>DriverManager</b>
+					类的 <b>getConnection</b> 方法，如下所示：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+String connectionUrl = "jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;"
+Connection con = DriverManager.getConnection(connectionUrl);</pre></span>
+				</div>
+				<p>此技术将通过使用驱动程序列表中第一个可以与给定 URL 成功连接的可用驱动程序，创建数据库连接。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						使用 sqljdbc4.jar 类库时，应用程序无需使用 <b>Class.forName</b> 方法显示注册或加载驱动程序。调用
+						<b>DriverManager</b> 类的 <b>getConnection</b> 方法时，会从已注册的 JDBC
+						Driver 集中找到相应的驱动程序。有关详细信息，请参阅“使用 JDBC Driver”。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">使用 SQLServerDriver 类创建连接</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须为 <b>DriverManager</b> 指定驱动程序列表中的特定驱动程序，可以使用 <a
+						href="fbdceae5-7e7b-4edb-8c33-c701ca6b2d53.htm">SQLServerDriver</a>
+					类的 <a href="43813a4c-1cc7-4659-ba27-f1786f1371eb.htm">connect</a>
+					方法来创建数据库连接，如下所示：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Driver d = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+String connectionUrl = "jdbc:sqlserver://localhost;database=AdventureWorks;integratedSecurity=true;"
+Connection con = d.connect(connectionUrl, new Properties());</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">使用 SQLServerDataSource 类创建连接</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须使用 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+					类创建连接，可以先使用此类的各种 setter 方法，然后调用 <a
+						href="7f520e96-5313-468f-b987-535ddaea027e.htm">getConnection</a>
+					方法，如下所示：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>SQLServerDataSource ds = new SQLServerDataSource();
+ds.setUser("MyUserName");
+ds.setPassword("*****");
+ds.setServerName("localhost");
+ds.setPortNumber(1433); 
+ds.setDatabaseName("AdventureWorks");
+Connection con = ds.getConnection();</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">创建目标为非常特殊的数据源的连接</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>如果必须创建目标为非常特殊的数据源的数据库连接，可以采用多种方法。每种方法取决于使用此连接 URL 设置的属性。</p>
+				<p>若要连接到远程服务器上的默认实例，请使用：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://MyServer;integratedSecurity=true;"</span>
+				</p>
+				<p>若要连接到服务器上的特定端口，请使用：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://MyServer:1533;integratedSecurity=true;"</span>
+				</p>
+				<p>若要连接到服务器上的指定实例，请使用：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://209.196.43.19;instanceName=INSTANCE1;integratedSecurity=true;"</span>
+				</p>
+				<p>若要连接到服务器上的特定数据库，请使用：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://172.31.255.255;database=AdventureWorks;integratedSecurity=true;"</span>
+				</p>
+				<p>
+					有关连接 URL 实例的详细信息，请参阅<span sdata="link"><a
+						href="44996746-d373-4f59-9863-a8a20bb8024a.htm">创建连接 URL</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">创建具有自定义登录超时的连接</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>如果必须调节服务器负载或网络流量，可以创建具有特定登录超时值（以秒为单位）的连接，如下所示：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://MyServer;loginTimeout=90;integratedSecurity=true;"</span>
+				</p>
+			</div>
+			<h1 class="heading">创建具有应用程序级别标识的连接</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>如果必须记录日志并进行分析，则必须将连接标识为源于特定应用程序，如下所示：</p>
+				<p>
+					<span class="code">String url =
+						"jdbc:sqlserver://MyServer;applicationName=MYAPP.EXE;integratedSecurity=true;"</span>
+				</p>
+			</div>
+			<h1 class="heading">关闭连接</h1>
+			<div id="sectionSection6" class="section" name="collapseableSection"
+				style="">
+				<p>
+					可以通过调用 <b>SQLServerConnection</b> 类的 <a
+						href="f0f26585-bdf7-4737-b434-8c7e115c8e94.htm">close</a>
+					方法显式地关闭数据库连接，如下所示：
+				</p>
+				<p>
+					<span class="code">con.close();</span>
+				</p>
+				<p>
+					这将释放 <b>SQLServerConnection</b> 对象正在使用的数据库资源，或使连接返回到池方案中的连接池。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						调用 <b>close</b> 方法还将回滚所有挂起的事务。
+					</p>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

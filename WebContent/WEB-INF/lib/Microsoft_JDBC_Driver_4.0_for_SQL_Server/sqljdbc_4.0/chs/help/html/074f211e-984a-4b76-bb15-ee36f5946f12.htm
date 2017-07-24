@@ -1,0 +1,135 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>JDBC 驱动程序的新增功能</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="新增功能" />
+<meta name="Microsoft.Help.Id"
+	content="074f211e-984a-4b76-bb15-ee36f5946f12" />
+<meta name="Description"
+	content="Microsoft JDBC Driver 4.0 for SQL Server 包含若干新增功能和增强功能。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">JDBC 驱动程序的新增功能</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver 4.0 for SQL Server 包含若干新增功能和增强功能。</p>
+			</div>
+			<h1 class="heading">有关连接到 SQL Azure 数据库的信息</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					现在提供了一个主题，其中包含有关连接到 SQL Azure 数据库的信息。有关详细信息，请参阅<span sdata="link"><a
+						href="49645b1f-39b1-4757-bda1-c51ebc375c34.htm">连接到 SQL Azure
+							上的数据库</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">对高可用性和灾难恢复的支持</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					Microsoft JDBC Driver 4.0 for SQL Server 支持对 SQL Server 2012 中的
+					AlwaysOn 可用性组的高可用性和灾难恢复连接。有关详细信息，请参阅<span sdata="link"><a
+						href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+							驱动程序对高可用性和灾难恢复的支持</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">使用 Kerberos 集成身份验证连接到 SQL Server</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					Microsoft JDBC Driver 4.0 for SQL Server 使用类型 4 Kerberos
+					集成身份验证来供应用程序连接到 SQL Server 数据库。有关详细信息，请参阅<span sdata="link"><a
+						href="687802dc-042a-4363-89aa-741685d165b3.htm">使用 Kerberos
+							集成身份验证连接到 SQL Server</a></span>。（Microsoft JDBC Driver for SQL Server 4.0
+					之前的版本中提供的是类型 2 Kerberos 集成身份验证。）
+				</p>
+			</div>
+			<h1 class="heading">访问扩展事件日志中的诊断信息</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					您可访问服务器扩展事件日志中的信息来了解连接失败数。有关详细信息，请参阅<span sdata="link"><a
+						href="a79e9468-2257-4536-91f1-73b008c376c3.htm">访问扩展事件日志中的诊断信息</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">对于稀疏列的其他支持</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果您的应用程序已经访问了使用稀疏列的表中的数据，您应该会看到性能有所提升。您可以通过 <span sdata="link"><a
+						href="f173fa5d-e114-4a37-a5c4-2baad9ff3af1.htm">getColumns 方法
+							(SQLServerDatabaseMetaData)</a></span> 获取有关列的信息（包括稀疏列信息）。有关 SQL Server
+					稀疏列的详细信息，请参阅<a href="http://go.microsoft.com/fwlink/?LinkId=224244">使用稀疏列</a>。
+				</p>
+				<p>
+					<a href="ac363670-78ae-49f1-aeda-4fba3329a258.htm">isSparseColumnSet</a>
+					方法添加到 <b>SQLServerResultSetMetaData</b> 类，以表明结果集中的某个列是否为稀疏列集。
+				</p>
+			</div>
+			<h1 class="heading">Xid.getFormatId</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>在 Microsoft JDBC Driver 4.0 for SQL Server 之前，JDBC
+					驱动程序从应用程序中接收到一个格式标识符，但并未将该值传递到数据库服务器，而是向数据库服务器传递了一个 0 格式标识符。</p>
+				<p>
+					在 Microsoft JDBC Driver 4.0 for SQL Server 中，JDBC
+					驱动程序会先从应用程序中将格式标识符传递到数据库服务器。要获取更新后的行为，务必更新服务器上的 sqljdbc_xa.dll。有关将
+					sqljdbc_xa.dll 的更新版本复制到服务器的详细信息，请参阅<span sdata="link"><a
+						href="574e326f-0520-4003-bdf1-62d92c3db457.htm">了解 XA 事务</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">JDBC Driver 4.0 应用程序不支持 Itanium</h1>
+			<div id="sectionSection6" class="section" name="collapseableSection"
+				style="">
+				<p>Itanium 计算机上不支持运行 Microsoft JDBC Driver 4.0 for SQL Server
+					应用程序。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

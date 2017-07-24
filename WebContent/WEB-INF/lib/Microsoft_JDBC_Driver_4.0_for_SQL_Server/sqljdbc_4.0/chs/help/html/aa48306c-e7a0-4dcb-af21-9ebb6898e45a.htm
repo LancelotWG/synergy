@@ -1,0 +1,127 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用保持能力</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="事务保持能力" />
+<meta name="Microsoft.Help.Id"
+	content="aa48306c-e7a0-4dcb-af21-9ebb6898e45a" />
+<meta name="Description"
+	content="默认情况下，事务中创建的结果集将在事务提交到数据库后保持打开状态，或在回滚时保持打开状态。但是，在事务提交后，使结果集关闭有时也会很有用。为此，Microsoft JDBC Driver for SQL Server 支持使用结果集的保持能力。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用保持能力</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>默认情况下，事务中创建的结果集将在事务提交到数据库后保持打开状态，或在回滚时保持打开状态。但是，在事务提交后，使结果集关闭有时也会很有用。为此，Microsoft
+					JDBC Driver for SQL Server 支持使用结果集的保持能力。</p>
+				<p>
+					可通过使用 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					类的 <a href="552eebd0-4c38-43f0-961f-35244f99109b.htm">setHoldability</a>
+					方法设置结果集的保持能力。使用 <b>setHoldability</b> 方法设置保持能力时，可使用 <b>ResultSet.HOLD_CURSORS_OVER_COMMIT</b>
+					或 <b>ResultSet.CLOSE_CURSORS_AT_COMMIT</b> 的结果集保持能力的常量。
+				</p>
+				<p>创建语句对象之一时，JDBC Driver
+					也支持设置保持能力。创建语句对象时，如果该对象包含带有结果集保持能力参数的重载，则语句对象的保持能力必须与连接的保持能力匹配。如果不匹配，将引发异常。这是因为
+					SQL Server 仅在连接级别支持保持能力。</p>
+				<p>
+					结果集的保持能力是在仅为服务器端游标创建结果集时，与结果集相关联的 <b>SQLServerConnection</b>
+					对象的保持能力。它不适用于客户端游标。所有具有客户端游标的结果集将始终具有值为 <b>ResultSet.HOLD_CURSORS_OVER_COMMIT</b>
+					的保持能力。
+				</p>
+				<p>对于服务器游标，当连接到 SQL Server 2005
+					或更高版本时，设置保持能力只会影响该连接上将要创建的新结果集的保持能力。这意味着，设置保持能力对该连接上以前创建的和已打开的所有结果集的保持能力没有影响。但是，如果使用
+					SQL Server 2000，设置保持能力会影响该连接上现有的结果集和将要创建的新结果集的保持能力。</p>
+				<p>
+					在下面的示例中，结果集的保持能力将在执行 <span class="code">try</span>
+					块中包含两个单独语句的本地事务时进行设置。这些语句将对 SQL Server 2005 AdventureWorks 示例数据库中的
+					Production.ScrapReason 表运行。首先，示例通过将自动提交设置为 <span
+						sdata="langKeyword" value="false"><span class="keyword">false</span></span>
+					来切换到手动事务模式。禁用自动提交模式后，在应用程序显式调用 <a
+						href="c7346165-51bf-4844-b64c-29833c147236.htm">commit</a>
+					方法之前，不会提交任何 SQL 语句。如果引发异常，catch 块中的代码将回滚此事务。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>public static void executeTransaction(Connection con) {
+   try {
+       con.setAutoCommit(false);
+       con.setHoldability(ResultSet.HOLD_CURSORS_OVER_COMMIT);
+       Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+       stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Bad part')");
+       ResultSet rs = stmt.executeQuery("SELECT * FROM Production.ScrapReason");
+       con.commit();
+       System.out.println("Transaction succeeded.");
+
+       //Display results.
+       while (rs.next()) {
+          System.out.println(rs.getString(2));
+       }
+       stmt.close();
+      }
+      catch (SQLException ex) {
+         ex.printStackTrace();
+         try {
+            System.out.println("Transaction failed.");
+            con.rollback();
+         }
+         catch (SQLException se) {
+            se.printStackTrace();
+         }
+      }
+   }
+}
+
+</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">通过 JDBC
+							驱动程序执行事务</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- OGNL可以使用静态方法 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>	
+	<package name="workflow-default" abstract="true" extends="struts-default">
+		<global-results>
+			<!-- 错误页面 -->
+            <result name="error">/WEB-INF/pages/common/show_error.jsp</result>
+            <!--用户注册 -->
+            <result name="reg">/WEB-INF/pages/user/entry/user_reg.jsp</result>
+            <!--用户登录-->
+			<result name="userLogin">/WEB-INF/pages/user/entry/user_login.jsp</result>
+            <!--管理员登录-->
+            <result name="adminLogin">/WEB-INF/pages/admin/entry/admin_login.jsp</result>
+            <!--注销-->
+            <result name="logout">/WEB-INF/pages/user/entry/user_login.jsp</result>
+        </global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="com.nwpu.lwg.util.AppException"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+</struts>

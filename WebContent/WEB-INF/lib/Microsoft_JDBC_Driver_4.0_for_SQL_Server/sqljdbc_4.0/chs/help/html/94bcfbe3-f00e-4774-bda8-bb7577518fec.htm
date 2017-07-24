@@ -1,0 +1,160 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>通过 JDBC 驱动程序连接到 SQL Server</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="连接到 SQL Server" />
+<meta name="Microsoft.Help.Id"
+	content="94bcfbe3-f00e-4774-bda8-bb7577518fec" />
+<meta name="Description"
+	content="对 Microsoft JDBC Driver for SQL Server 执行的最基本的操作之一是建立到 SQL Server 数据库的连接。与数据库的所有交互都通过 SQLServerConnection 对象实现，并且由于 JDBC 驱动程序具有这种平面体系结构，因此几乎所有相关行为都涉及 SQLServerConnection 对象。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">通过 JDBC 驱动程序连接到
+						SQL Server</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					对 Microsoft JDBC Driver for SQL Server 执行的最基本的操作之一是建立到 SQL Server
+					数据库的连接。与数据库的所有交互都通过 <a
+						href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					对象实现，并且由于 JDBC 驱动程序具有这种平面体系结构，因此几乎所有相关行为都涉及 <b>SQLServerConnection</b>
+					对象。
+				</p>
+				<p>如果 SQL Server 仅侦听 IPv6 端口，请设置 java.net.preferIPv6Addresses
+					系统属性，确保使用 IPv6 而不是 IPv4 来连接 SQL Server：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>System.setProperty("java.net.preferIPv6Addresses", "true");</pre></span>
+				</div>
+				<p>本部分中的主题说明如何建立到 SQL Server 数据库的连接以及如何使用该连接。</p>
+			</div>
+			<h1 class="heading">本节涉及的主题</h1>
+			<div id="inThisSectionSection" class="section"
+				name="collapseableSection" style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>主题</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="44996746-d373-4f59-9863-a8a20bb8024a.htm">创建连接 URL</a></span>
+								</p></td>
+							<td><p>说明如何构建连接到 SQL Server 数据库的连接 URL。并说明到 SQL Server
+									数据库指定实例的连接。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>
+								</p></td>
+							<td><p>说明各种连接属性以及如何在连接 SQL Server 数据库时使用这些属性。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="f3363d05-07fc-4bf8-ae5e-2a7a968808ad.htm">设置数据源属性</a></span>
+								</p></td>
+							<td><p>介绍如何在 Java Platform, Enterprise Edition 5 (Java
+									EE) 环境中使用数据源。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="cf8ee392-8a10-40a3-ae32-31c7b1efdd04.htm">使用连接</a></span>
+								</p></td>
+							<td><p>说明创建与 SQL Server 数据库的连接实例的各种方法。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="699d4e8a-34bf-4c60-b0d5-4a10dad6084a.htm">使用连接池</a></span>
+								</p></td>
+							<td><p>说明 JDBC 驱动程序如何支持使用连接池。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="4ff59218-0d3b-4274-b647-9839c4955865.htm">使用数据库镜像
+											(JDBC)</a></span>
+								</p></td>
+							<td><p>说明 JDBC 驱动程序如何支持使用数据库镜像。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>
+								</p></td>
+							<td><p>说明如何开发将连接到 AlwaysOn 可用性组的应用程序。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="687802dc-042a-4363-89aa-741685d165b3.htm">使用
+											Kerberos 集成身份验证连接到 SQL Server</a></span>
+								</p></td>
+							<td><p>讨论一个可供应用程序使用 Kerberos 集成身份验证连接到 SQL Server 数据库的
+									Java 实现。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="49645b1f-39b1-4757-bda1-c51ebc375c34.htm">连接到 SQL
+											Azure 上的数据库</a></span>
+								</p></td>
+							<td><p>讨论 SQL Azure 数据库的连接问题。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

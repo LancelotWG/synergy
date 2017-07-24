@@ -1,0 +1,120 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 SSL 加密</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="加密" />
+<meta name="System.Keywords" content="SSL" />
+<meta name="System.Keywords" content="使用 SSL 加密" />
+<meta name="Microsoft.Help.Id"
+	content="8e566243-2f93-4b21-8065-3c8336649309" />
+<meta name="Description"
+	content="借助安全套接字层 (SSL) 加密，可以通过网络在 SQL Server 的实例与客户端应用程序之间传输加密数据。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 SSL 加密</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>借助安全套接字层 (SSL) 加密，可以通过网络在 SQL Server 的实例与客户端应用程序之间传输加密数据。</p>
+				<p>安全套接字层 (SSL) 是一种协议，用于建立安全通信通道，以防止截获通过网络传输的重要信息或敏感信息以及其他
+					Internet 通信。SSL 使客户端和服务器可以验证彼此的身份。在参与方的身份获得验证之后，SSL
+					在两者之间提供加密连接，以进行安全的消息传输。</p>
+				<p>Microsoft JDBC Driver for SQL Server
+					提供了一个基础结构，以便根据用户指定的连接属性以及服务器和客户端设置，在特定的连接上启用和禁用加密。用户可以指定证书存储区位置和密码、要用于验证证书的主机名以及何时对通信通道进行加密。</p>
+				<p>启用 SSL 加密将增强通过网络在 SQL Server
+					的实例与应用程序之间传输的数据的安全性。但是，启用加密的确会降低性能。</p>
+				<p>本节中的各个主题介绍此 Microsoft JDBC Driver for SQL Server 版本如何支持 SSL
+					加密（包括新的连接属性）以及如何在客户端配置信任存储区。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						建议使用 <span sdata="langKeyword" value="hostNameInCertificate"><span
+							class="keyword">hostNameInCertificate</span></span> 连接属性验证 SSL 证书。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">本节内容</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>主题</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="073f3b9e-8edd-4815-88ea-de0655d0325e.htm">了解 SSL 支持</a></span>
+								</p></td>
+							<td><p>介绍 Microsoft JDBC Driver for SQL Server 如何支持 SSL
+									加密。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="ec91fa8a-ab7e-4c1e-a05a-d7951ddf33b1.htm">使用 SSL
+											加密进行连接</a></span>
+								</p></td>
+							<td><p>介绍如何使用 SSL 特定的新连接属性连接到 SQL Server 数据库。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="ae34cd1f-3569-4759-80c7-7c9b33b3e9eb.htm">为 SSL
+											加密配置客户端</a></span>
+								</p></td>
+							<td><p>描述如何在客户端配置默认的信任存储区以及如何将私钥证书导入到客户端计算机的信任存储区中。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="90724ec6-a9cb-43ef-903e-793f89410bc0.htm">保护 JDBC Driver
+							应用程序</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

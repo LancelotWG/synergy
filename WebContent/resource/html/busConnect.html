@@ -1,0 +1,29 @@
+<div style="width:400px;height:55px;float:left;">
+	<div style="width:150px;height:55px;float:left;">
+		<span >Bus数据：</span></br>
+	</div>
+	<div style="width:100px;height:55px;float:left;">
+		<div style="width:50px;height:55px;float:left;">
+			<input id="busConnectOperateStatus0" name="operateStatus" value="0" checked="true" dojoType="dijit.form.RadioButton" >查看
+			<input id="busConnectOperateStatus1" name="operateStatus" value="1" dojoType="dijit.form.RadioButton" >增加
+			<input id="busConnectOperateStatus2" name="operateStatus" value="2" dojoType="dijit.form.RadioButton" >删除
+		</div>
+		<button id="busConnectOperate" style="float:left;margin-top:15px" data-dojo-props="disabled:'false'" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="操作" iconClass="dijitNoIcon" ></button>
+	</div>
+	<div style="width:150px;height:55px;float:left;">
+		<span >模块数据(上为流入源)：</span></br>
+	</div>
+</div>
+<div style="width:400px;height:200px;float:left;">
+	<div style="width:150px;height:200px;float:left;">
+		<select id="busConnectBusData"></select>
+	</div>
+	<canvas id="busConnectLink" width="100px" height="200px" style="float:left"></canvas>
+	<div style="width:150px;height:200px;float:left">
+		<select id="busConnectModelDataFrom"></select>
+		<select id="busConnectModelDataTo"></select>
+	</div>
+</div>
+<button id="busConnectAbolish" style="float: right; margin-right: 10px;margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" ></button>
+<button id="busConnectApply" style="float: right; margin-right: 10px;margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="应用" iconClass="dijitNoIcon" ></button>
+

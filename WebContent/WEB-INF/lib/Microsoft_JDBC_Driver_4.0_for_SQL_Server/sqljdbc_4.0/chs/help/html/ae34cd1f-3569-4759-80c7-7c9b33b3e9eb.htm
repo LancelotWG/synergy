@@ -1,0 +1,156 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>为 SSL 加密配置客户端</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="证书" />
+<meta name="System.Keywords" content="配置 SSL 证书" />
+<meta name="System.Keywords" content="SSL" />
+<meta name="System.Keywords" content="SSL 证书" />
+<meta name="Microsoft.Help.Id"
+	content="ae34cd1f-3569-4759-80c7-7c9b33b3e9eb" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 或客户端必须验证服务器是正确的服务器，并且其证书是由客户端信任的证书颁发机构颁发的。为了验证服务器证书，在连接时必须提供信任材料。此外，服务器证书的颁发者必须是客户端信任的证书颁发机构。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">为 SSL 加密配置客户端</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server
+					或客户端必须验证服务器是正确的服务器，并且其证书是由客户端信任的证书颁发机构颁发的。为了验证服务器证书，在连接时必须提供信任材料。此外，服务器证书的颁发者必须是客户端信任的证书颁发机构。</p>
+				<p>本主题首先介绍了如何在客户端计算机中提供信任材料。然后，本主题介绍当私钥证书颁发机构颁发 SQL Server
+					实例的安全套接字层 (SSL) 证书时，如何将服务器证书导入到客户端计算机的信任存储区。</p>
+				<p>
+					有关验证服务器证书的详细信息，请参阅<span sdata="link"><a
+						href="073f3b9e-8edd-4815-88ea-de0655d0325e.htm">了解 SSL 支持</a></span>中的“验证服务器
+					SSL 证书”部分。
+				</p>
+			</div>
+			<h1 class="heading">配置客户端信任存储区</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					验证服务器证书要求在连接时必须提供信任材料，既可以使用 <span class="label">trustStore</span> 和
+					<span class="label">trustStorePassword</span> 连接属性显式提供材料，也可以使用基础
+					Java 虚拟机 (JVM) 的默认信任存储区隐式提供材料。有关如何在连接字符串中设置 <span class="label">trustStore</span>
+					和 <span class="label">trustStorePassword</span> 属性的详细信息，请参阅<span
+						sdata="link"><a
+						href="ec91fa8a-ab7e-4c1e-a05a-d7951ddf33b1.htm">使用 SSL 加密进行连接</a></span>。
+				</p>
+				<p>
+					如果未指定 <span class="label">trustStore</span> 属性或该属性设置为 null，则
+					Microsoft JDBC Driver for SQL Server 将依赖于基础 JVM 的安全提供程序，即 Java
+					安全套接字扩展 (SunJSSE)。SunJSSE 提供程序提供一个默认的 <b>TrustManager</b>，用于验证由 SQL
+					Server 针对在信任存储区中提供的信任材料返回的 X.509 证书。
+				</p>
+				<p>
+					<b>TrustManager</b> 尝试以下列搜索顺序找到默认的 trustStore：
+				</p>
+				<ul>
+					<li><p>
+							如果定义了系统属性“javax.net.ssl.trustStore”，则 <b>TrustManager</b>
+							将试图使用由该系统属性指定的文件名来查找默认的 trustStore 文件。
+						</p></li>
+					<li><p>如果未指定“javax.net.ssl.trustStore”系统属性并且文件“&lt;java
+							主文件夹&gt;/lib/security/jssecacerts”存在，则使用该文件。</p></li>
+					<li><p>如果文件“&lt;java
+							主文件夹&gt;/lib/security/cacerts”存在，则使用该文件。</p></li>
+				</ul>
+				<p>有关详细信息，请参阅 Sun Microsystems 网站上的 SUNX509 TrustManager 接口文档。</p>
+				<p>Java 运行时环境允许您设置 trustStore 和 trustStorePassword 系统属性，如下所示：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>java -Djavax.net.ssl.trustStore=C:\MyCertificates\storeName
+java -Djavax.net.ssl.trustStorePassword=storePassword</pre></span>
+				</div>
+				<p>
+					在这种情况下，在此 JVM 上运行的任何应用程序都将使用这些设置作为默认设置。为了在应用程序中覆盖默认设置，应在连接字符串中或在 <a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+					类的适当 setter 方法中设置 <span class="label">trustStore</span> 和 <span
+						class="label">trustStorePassword</span> 连接属性。
+				</p>
+				<p>此外，还可以配置和管理默认的信任存储区文件，如“&lt;java
+					主文件夹&gt;/lib/security/jssecacerts”和“&lt;java
+					主文件夹&gt;/lib/security/cacerts”。为此，请使用随 JRE（Java 运行时环境）安装的
+					JAVA“keytool”实用工具。有关“keytool”实用工具的详细信息，请参阅 Sun Microsystems 网站上的
+					keytool 文档。</p>
+				<h1 class="heading">将服务器证书导入到信任存储区</h1>
+				<div class="subsection">
+					<p>在 SSL 握手期间，服务器向客户端发送其公钥证书。公钥证书的颁发者称为证书颁发机构
+						(CA)。客户端必须确保证书颁发机构是客户端信任的证书颁发机构。这是通过提前了解受信任的证书版本机构的公钥来实现的。通常，JVM
+						随附了一组预定义的受信任的证书颁发机构。</p>
+					<p>如果私钥证书颁发机构颁发了 SQL Server 实例的 SSL
+						证书，则您必须将证书颁发机构的证书添加到客户端计算机的信任存储区内的信任证书列表中。</p>
+					<p>为此，请使用随 JRE（Java 运行时环境）安装的
+						JAVA“keytool”实用工具。下面的命令提示演示如何使用“keytool”实用工具从文件中导入证书：</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>keytool -import -v -trustcacerts -alias myServer -file caCert.cer -keystore truststore.ks</pre></span>
+					</div>
+					<p>此示例使用名为“caCert.cer”的文件作为证书文件。您可以从服务器获得此证书文件。以下步骤说明如何将服务器证书导出到文件中：</p>
+					<ol>
+						<li><p>单击“开始”，然后单击“运行”并键入 MMC。（MMC 是 Microsoft
+								管理控制台的首字母缩写词。）</p></li>
+						<li><p>在 MMC 中，打开“证书”。</p></li>
+						<li><p>展开“个人”，然后展开“证书”。</p></li>
+						<li><p>右键单击服务器证书，然后选择“所有任务”\“导出”。</p></li>
+						<li><p>单击“下一步”以略过“证书导出向导”的“欢迎使用”对话框。</p></li>
+						<li><p>确认选中了“否，不导出私钥”，然后单击“下一步”。</p></li>
+						<li><p>确保选中了“DER 编码的二进制 X.509 (.CER)”或“Base-64 编码的 X.509
+								(.CER)”，然后单击“下一步”。</p></li>
+						<li><p>输入导出文件名。</p></li>
+						<li><p>单击“下一步”，然后单击“完成”以导出证书。</p></li>
+					</ol>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="8e566243-2f93-4b21-8065-3c8336649309.htm">使用 SSL 加密</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="90724ec6-a9cb-43ef-903e-793f89410bc0.htm">保护 JDBC Driver
+							应用程序</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

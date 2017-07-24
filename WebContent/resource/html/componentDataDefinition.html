@@ -1,0 +1,31 @@
+<div style="width:150px;height:270px;float:left;">
+	<span>模块数据(上为流入源)：</span></br>
+	<div style="width:150px;height:250px;margin-top:5px;float:left">
+		<select id="componentDataFrom"></select>
+		<select id="componentDataTo"></select>
+	</div>
+</div>
+<div style="width:150px;height:220px;float:right;">
+	<div style="width:150px;float:left;margin-top:30px;">
+		<span>操作：</span>
+		<input id="componentEditorOperateStatus0" name="operateStatus" value="0" checked="true" dojoType="dijit.form.RadioButton">增加
+		<input id="componentEditorOperateStatus1" name="operateStatus" value="1"  dojoType="dijit.form.RadioButton">删除
+	</div>
+	<div style='margin-top:10px;float:left'>数据类别：</div>
+	<select id="componentDataFlowType" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.FilteringSelect" autoComplete="true">
+		<option value="0">流入(From)</option>
+		<option value="1">流出(To)</option>
+	</select>
+	<div style='margin-top:10px;float:left'>数据ID：</div>
+	<input id="componentDataID" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.ValidationTextBox" trim=true required=true
+		   invalidMessage="Required.">
+	<div style='margin-top:5px;float:left'>数据类型：</div>
+	<select id="componentDataType" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.FilteringSelect" autoComplete="true" >
+		<option value="DT_SINT16">DT_SINT16</option>
+		<option value="DT_UINT16">DT_UINT16</option>
+	</select>
+	<button id="componentEditorOperate" style="float:left;margin-top:15px;margin-left:50px;" data-dojo-type="dijit.form.Button" intermediateChanges="false"
+			label="增加" iconClass="dijitNoIcon"></button>
+</div>
+<button id="componentEditorApply" style="float:right;margin-top:30px;" data-dojo-type="dijit.form.Button" intermediateChanges="false"
+		label="应用" iconClass="dijitNoIcon" ></button>

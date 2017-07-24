@@ -1,0 +1,114 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用保存点</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="事务保存点" />
+<meta name="Microsoft.Help.Id"
+	content="3b48eb13-32ef-4fb3-8e95-dbc9468c9a44" />
+<meta name="Description"
+	content="保存点提供了回滚部分事务的机制。在 SQL Server 中，可以使用 SAVE TRANSACTION savepoint_name 语句创建保存点。然后，运行 ROLLBACK TRANSACTION savepoint_name 语句回滚到保存点，而不是回滚到事务的开始。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用保存点</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>保存点提供了回滚部分事务的机制。在 SQL Server 中，可以使用 SAVE TRANSACTION
+					savepoint_name 语句创建保存点。然后，运行 ROLLBACK TRANSACTION savepoint_name
+					语句回滚到保存点，而不是回滚到事务的开始。</p>
+				<p>保存点在不可能发生错误的情况下很有用。在不频繁发生错误的情况下使用保存点回滚部分事务，其效果好于在执行更新前测试各事务以查看更新是否有效。更新和回滚都是耗费大量资源的操作，因此，仅当遇到错误的可能性很低，且预先检查更新有效性的成本相对较高时，保存点才会有效。</p>
+				<p>
+					Microsoft JDBC Driver for SQL Server 支持通过 <a
+						href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+					类的 <a href="c39c6b4f-b9e2-423b-94ae-9f82d9e6d08d.htm">setSavepoint</a>
+					方法来使用保存点。通过使用 <b>setSavepoint</b> 方法，可以在当前事务中创建命名的或未命名的保存点，并且该方法将返回
+					<a href="1ae7db7b-959f-4142-8d9f-aa427869c6ac.htm">SQLServerSavepoint</a>
+					对象。一个事务中可创建多个保存点。要将事务回滚到指定的保存点，可以将 <b>SQLServerSavepoint</b> 对象传递给
+					<a href="d5dbd9ef-194f-4130-bfcc-7901a4fa8ded.htm">rollback
+						(java.sql.Savepoint)</a> 方法。
+				</p>
+				<p>
+					下面的实例中，将在执行 <span class="code">try</span>
+					块中包含两个独立语句的本地事务时使用保存点。该语句将根据 SQL Server 2005 AdventureWorks
+					示例数据库中的表 Production.ScrapReason
+					来运行，并使用保存点回滚第二个语句。这会导致只有第一个语句提交给数据库。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>public static void executeTransaction(Connection con) {
+   try {
+      con.setAutoCommit(false);
+      Statement stmt = con.createStatement();
+      stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Correct width')");
+      Savepoint save = con.setSavepoint();
+      stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Wrong width')");
+      con.rollback(save);
+      con.commit();
+      stmt.close();
+      System.out.println("Transaction succeeded.");
+   }
+   catch (SQLException ex) {
+      ex.printStackTrace();
+      try {
+         System.out.println("Transaction failed.");
+         con.rollback();
+      }
+      catch (SQLException se) {
+         se.printStackTrace();
+      }
+   }
+}
+
+</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">通过 JDBC
+							驱动程序执行事务</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

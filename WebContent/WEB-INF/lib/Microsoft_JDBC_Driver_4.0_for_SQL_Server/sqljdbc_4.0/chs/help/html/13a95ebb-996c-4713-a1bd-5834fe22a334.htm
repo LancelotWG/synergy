@@ -1,0 +1,239 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>结果集数据缓存示例</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="结果集缓存示例" />
+<meta name="Microsoft.Help.Id"
+	content="13a95ebb-996c-4713-a1bd-5834fe22a334" />
+<meta name="Description"
+	content="此 Microsoft JDBC Driver for SQL Server 示例应用程序说明了如何从数据库中检索大量数据，然后使用 SQLServerResultSet 对象的 setFetchSize 方法控制在客户端中缓存的数据行数。" />
+<meta name="Microsoft.Help.ContentType" content="Samples" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">结果集数据缓存示例</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					此 Microsoft JDBC Driver for SQL Server 示例应用程序说明了如何从数据库中检索大量数据，然后使用
+					<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					对象的 <a href="233bf4f8-4758-42d0-a80b-33e34fa78027.htm">setFetchSize</a>
+					方法控制在客户端中缓存的数据行数。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						限制客户端中缓存的行数与限制结果集中包含的总行数不同。要控制结果集中包含的总行数，请使用 <a
+							href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+						对象的 <a href="cccc0667-589b-4655-8ea8-14ae8b2eb9dc.htm">setMaxRows</a>
+						方法，该对象具有继承对象 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+						和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+						对象。
+					</p>
+				</div>
+				<p>
+					要对客户端中缓存的行数进行限制，首先必须在创建 <b>Statement</b> 对象时使用服务器端游标，并且在创建 <b>Statement</b>
+					对象时专门声明要使用的游标类型。例如，JDBC 驱动程序提供了 TYPE_SS_SERVER_CURSOR_FORWARD_ONLY
+					游标类型，该类型是用于 SQL Server 数据库的快速只进、只读的服务器端游标。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						如果不使用 SQL Server 的特定游标类型，也可以使用 selectMethod
+						连接字符串属性，并将其值设置为“cursor”。有关 JDBC 驱动程序支持的游标类型的详细信息，请参阅<span
+							sdata="link"><a
+							href="4f4d3db7-4f76-450d-ab63-141237a4f034.htm">了解游标类型</a></span>。
+					</p>
+				</div>
+				<p>
+					运行完 <b>Statement</b> 对象中包含的查询且数据已经以结果集的形式返回到客户端后，可以调用 <b>setFetchSize</b>
+					方法来控制一次可从数据库中检索的数据量。例如，某表格包含 100 行数据，提取大小设置为 10，则无论何时，客户端中都仅缓存 10
+					行数据。尽管这样会降低数据处理速度，但其优势是所占用的客户端内存较少，这在需要处理大量数据时尤为有用。
+				</p>
+				<p>此示例的代码文件名为 cacheRS.java，该文件可在以下位置找到：</p>
+				<p>
+					&lt;<i>安装目录</i>&gt;\sqljdbc_&lt;<i>版本</i>&gt;\&lt;<i>语言</i>&gt;\help\samples\resultsets
+				</p>
+			</div>
+			<h1 class="heading">要求</h1>
+			<div id="requirementsTitleSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					若要运行此示例应用程序，必须将 classpath 设置为包含 sqljdbc.jar 文件或 sqljdbc4.jar 文件。如果
+					classpath 缺少 sqljdbc.jar 项或 sqljdbc4.jar
+					项，示例应用程序将引发“找不到类”的常见异常。还需要访问 SQL Server 2005 AdventureWorks
+					示例数据库。有关如何设置 classpath 的详细信息，请参阅<span sdata="link"><a
+						href="6faaf05b-8b70-4ed2-9b44-eee5897f1cd0.htm">使用 JDBC Driver</a></span>。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						Microsoft JDBC Driver for SQL Server 提供两个类库文件：sqljdbc.jar 和
+						sqljdbc4.jar，具体使用哪个文件取决于首选的 Java 运行时环境 (JRE) 设置。有关选择哪个 JAR
+						文件的详细信息，请参阅 <span sdata="link"><a
+							href="447792bb-f39b-49b4-9fd0-1ef4154c74ab.htm">JDBC Driver
+								的系统要求</a></span>。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="exampleSection" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在下面的示例中，示例代码将建立与 AdventureWorks 示例数据库的连接。接下来，它会使用带有 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					对象的 SQL 语句，指定服务器端游标类型，然后运行 SQL 语句并将所返回的数据放入 <b>SQLServerResultSet</b>
+					对象。
+				</p>
+				<p>
+					随后，示例代码调用自定义的 <b>timerTest</b> 方法，需要传递的参数为要使用的提取大小和结果集。<b>timerTest</b>
+					方法接下来将使用 <b>setFetchSize</b> 方法设置结果集的提取大小，设置测试的起始时间，然后使用 <span
+						class="code">While</span> 循环遍历结果集。<span class="code">While</span>
+					循环退出后，该代码立即设置测试的停止时间，然后显示测试结果，其中包括提取大小、已处理的行数以及执行该测试所用的时间。
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>import java.sql.*;
+import com.microsoft.sqlserver.jdbc.SQLServerResultSet;
+
+public class cacheRS {
+
+   public static void main(String[] args) {
+
+      // Create a variable for the connection string.
+      String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
+            "databaseName=AdventureWorks;integratedSecurity=true;";
+
+      // Declare the JDBC objects.
+      Connection con = null;
+      Statement stmt = null;
+      ResultSet rs = null;
+
+      try {
+
+         // Establish the connection.
+         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+         con = DriverManager.getConnection(connectionUrl);
+
+         // Create and execute an SQL statement that returns a large
+         // set of data and then display it.
+         String SQL = "SELECT * FROM Sales.SalesOrderDetail;";
+         stmt = con.createStatement(SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY, +
+               SQLServerResultSet.CONCUR_READ_ONLY);
+
+         // Perform a fetch for every row in the result set.
+         rs = stmt.executeQuery(SQL);
+         timerTest(1, rs);
+         rs.close();
+
+         // Perform a fetch for every tenth row in the result set.
+         rs = stmt.executeQuery(SQL);
+         timerTest(10, rs);
+         rs.close();
+
+         // Perform a fetch for every 100th row in the result set.
+         rs = stmt.executeQuery(SQL);
+         timerTest(100, rs);
+         rs.close();
+
+         // Perform a fetch for every 1000th row in the result set.
+         rs = stmt.executeQuery(SQL);
+         timerTest(1000, rs);
+         rs.close();
+
+         // Perform a fetch for every 128th row (the default) in the result set.
+         rs = stmt.executeQuery(SQL);
+         timerTest(0, rs);
+         rs.close();
+      }
+
+      // Handle any errors that may have occurred.
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      finally {
+         if (rs != null) try { rs.close(); } catch(Exception e) {}
+         if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+         if (con != null) try { con.close(); } catch(Exception e) {}
+      }
+   }
+
+   private static void timerTest(int fetchSize, ResultSet rs) {
+      try {
+
+         // Declare the variables for tracking the row count and elapsed time.
+         int rowCount = 0;
+         long startTime = 0;
+         long stopTime = 0;
+         long runTime = 0;
+
+         // Set the fetch size then iterate through the result set to
+         // cache the data locally.
+         rs.setFetchSize(fetchSize);
+         startTime = System.currentTimeMillis();
+         while (rs.next()) {
+            rowCount++;
+         }
+         stopTime = System.currentTimeMillis();
+         runTime = stopTime - startTime;
+
+         // Display the results of the timer test.
+         System.out.println("FETCH SIZE: " + rs.getFetchSize());
+         System.out.println("ROWS PROCESSED: " + rowCount);
+         System.out.println("TIME TO EXECUTE: " + runTime);
+         System.out.println();
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="4fc4b1c6-3075-4ad7-9244-865d9ede7ae6.htm">使用结果集</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

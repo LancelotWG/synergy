@@ -1,0 +1,56 @@
+8
+
+dir
+5048
+http://192.168.0.100/svn/trunk/PSM/Editor/processdesigner/lib/yui/carousel/assets
+http://192.168.0.100/svn
+
+
+
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3b7ddcfd-8522-0410-b790-dbbf41f9375a
+
+skins
+dir
+
+carousel-core.css
+file
+
+
+
+
+2012-05-28T08:18:59.645314Z
+7ef84596f548d2800ae7e4367e4c365e
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+ajax-loader.gif
+file
+
+
+
+
+2012-05-28T08:18:59.645314Z
+734023ef4fd81fb5638c9d5c3d6a8fdf
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+has-props
+

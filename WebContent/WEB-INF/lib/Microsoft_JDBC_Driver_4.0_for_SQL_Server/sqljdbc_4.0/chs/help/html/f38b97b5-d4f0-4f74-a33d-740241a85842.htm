@@ -1,0 +1,124 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>setString 方法 (SQLServerCallableStatement)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerCallableStatement.setString 方法" />
+<meta name="Microsoft.Help.Id"
+	content="f38b97b5-d4f0-4f74-a33d-740241a85842" />
+<meta name="Description" content="将指定参数设置为给定的 Java String 值。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">setString 方法
+						(SQLServerCallableStatement)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					将指定参数设置为给定的 Java <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span> 值。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void <b>setString</b>(java.lang.String <span class="parameter"
+								sdata="paramReference">sCol</span>,
+                      java.lang.String <span class="parameter"
+								sdata="paramReference">s</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">sCol</span>
+				</p>
+				<p>
+					包含参数名称的 <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">s</span>
+				</p>
+				<p>
+					<span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span> 值。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>setString</b> 方法由 java.sql.CallableStatement 接口中的 <b>setString</b>
+					方法指定。
+				</p>
+				<p>
+					仅在 Microsoft JDBC Driver for SQL Server
+					知道目标类型为二进制时，方会执行字符串到二进制的转换。如果 JDBC 驱动程序不知道基础类型，它将会传递 <span
+						sdata="langKeyword" value="String"><span class="keyword">String</span></span>
+					文本并在服务器不能执行转换时返回一个服务器错误。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="5ebdc186-e50f-4d14-bbf4-95af5051e4a4.htm">SQLServerCallableStatement
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

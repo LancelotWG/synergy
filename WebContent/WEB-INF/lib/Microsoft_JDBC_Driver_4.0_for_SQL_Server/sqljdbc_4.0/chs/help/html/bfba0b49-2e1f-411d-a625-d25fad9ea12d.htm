@@ -1,0 +1,107 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>连接性疑难解答</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="连接性疑难解答" />
+<meta name="Microsoft.Help.Id"
+	content="bfba0b49-2e1f-411d-a625-d25fad9ea12d" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 需要安装并运行 TCP/IP 以与 SQL Server 数据库进行通信。可以使用 SQL Server 配置管理器检查已安装了哪些网络库协议。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">连接性疑难解答</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server 需要安装并运行 TCP/IP 以与 SQL
+					Server 数据库进行通信。可以使用 SQL Server 配置管理器检查已安装了哪些网络库协议。</p>
+				<p>数据库连接失败的原因有多种。包括下列原因：</p>
+				<ul>
+					<li><p>SQL Server 无法启用 TCP/IP，或者指定的服务器或端口号不正确。验证 SQL
+							Server 是否正通过指定服务器和端口上的 TCP/IP 进行侦听。系统可能会报告类似“登录已经失败。对主机的 TCP/IP
+							连接已失败。”的异常。这指示下列内容之一：</p>
+						<ul>
+							<li><p>已安装了 SQL Server，但并没有针对 SQL Server 将 TCP/IP
+									作为网络协议进行安装（通过使用 SQL Server 2000 的 SQL Server 网络实用工具，或者使用 SQL
+									Server 2005 和更高版本的 SQL Server 配置管理器）。</p></li>
+							<li><p>
+									已作为 SQL Server 协议安装了 TCP/IP，但是它并没有侦听 JDBC 连接 URL 中指定的端口。默认端口为
+									1433，但可以在安装产品时将 SQL Server 配置为侦听任意端口。确保 SQL Server 正在侦听端口
+									1433。或者，如果端口已更改，则应确保 JDBC 连接 URL 中指定的端口与更改的端口相匹配。有关 JDBC 连接 URL
+									的详细信息，请参阅<span sdata="link"><a
+										href="44996746-d373-4f59-9863-a8a20bb8024a.htm">创建连接 URL</a></span>。
+								</p></li>
+							<li><p>JDBC 连接 URL 中指定的计算机地址没有引用在其中安装并启动了 SQL Server
+									的服务器。</p></li>
+							<li><p>
+									无法执行客户端和运行 SQL Server 的服务器之间的 TCP/IP 的网络操作。可以使用 telnet 检查
+									TCP/IP 与 SQL Server 的连接性。例如，在命令提示符下，键入<span class="code">
+										telnet 192.168.0.0 1433 </span>，此处 192.168.0.0 是运行 SQL Server
+									的计算机地址，而 1433 是其侦听的端口。如果收到“Telnet 无法连接”的消息，则 TCP/IP 没有侦听 SQL
+									Server 连接的端口。使用 SQL Server 网络实用工具（对于 SQL Server 2000）或 SQL
+									Server 配置管理器（对于 SQL Server 2005 和更高版本），以确保将 SQL Server 配置为在端口
+									1433 上使用 TCP/IP。
+								</p></li>
+							<li><p>未在防火墙中打开服务器使用的端口。这包括服务器使用的端口或与该服务器的指定实例相关联的端口（可选）。</p></li>
+						</ul></li>
+					<li><p>指定的数据库名称不正确。确保所登录的 SQL Server 数据库是现有的数据库。</p></li>
+					<li><p>用户名或密码不正确。确保提供正确的值。</p></li>
+					<li><p>使用 SQL Server 身份验证时，JDBC 驱动程序要求安装带有 SQL Server
+							身份验证的 SQL Server，但在默认情况下，系统不会安装带有此功能的组件。在安装或配置 SQL Server
+							实例时，应确保带有此选项。</p></li>
+				</ul>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="723e2680-a0c5-4a7d-a319-1e49e41078cf.htm">诊断与 JDBC
+							驱动程序有关的问题</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

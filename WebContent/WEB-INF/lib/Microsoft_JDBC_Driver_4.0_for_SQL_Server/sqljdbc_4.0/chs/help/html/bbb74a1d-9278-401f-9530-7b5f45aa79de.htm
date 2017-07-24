@@ -1,0 +1,159 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>JDBC Driver 的国际功能</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="排序规则" />
+<meta name="System.Keywords" content="国际功能" />
+<meta name="System.Keywords" content="区域设置" />
+<meta name="Microsoft.Help.Id"
+	content="bbb74a1d-9278-401f-9530-7b5f45aa79de" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 的国际功能包括：" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">JDBC Driver 的国际功能</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server 的国际功能包括：</p>
+				<ul>
+					<li><p>通过使用与 SQL Server 相同的语言来为用户提供完全本地化的体验。</p></li>
+					<li><p>对于受区域设置影响的 SQL Server 数据，支持 Java 语言转换。</p></li>
+					<li><p>无论使用何种操作系统，都支持国际语言。</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">处理字符数据</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					默认情况下，Java 中的字符数据作为 Unicode 进行处理；Java <span sdata="langKeyword"
+						value="String"><span class="keyword">String</span></span> 对象表示
+					Unicode 字符数据。在 JDBC Driver 中，唯一可以不遵守此规则的是 ASCII 流的 getter 和 setter
+					方法，这属于比较特殊的情况，因为这些方法使用的字节流带有单个已知代码页 (ASCII) 的隐式假定。
+				</p>
+				<p>
+					此外，JDBC Driver 还提供了 <span sdata="langKeyword"
+						value="sendStringParametersAsUnicode"><span class="keyword">sendStringParametersAsUnicode</span></span>
+					连接字符串属性。此属性可用于指定字符数据的预定义参数作为 ASCII 或多字节字符集 (MBCS) 而不是 Unicode
+					来发送。有关 <span sdata="langKeyword"
+						value="sendStringParametersAsUnicode"><span class="keyword">sendStringParametersAsUnicode</span></span>
+					连接字符串属性的详细信息，请参阅 <span sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+				<h1 class="heading">驱动程序传入转换</h1>
+				<div class="subsection">
+					<p>来自服务器的 Unicode 文本数据不是必须要转换的数据。它将作为 Unicode 直接进行传递。来自服务器的非
+						Unicode 数据从数据库或列级别的数据代码页直接转换为 Unicode。JDBC 驱动程序将使用 Java 虚拟机 (JVM)
+						转换例程执行这些转换。这些转换将通过所有类型化 String 和 Character 流 getter 方法得到执行。</p>
+					<p>如果 JVM 无法对来自数据库的数据提供相应的代码页支持，则 JDBC Driver 将引发“Java 环境不支持
+						XXX 代码页”异常。要解决此问题，您应安装该 JVM 所需的完整国际字符支持。有关示例，请参阅 Sun Microsystems
+						网站上的 Supported Encodings（受支持的编码）文档。</p>
+				</div>
+				<h1 class="heading">驱动程序传出转换</h1>
+				<div class="subsection">
+					<p>
+						从驱动程序发送至服务器的字符数据可以为 ASCII 或 Unicode。例如，新的 JDBC 4.0 区域字符方法（例如，<a
+							href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+						类和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+						类的 <b>setNString</b>、<b>setNCharacterStream</b> 和 <b>setNClob</b>
+						方法）始终以 Unicode 格式将参数值发送到服务器。
+					</p>
+					<p>
+						另一方面，非区域字符 API 方法（例如，<a
+							href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+						类和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+						类的 <b>setString</b>、<b>setCharacterStream</b> 和 <b>setClob</b>
+						方法）仅在 <span sdata="langKeyword"
+							value="sendStringParametersAsUnicode"><span
+							class="keyword">sendStringParametersAsUnicode</span></span>
+						属性设置为“True”（默认值）时才以 Unicode 格式将值发送到服务器。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">非 Unicode 参数</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					为了获得非 Unicode 参数的 <span sdata="langKeyword" value="CHAR"><span
+						class="keyword">CHAR</span></span>、<span sdata="langKeyword"
+						value="VARCHAR"><span class="keyword">VARCHAR</span></span> 或 <span
+						sdata="langKeyword" value="LONGVARCHAR"><span
+						class="keyword">LONGVARCHAR</span></span> 类型的最佳性能，请将 <span
+						sdata="langKeyword" value="sendStringParametersAsUnicode"><span
+						class="keyword">sendStringParametersAsUnicode</span></span>
+					连接字符串属性设置为“False”，并使用非区域字符方法。
+				</p>
+			</div>
+			<h1 class="heading">格式问题</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于日期、时间和货币，将使用 <b>Locale</b> 对象在 Java 语言级别执行本地化数据的所有格式设置，并针对 <span
+						sdata="langKeyword" value="Date"><span class="keyword">Date</span></span>、<span
+						sdata="langKeyword" value="Calendar"><span class="keyword">Calendar</span></span>
+					和 <span sdata="langKeyword" value="Number"><span
+						class="keyword">Number</span></span> 数据类型执行各种不同的格式设置方法。只有在极少数的情况下，JDBC
+					Driver 才需要以本地化格式传递受区域设置影响的数据，此时需要根据默认的 JVM 区域设置来使用相应的格式化程序。
+				</p>
+			</div>
+			<h1 class="heading">排序规则支持</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC Driver 3.0 支持 SQL Server 2000 和 SQL Server 2005
+					支持的所有排序规则，此外还支持 SQL Server 2008 中引入的新排序规则或新版 Windows 排序规则名称。</p>
+				<p>
+					有关排序规则的详细信息，请参阅 SQL Server 联机丛书中的<a
+						href="http://go.microsoft.com/fwlink/?LinkId=131366">排序规则和
+						Unicode 支持</a>和 <a
+						href="http://go.microsoft.com/fwlink/?LinkId=131367">Windows
+						排序规则名称 (Transact-SQL)</a>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

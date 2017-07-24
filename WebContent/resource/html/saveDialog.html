@@ -1,0 +1,73 @@
+<div id="saveFileForm" align="center">
+			<!--<div data-dojo-type="dijit.layout.BorderContainer" data-dojo-props='style:"height:100%; width:600px"'>
+				<div data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"left", style:"width:130px"' align="left">
+					<p><b>保存类型:</b></p>
+					<div style="height:30px">
+						<input type="radio" data-dojo-type="dijit.form.RadioButton" name="SaveType" id="toDefault" checked observer="saveTypeChanged"/>
+						<label for="toDefault">toDefault</label>
+					</div>
+					<div style="height:30px">
+						<input type="radio" data-dojo-type="dijit.form.RadioButton" name="SaveType" id="toUengine" observer="saveTypeChanged"/>
+						<label for="toUengine">toUengine</label>
+					</div>
+					<div style="height:30px">
+						<input type="radio" data-dojo-type="dijit.form.RadioButton" name="SaveType" id="toCSEEditor" observer="saveTypeChanged"/> 
+						<label for="toCSEEditor">toCSEEditor</label>
+					</div>
+					<div style="height:30px">	
+						<input type="radio" data-dojo-type="dijit.form.RadioButton" name="SaveType" id="toModelCenter" observer="saveTypeChanged"/> 
+						<label for="toModelCenter">toModelCenter</label>
+					</div>
+					<div style="height:30px">
+						<input type="radio" data-dojo-type="dijit.form.RadioButton" name="SaveType" id="toCustom" observer="saveTypeChanged"/> 
+						<label for="toCustom">Use custom tags</label> <br />
+					</div>	
+				</div>
+				<div data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"center"' align="left">
+					<p><b>文件内容:</b></p>
+					<pre name="fileContent" id="fileContent"></pre> 
+				</div>
+			</div>-->
+	<!--<div align="left" style="margin-top:0.5em">
+		<input id="remember" name="remember" data-dojo-type="dijit.form.CheckBox" value="getRememberValue()"
+			onChange="rememberChanged()"> 
+		<label>记录当前设置，下次不再提示?</label>
+	</div>-->
+	<span>流程已保存成功，是否生成XML至本地</span>
+	<div align="center">
+        <button data-dojo-type="dijit.form.Button" data-dojo-props='type:"button",onClick:saveToLocal'>确定</button>
+        <button data-dojo-type="dijit.form.Button" data-dojo-props='type:"button",onClick:function(){ dijit.byId("saveDlg").onCancel(); }'>取消</button>
+	</div>
+	<!--<script type="dojo/method" event="saveTypeChanged">
+		var values = this.gatherFormValues(["SaveType"]);
+		var theSelected;
+		dojo.forEach(document.getElementsByName("SaveType"),function(item){
+			var widget = dijit.byId(item.id);
+			if(widget.get("checked")) theSelected = item.id;
+		});
+		switch(theSelected){
+			case "toUengine":
+			case "toCSEEditor":
+				var radio = dijit.byId(theSelected);
+				if(theSelected=="toCSEEditor"){
+					var canTransfer = dojo.query("ForEach",this.sourceDom).length==0;
+					canTransfer = canTransfer&&(dojo.query("IfElse",this.sourceDom).length==0);
+					if(!canTransfer){
+						alert("流程中包含循环或选择分支，CSE_Editor不支持这些结构，无法转换！");
+						break;
+					}
+				} 
+				var value = radio.get("value");
+				if(value){
+                     xsltTransfer(theSelected,this.sourceDom,theSelected,"fileContent");
+				}
+				break;
+			case "toDefault":
+				dojo.byId("fileContent").innerText = dijit.byId(theSelected).get("value");
+				break;
+			default:
+				alert("此功能尚未开放");
+		}
+	</script>-->
+    <!--<iframe src="" width="0" height="0" name="fileIframe"></iframe>-->
+</div>

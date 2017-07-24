@@ -1,0 +1,1575 @@
+<?xml version='1.0' encoding='GBK'?>
+<!-- Schema file written by Blueprint -->
+<schema targetNamespace="RmConfig" xmlns="http://www.w3.org/2001/XMLSchema">
+   <annotation>
+      <appInfo>
+         <meta.schema
+            name="余度管理配置"
+           />
+      </appInfo>
+      <documentation>
+         主要配置余度管理配置工具的规则检查器与代码生成器的地址。
+      </documentation>
+   </annotation>
+
+   <element name="root">
+      <annotation>
+         <appInfo>
+            <meta.element label="余度管理配置" headfile="true" />
+         </appInfo>
+         <documentation>
+            
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="GLOBAL_CFG"/>
+            <element ref="ANA_CFG"/>
+            <element ref="DIS_CFG"/>
+            <element ref="FAIL_INTE_CFG"/>
+            <element ref="FAIL_RCV"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="RM_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="余度管理配置" headfile="true"/>
+         </appInfo>
+         <documentation>
+            
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="CFG" use="default" value="4" valueStep="0">
+            <annotation>
+               <documentation>
+                 
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="计算机余度管理配置" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+                  <enumeration value="4">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="GLOBAL_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="整体配置" headfile="true"/>
+         </appInfo>
+         <documentation>
+            
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="RM_CFG"/>
+            <element ref="SCHEDULE_CFG"/>
+            <element ref="RM_DELAY_CFG"/>
+         </sequence>
+         <attribute name="ANA_COM" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="传感器管理使能" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_COM" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="离散量管理使能" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_INT_COM" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="故障综合使能" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_RCV_COM" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="故障恢复使能" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="SCHEDULE_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="速率组配置" headfile="true"/>
+         </appInfo>
+         <documentation>
+           
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="SCHEDULE_GRP" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="frame_period" type="real" use="default" value="12.5" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="系统小帧周期(ms)" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="SCHEDULE_GRP">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="group_id" type="string" use="default" value="P0" valueStep="0">
+            <annotation>
+               <documentation>
+               
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="速率组周期ID" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="period_config" use="default" value="1" valueStep="0">
+            <annotation>
+               <documentation>
+                  调度周期为小帧的倍数。
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="调度周期配置(帧)" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+                  <enumeration value="4">
+                  </enumeration>
+                  <enumeration value="5">
+                  </enumeration>
+                  <enumeration value="6">
+                  </enumeration>
+                  <enumeration value="7">
+                  </enumeration>
+                  <enumeration value="8">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ANA_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="传感器余度管理" disable="true" disableOn="RmConfig/GLOBAL_CFG/@ANA_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+         <documentation>
+           
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="ANA_SIG_CFG"/>
+         </sequence>
+         <attribute name="ANA_LAST_STATE" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA余度管理使用上次状态" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_2TO2_NO_WORK" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA奇异故障2V2切除通道" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_DATA_TYPE_SINT16" type="boolean" use="default" value="true" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="传感器数据16位整型类型" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_DATA_TYPE_FLOAT64" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="传感器数据64位浮点类型" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_DATA_TYPE_FLOAT32" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="传感器数据32位浮点类类型" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="DIS_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="离散量余度管理" disable="true" disableOn="RmConfig/GLOBAL_CFG/@DIS_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+         <documentation>
+            
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="DIS_SIG_CFG" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="故障综合" disable="true" disableOn="RmConfig/GLOBAL_CFG/@FAIL_INT_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="FAIL_INTE_LIST"/>
+            <element ref="FAIL_INTE_ANA_LIST"/>
+            <element ref="FAIL_INTE_DIS_LIST"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="RM_DELAY_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="余度管理时延配置" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="ANA_DELAY_CFG"/>
+            <element ref="DIS_DELAY_CFG"/>
+            <element ref="RCV_DELAY_CFG"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="ANA_DELAY_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="传感器监控时延" disable="true" disableOn="RmConfig/GLOBAL_CFG/@ANA_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="ANA_MON_DELAY" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="DIS_DELAY_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="离散量监控时延" disable="true" disableOn="RmConfig/GLOBAL_CFG/@DIS_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="DIS_MON_DELAY" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="RCV_DELAY_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="故障恢复时延" disable="true" disableOn="RmConfig/GLOBAL_CFG/@FAIL_RCV_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="RCV_DELAY" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="ANA_MON_DELAY">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="ANA_MON_DELAY_ID" type="string" use="default" value="DELAY_" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA信号监控时延ID" headfile="true" maxLength="36"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_MON_DELAY_VAL" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA监控时延值(ms)" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="DIS_MON_DELAY">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="DIS_MON_DELAY_ID" type="string" use="default" value="DELAY_" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="DIS信号监控时延ID" headfile="true" maxLength="36"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_MON_DELAY_VAL" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="DIS监控时延值(ms)" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="RCV_DELAY">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="RCV_DELAY_ID" type="string" use="default" value="DELAY_" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="故障恢复时延ID" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="RCV_DELAY_VAL" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="故障时延值(ms)" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ANA_SIG_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="ANA_NAME" type="string">
+            <annotation>
+               <documentation>
+                 
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA信号名称" headfile="true" maxLength="30"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_NOTE" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA信号注释" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RM_CFG" use="default" value="ABC" valueStep="0">
+            <annotation>
+               <documentation>
+                 
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA余度配置" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="ABCD">
+                  </enumeration>
+                  <enumeration value="ABC">
+                  </enumeration>
+                  <enumeration value="AB">
+                  </enumeration>
+                  <enumeration value="ABD">
+                  </enumeration>
+                  <enumeration value="ACD">
+                  </enumeration>
+                  <enumeration value="BCD">
+                  </enumeration>
+                  <enumeration value="AC">
+                  </enumeration>
+                  <enumeration value="AD">
+                  </enumeration>
+                  <enumeration value="BC">
+                  </enumeration>
+                  <enumeration value="BD">
+                  </enumeration>
+                  <enumeration value="CD">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_IO" use="default" value="M_RM_IO_INPUT" valueStep="0">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA输入输出属性" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_IO_INPUT">
+                  </enumeration>
+                  <enumeration value="M_RM_IO_OUTPUT">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_RM4_DELAY" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/ANA_DELAY_CFG/ANA_MON_DELAY/@ANA_MON_DELAY_ID" label="ANA四余度监控时延" disable="true" disableOn="./@ANA_RM_CFG" disableValues="1;2;3" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RM3_DELAY" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/ANA_DELAY_CFG/ANA_MON_DELAY/@ANA_MON_DELAY_ID" label="ANA三余度监控时延" disable="true" disableOn="./@ANA_RM_CFG" disableValues="1;2" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RM2_DELAY" type="string">
+            <annotation>
+               <documentation>
+             
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/ANA_DELAY_CFG/ANA_MON_DELAY/@ANA_MON_DELAY_ID" label="ANA两余度监控时延" disable="true" disableOn="./@ANA_RM_CFG" disableValues="1" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RM1_DELAY" type="string">
+            <annotation>
+               <documentation>
+               
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/ANA_DELAY_CFG/ANA_MON_DELAY/@ANA_MON_DELAY_ID" label="ANA单余度监控时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_SPEC_DELAY" type="string">
+            <annotation>
+               <documentation>
+             
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/ANA_DELAY_CFG/ANA_MON_DELAY/@ANA_MON_DELAY_ID" label="ANA奇异故障监控时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_LIMIT_RANGE" type="integer" use="default" value="32737" valueStep="0">
+            <annotation>
+               <documentation>
+               
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="ANA幅值" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_IS_VARYLIMIT" use="default" value="M_RM_FIX_LIMIT" valueStep="0">
+            <annotation>
+               <documentation>
+                 
+               </documentation>
+               <appInfo>
+                  <meta.attribute label="变门限" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_VARY_LIMIT">
+                  </enumeration>
+                  <enumeration value="M_RM_FIX_LIMIT">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_LIMIT_SIG0" type="integer" use="default" value="10" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="监控门限小边界(%)" disable="true" disableOn="./@ANA_IS_VARYLIMIT" disableValues="M_RM_FIX_LIMIT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_LIMIT_SIG1" type="integer" use="default" value="10" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="监控门限大边界(%)" disable="true" disableOn="./@ANA_IS_VARYLIMIT" disableValues="M_RM_FIX_LIMIT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_LIMIT_TOL0" type="integer" use="default" value="10" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA小信号门限(%)" disable="true" disableOn="./@ANA_IS_VARYLIMIT" disableValues="M_RM_FIX_LIMIT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_LIMIT_TOL1" type="integer" use="default" value="10" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA大信号门限(%)" disable="true" disableOn="./@ANA_IS_VARYLIMIT" disableValues="M_RM_FIX_LIMIT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_FIX_TOL" type="integer" use="default" value="10" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA监控定门限(%)" disable="true" disableOn="./@ANA_IS_VARYLIMIT" disableValues="M_RM_VARY_LIMIT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_IS_ILM" use="default" value="M_RM_NO_ILM" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="自监控" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_NO_ILM">
+                  </enumeration>
+                  <enumeration value="M_RM_ILM_WORK">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_IS_SINGLE_WORK" use="default" value="M_RM_SINGLE_NOT_WORK" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="单通道工作" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_SINGLE_NOT_WORK">
+                  </enumeration>
+                  <enumeration value="M_RM_SINGLE_WORK">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_FAIL_WAY" use="default" value="M_RM_SAFE_VAL" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA失效处理方式" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_PRE_VAL">
+                  </enumeration>
+                  <enumeration value="M_RM_SAFE_VAL">
+                  </enumeration>
+                  <enumeration value="M_RM_PRE_VOTE_VAL">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_SAFE_VAL" type="real" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA故障安全值" disable="true" disableOn="./@ANA_FAIL_WAY" disableValues="M_RM_PRE_VAL;M_RM_PRE_VOTE_VAL" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_MON_GROUP" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/SCHEDULE_CFG/SCHEDULE_GRP/@group_id" label="ANA监控速率组" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_VOTE_GROUP" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/SCHEDULE_CFG/SCHEDULE_GRP/@group_id" label="ANA表决速率组" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_PRE_FLAG" use="default" value="M_RM_NO_PRE_CUT" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA切除通道允许" disable="true" disableOn="./@BUS_COM" disableValues="false" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_NO_PRE_CUT">
+                  </enumeration>
+                  <enumeration value="M_RM_PRE_CUT_EXT">
+                  </enumeration>
+                  <enumeration value="M_RM_PRE_CUT_BUS">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_BUS_FLAG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/BUS_CFG/BUS_DEV_CFG/@BUS_NAME" label="ANA切除通道标志" disable="true" disableOn="./@ANA_PRE_FLAG" disableValues="M_RM_NO_PRE_CUT;M_RM_PRE_CUT_EXT" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_REC_FLAG" use="default" value="M_RM_FAIL_REC" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA故障记录允许标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_FAIL_REC">
+                  </enumeration>
+                  <enumeration value="M_RM_NO_FAIL_REC">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_FAIL_CODE" type="string" use="default" value="0x0000" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA故障代码" disable="true" disableOn="./@ANA_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_ACC_ID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA瞬态故障区域ID" disable="true" disableOn="./@ANA_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_PER_ID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA永久故障区域ID" disable="true" disableOn="./@ANA_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_CPUV_MON" use="default" value="M_RM_PFC_NO_MON" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA-CPUV监控" disable="true" disableOn="./@ANA_IO" disableValues="M_RM_IO_INPUT" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_PFC_NO_MON">
+                  </enumeration>
+                  <enumeration value="M_RM_PFC_CPUV">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="ANA_DPV_MON" use="default" value="M_RM_PFC_NO_MON" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA-DPV监控" disable="true" disableOn="./@ANA_IO" disableValues="M_RM_IO_INPUT" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_PFC_NO_MON">
+                  </enumeration>
+                  <enumeration value="M_RM_PFC_DPV">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="DIS_SIG_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="DIS_NAME" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号名称" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_NOTE" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号注释" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RM_CFG" use="default" value="ABC" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS余度配置" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="ABCD">
+                  </enumeration>
+                  <enumeration value="ABC">
+                  </enumeration>
+                  <enumeration value="AB">
+                  </enumeration>
+                  <enumeration value="ABD">
+                  </enumeration>
+                  <enumeration value="ACD">
+                  </enumeration>
+                  <enumeration value="BCD">
+                  </enumeration>
+                  <enumeration value="AC">
+                  </enumeration>
+                  <enumeration value="AD">
+                  </enumeration>
+                  <enumeration value="BC">
+                  </enumeration>
+                  <enumeration value="BD">
+                  </enumeration>
+                  <enumeration value="CD">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_IO" value="M_RM_IO_INPUT" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS输入输出属性" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_IO_INPUT">
+                  </enumeration>
+                  <enumeration value="M_RM_IO_OUTPUT">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_VOTE_METHOD" use="default" value="M_RM_DIS_VOTE_MULTI" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS表决方法" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_DIS_VOTE_MULTI">
+                  </enumeration>
+                  <enumeration value="M_RM_DIS_VOTE_SAME">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_RM4_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/DIS_DELAY_CFG/DIS_MON_DELAY/@DIS_MON_DELAY_ID" label="DIS四余度监控时延" disable="true" disableOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_RM_CFG" disableValues="1;2;3" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RM3_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/DIS_DELAY_CFG/DIS_MON_DELAY/@DIS_MON_DELAY_ID" label="DIS三余度监控时延" disable="true" disableOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_RM_CFG" disableValues="1;2" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RM2_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/DIS_DELAY_CFG/DIS_MON_DELAY/@DIS_MON_DELAY_ID" label="DIS两余度监控时延" disable="true" disableOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_RM_CFG" disableValues="1" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RM1_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/DIS_DELAY_CFG/DIS_MON_DELAY/@DIS_MON_DELAY_ID" label="DIS单余度监控时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_SPEC_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/DIS_DELAY_CFG/DIS_MON_DELAY/@DIS_MON_DELAY_ID" label="DIS奇异故障监控时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_IS_ILM" use="default" value="M_RM_NO_ILM" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_NO_ILM">
+                  </enumeration>
+                  <enumeration value="M_RM_ILM_WORK">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_IS_SINGLE_WORK" use="default" value="M_RM_SINGLE_NOT_WORK" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_SINGLE_NOT_WORK">
+                  </enumeration>
+                  <enumeration value="M_RM_SINGLE_WORK">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_FAIL_WAY" use="default" value="M_RM_SAFE_VAL" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_SAFE_VAL">
+                  </enumeration>
+                  <enumeration value="M_RM_PRE_VAL">
+                  </enumeration>
+                  <enumeration value="M_RM_PRE_VOTE_VAL">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_SAFE_VAL" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute disable="true" disableOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_FAIL_WAY" disableValues="M_RM_PRE_VAL;M_RM_PRE_VOTE_VAL" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_MV_GROUP" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/SCHEDULE_CFG/SCHEDULE_GRP/@group_id" label="DIS监控表决速率组" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_PRE_FLAG" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS切除通道允许" disable="true" disableOn="RmConfig/GLOBAL_CFG/@BUS_COM" disableValues="false" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_BUS_FLAG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/BUS_CFG/BUS_DEV_CFG/@BUS_NAME" label="DIS切除通道标志" disable="true" disableOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_PRE_FLAG" disableValues="false" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_REC_FLAG" use="default" value="M_RM_FAIL_REC" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS故障记录允许标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_FAIL_REC">
+                  </enumeration>
+                  <enumeration value="M_RM_NO_FAIL_REC">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_FAIL_CODE" type="string" use="default" value="0x0000" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS故障代码" disable="true" disableOn="./@DIS_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_ACC_ID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS瞬态故障区域ID" disable="true" disableOn="./@DIS_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_PER_ID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS永久故障区域ID" disable="true" disableOn="./@DIS_REC_FLAG" disableValues="M_RM_NO_FAIL_REC" headfile="true" maxLength="10"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_CPUV_MON" value="M_RM_PFC_NO_MON" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS-CPUV监控" disable="true" disableOn="./@DIS_IO" disableValues="M_RM_IO_INPUT" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_PFC_NO_MON">
+                  </enumeration>
+                  <enumeration value="M_RM_PFC_CPUV">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="DIS_DPV_MON" value="M_RM_PFC_NO_MON" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS-DPV监控" disable="true" disableOn="./@DIS_IO" disableValues="M_RM_IO_INPUT" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="expression">
+                  <enumeration value="M_RM_PFC_NO_MON">
+                  </enumeration>
+                  <enumeration value="M_RM_PFC_DPV">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ANA_FAIL_REC">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="ANA_REC_NAME" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/ANA_CFG/ANA_SIG_CFG/@ANA_NAME" label="ANA信号故障记录名称" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_FAIL_CODE" type="string" use="default" value="0x0000" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号故障代码" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_ACC_AREAID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号瞬态故障区域" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="DIS_FAIL_REC">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="DIS_REC_NAME" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_NAME" label="DIS信号故障记录名称" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="BUS_FAIL_CODE" type="string" use="default" value="0x0000" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="BUS信号故障代码" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_ACC_AREAID" type="string" use="default" value="0x0001" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号瞬态故障区域" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ANA_CMD_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="模拟输出指令监控" disable="true" disableOn="RmConfig/GLOBAL_CFG/@ANA_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="ANA_SIG_CFG" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="DIS_CMD_CFG">
+      <annotation>
+         <appInfo>
+            <meta.element label="离散输出指令监控" disable="true" disableOn="RmConfig/PFC_CFG/@DIS_CMD_MON_FLAG" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="DIS_SIG_CFG"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_ANA_LIST">
+      <annotation>
+         <appInfo>
+            <meta.element label="ANA信号故障综合" disable="true" disableOn="RmConfig/GLOBAL_CFG/@ANA_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="FAIL_INTE_ANA" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_ANA">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="FAIL_INTE_ANA_SIG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/ANA_CFG/ANA_SIG_CFG/@ANA_NAME" label="ANA信号故障综合" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/FAIL_INTE_CFG/FAIL_INTE_LIST/FAIL_INTE_LEVEL/@FAIL_INTE_INDEX" label="故障综合类别" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL0" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号无故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL1" use="default" value="1" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号1次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL2" use="default" value="2" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号2次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL3" use="default" value="3" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号3次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_ANA_LEVEL4" use="default" value="3" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="ANA信号全故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_DIS_LIST">
+      <annotation>
+         <appInfo>
+            <meta.element label="DIS信号故障综合" disable="true" disableOn="RmConfig/GLOBAL_CFG/@DIS_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="FAIL_INTE_DIS" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_DIS">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="FAIL_INTE_DIS_SIG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_NAME" label="DIS信号故障综合" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/FAIL_INTE_CFG/FAIL_INTE_LIST/FAIL_INTE_LEVEL/@FAIL_INTE_INDEX" label="故障综合类别" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL0" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号无故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL1" use="default" value="1" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号1次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL2" use="default" value="2" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号2次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL3" use="default" value="3" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号3次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="integer">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="FAIL_INTE_DIS_LEVEL4" use="default" value="3" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="DIS信号4次故障申报" headfile="true"/>
+               </appInfo>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="0">
+                  </enumeration>
+                  <enumeration value="1">
+                  </enumeration>
+                  <enumeration value="2">
+                  </enumeration>
+                  <enumeration value="3">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="FAIL_RCV">
+      <annotation>
+         <appInfo>
+            <meta.element label="故障恢复" disable="true" disableOn="RmConfig/GLOBAL_CFG/@FAIL_RCV_COM" disableValues="false" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="ANA_FAIL_RCV_LIST"/>
+            <element ref="DIS_FAIL_RCV_LIST1"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="ANA_FAIL_RCV_LIST">
+      <annotation>
+         <appInfo>
+            <meta.element label="ANA信号故障恢复" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="ANA_FAIL_RCV"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="DIS_FAIL_RCV_LIST1">
+      <annotation>
+         <appInfo>
+            <meta.element label="DIS信号故障恢复" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="DIS_FAIL_RCV"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="ANA_FAIL_RCV">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="ANA_RCV_SIG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/ANA_CFG/ANA_SIG_CFG/@ANA_NAME" label="恢复信号" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RCV_ENABLE" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复使能标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RCV_RET" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复成功标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RCV_FLAG0" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复比较初值" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RCV_CNT" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复计数器" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="ANA_RCV_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/RCV_DELAY_CFG/RCV_DELAY/@RCV_DELAY_ID" label="恢复时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="DIS_FAIL_RCV">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="DIS_RCV_SIG" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/DIS_CFG/DIS_SIG_CFG/@DIS_NAME" label="恢复信号" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RCV_ENABLE" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复使能标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RCV_RET" type="boolean" use="default" value="false" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复成功标志" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RCV_FLAG0" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复比较初值" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RCV_CNT" type="integer" use="default" value="0" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="恢复计数器" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="DIS_RCV_DELAY" type="string">
+            <annotation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="RmConfig/GLOBAL_CFG/RM_DELAY_CFG/RCV_DELAY_CFG/RCV_DELAY/@RCV_DELAY_ID" label="恢复时延" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_LIST">
+      <annotation>
+         <appInfo>
+            <meta.element label="故障综合列表" headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="FAIL_INTE_LEVEL" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="FAIL_INTE_LEVEL">
+      <annotation>
+         <appInfo>
+            <meta.element headfile="true"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <attribute name="FAIL_INTE_INDEX" type="string" value="FAIL_1" valueStep="0">
+            <annotation>
+               <appInfo>
+                  <meta.attribute label="故障综合类别" headfile="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+
+
+
+
+
+</schema>

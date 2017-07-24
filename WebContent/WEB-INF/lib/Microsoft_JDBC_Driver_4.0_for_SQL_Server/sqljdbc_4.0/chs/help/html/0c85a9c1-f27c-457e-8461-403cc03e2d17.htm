@@ -1,0 +1,126 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>setEncrypt 方法 (SQLServerDataSource)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="SQLServerDataSource.setEncrypt 方法" />
+<meta name="Microsoft.Help.Id"
+	content="0c85a9c1-f27c-457e-8461-403cc03e2d17" />
+<meta name="Description" content="设置一个指示是否启用了 encrypt 属性的 Boolean 值。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">setEncrypt 方法
+						(SQLServerDataSource)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					设置一个指示是否启用了 encrypt 属性的 <span sdata="langKeyword" value="Boolean"><span
+						class="keyword">Boolean</span></span> 值。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void <b>setEncypt</b>(boolean encrypt)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">encrypt</span>
+				</p>
+				<p>
+					如果在客户端与 SQL Server 之间启用了安全套接字层 (SSL) 加密，则为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>。否则为
+					<span sdata="langKeyword" value="false"><span
+						class="keyword">false</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					如果 encrypt 属性设置为 <span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>，则在服务器安装了证书的情况下，Microsoft JDBC Driver
+					for SQL Server 将确保 SQL Server 对在客户端与服务器之间发送的所有数据使用 SSL 加密。默认值为 <span
+						sdata="langKeyword" value="false"><span class="keyword">false</span></span>。
+				</p>
+				<p>JDBC 驱动程序在尝试建立 SSL 握手时，会检测运行它的 Java 虚拟机 (JVM)。</p>
+				<p>
+					如果 encrypt 属性设置为 <span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>，则 Microsoft JDBC Driver for SQL Server
+					将使用 JVM 的默认 JSSE 安全提供程序与 SQL Server 协商 SSL 加密。默认的安全提供程序可能不支持成功协商
+					SSL 加密所需的全部功能。例如，默认的安全提供程序可能不支持在 SQL Server SSL 证书中使用的 RSA
+					公钥的大小。在这种情况下，默认的安全提供程序可能报错，此错误将导致 JDBC 驱动程序终止连接。为了解决这一问题，请执行下列操作之一：
+				</p>
+				<ul>
+					<li><p>使用具有较小 RSA 公钥的服务器证书配置 SQL Server</p></li>
+					<li><p>在“&lt;java
+							主文件夹&gt;/lib/security/java.security”安全属性文件中将 JVM 配置为使用其他 JSSE
+							安全提供程序</p></li>
+					<li><p>使用其他 JVM</p></li>
+				</ul>
+				<p>
+					如果未指定 encrypt 属性或该属性设置为 <span sdata="langKeyword" value="false"><span
+						class="keyword">false</span></span>，则驱动程序不会强制 SQL Server 支持 SSL 加密。如果 SQL
+					Server 实例未配置为强制 SSL 加密，将建立连接而不进行加密。如果 SQL Server 实例已配置为强制 SSL 加密，则当
+					Microsoft JDBC Driver for SQL Server 在经正确配置的 JVM 上运行时，它将自动启用 SSL
+					加密，否则连接将终止并且驱动程序将报错。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7e749bc5-d765-4864-be2b-7822d4c20c09.htm">SQLServerDataSource
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

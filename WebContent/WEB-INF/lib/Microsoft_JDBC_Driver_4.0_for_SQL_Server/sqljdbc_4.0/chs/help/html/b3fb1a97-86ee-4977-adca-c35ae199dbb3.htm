@@ -1,0 +1,118 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>getReference 方法 (SQLServerDataSource)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerDataSource.getReference 方法" />
+<meta name="Microsoft.Help.Id"
+	content="b3fb1a97-86ee-4977-adca-c35ae199dbb3" />
+<meta name="Description" content="返回对此 SQLServerDataSource 对象的引用。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">getReference 方法
+						(SQLServerDataSource)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					返回对此 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+					对象的引用。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public javax.naming.Reference <b>getReference</b>()</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">返回值</h1>
+			<div id="returnValueSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<b>Reference</b> 对象。
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>getReference</b> 方法由 javax.naming.Referenceable 接口中的 <b>getReference</b>
+					方法指定。
+				</p>
+				<p>在 SQL Server JDBC Driver 3.0 之前，如果对 SQLServerDataSource 对象调用
+					SQLServerDataSource.setTrustStorePassword，密码将会显示在
+					SQLServerDataSource.getReference 所返回的对象中，这样会允许使用该对象建立其他连接。在 JDBC
+					Driver 3.0 中，您在使用 SQLServerDataSource.getReference
+					返回的对象建立连接前，将需要设置该对象的密码。</p>
+				<p>而且，如果您在绑定数据源属性前设置
+					SQLServerDataSource.setTrustStorePassword，在获取连接前必须调用
+					SQLServerDataSource.setTrustStorePassword。例如，</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>ctx = new InitialContext(System.getProperties());
+
+SQLServerDataSource ds1 = (SQLServerDataSource) ctx.lookup(jndiName);
+
+ds1.setTrustStorePassword("XXXXX");
+Connection con = ds1.getConnection("user", "XXXXXX");
+
+ctx.rebind(jndiName, ds1);
+SQLServerDataSource ds2 = (SQLServerDataSource) ctx.lookup(jndiName);
+ds2.setTrustStorePassword("XXXXX");   // reset the truststore password
+con = ds2.getConnection("user", "XXXXXX");   // provide userid and password again</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7e749bc5-d765-4864-be2b-7822d4c20c09.htm">SQLServerDataSource
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

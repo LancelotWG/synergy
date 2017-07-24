@@ -1,0 +1,420 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解 XA 事务</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="分布式事务" />
+<meta name="System.Keywords" content="XA 事务" />
+<meta name="Microsoft.Help.Id"
+	content="574e326f-0520-4003-bdf1-62d92c3db457" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 提供对 Java Platform, Enterprise Edition/JDBC 2.0 可选分布式事务的支持。从 SQLServerXADataSource 类获取的 JDBC 连接可以参与标准分布式事务处理环境，例如 Java Platform, Enterprise Edition (Java EE) 应用程序服务器。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解 XA 事务</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					Microsoft JDBC Driver for SQL Server 提供对 Java Platform, Enterprise
+					Edition/JDBC 2.0 可选分布式事务的支持。从 <a
+						href="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4.htm">SQLServerXADataSource</a>
+					类获取的 JDBC 连接可以参与标准分布式事务处理环境，例如 Java Platform, Enterprise Edition
+					(Java EE) 应用程序服务器。
+				</p>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>用于此分布式事务实现的类如下：</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类</p></th>
+							<th><p>实现</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</p></td>
+							<td><p>javax.sql.XADataSource</p></td>
+							<td><p>分布式连接的类工厂。</p></td>
+						</tr>
+						<tr>
+							<td><p>com.microsoft.sqlserver.jdbc.SQLServerXAResource</p></td>
+							<td><p>javax.transaction.xa.XAResource</p></td>
+							<td><p>事务管理器的资源适配器。</p></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>XA 分布式事务连接默认使用“提交读”隔离级别。</p>
+				</div>
+			</div>
+			<h1 class="heading">使用 XA 事务的准则和限制</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>以下附加准则适用于紧密耦合的事务：</p>
+				<ul>
+					<li><p>当您将 XA 事务与 Microsoft 分布式事务处理协调器 (MS DTC)
+							一起使用时，您可能会注意到 MS DTC 的当前版本不支持紧密结合的 XA 分支行为。例如，MS DTC 在 XA 分支事务 ID
+							(XID) 与 MS DTC 事务 ID 之间具有一对一的映射，由松散耦合的 XA 分支执行的工作彼此之间是隔离的。</p>
+						<p>
+							借助于在 <a href="http://support.microsoft.com/kb/938653">MSDTC
+								和紧密结合的事务</a>中提供的修补程序，可以支持紧密结合的 XA 分支，其中，多个具有相同全局事务 ID (GTRID) 的 XA
+							分支映射到单一 MS DTC 事务 ID。这种支持使得多个紧密结合的 XA 分支可以在资源管理器（如 SQL
+							Server）中看到彼此发生的变化。
+						</p></li>
+					<li><p>
+							<a href="379857c3-9de1-4964-8782-32df317cbfbb.htm">SSTRANSTIGHTLYCPLD</a>
+							标志允许应用程序使用紧密结合的 XA 事务，这些事务具有不同的 XA 分支事务 ID (BQUAL)，但具有相同的全局事务 ID
+							(GTRID) 和格式 ID (FormatID)。为了使用该功能，必须对 <b>XAResource.start</b> 方法的
+							<b>flags</b> 参数设置 <a
+								href="379857c3-9de1-4964-8782-32df317cbfbb.htm">SSTRANSTIGHTLYCPLD</a>：
+						</p>
+						<div class="sampleCode">
+							<span codeLanguage="other"><pre>xaRes.start(xid, SQLServerXAResource.SSTRANSTIGHTLYCPLD);</pre></span>
+						</div></li>
+				</ul>
+			</div>
+			<h1 class="heading">配置说明</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>如果要同时使用 XA 数据源和 Microsoft 分布式事务处理协调器 (MS DTC)
+					来处理分布式事务，则需要执行以下步骤。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>JDBC 分布式事务组件包含在 JDBC 驱动程序安装的 xa 目录中。这些组件包括 xa_install.sql 和
+						sqljdbc_xa.dll 文件。</p>
+				</div>
+				<h1 class="heading">运行 MS DTC 服务</h1>
+				<div class="subsection">
+					<p>在服务管理器中，MS DTC 服务应标记为“自动”，以确保其在启动 SQL Server 服务时运行。若要为 XA
+						事务启用 MS DTC，必须执行以下步骤：</p>
+					<p>在 Windows Vista 和更高版本上：</p>
+					<ol>
+						<li><p>
+								单击<span class="ui">“开始”</span>按钮，在<span class="ui">“开始搜索”</span>框中键入
+								<span class="input">dcomcnfg</span>，然后按 Enter 打开<span class="ui">“组件服务”</span>。也可以在<span
+									class="ui">“开始搜索”</span>框中键入 %windir%\system32\comexp.msc 打开<span
+									class="ui">“组件服务”</span>。
+							</p></li>
+						<li><p>依次展开“组件服务”、“计算机”、“我的电脑”和“分布式事务处理协调器”。</p></li>
+						<li><p>
+								右键单击<span class="ui">“本地 DTC”</span>，再选择<span class="ui">“属性”</span>。
+							</p></li>
+						<li><p>
+								单击<span class="ui">“本地 DTC 属性”</span>对话框上的<span class="ui">“安全”</span>选项卡。
+							</p></li>
+						<li><p>
+								选中<span class="ui">“启用 XA 事务”</span>复选框，然后单击<span class="ui">“确定”</span>。这将使
+								MS DTC 服务重新启动。
+							</p></li>
+						<li><p>
+								再次单击<span class="ui">“确定”</span>以关闭<span class="ui">“属性”</span>对话框，然后关闭<span
+									class="ui">“组件服务”</span>。
+							</p></li>
+						<li><p>停止 SQL Server，然后重新启动，确保它与 MS DTC 更改同步。</p></li>
+					</ol>
+				</div>
+				<h1 class="heading">配置 JDBC 分布式事务组件</h1>
+				<div class="subsection">
+					<p>可通过以下步骤配置 JDBC 驱动程序分布式事务组件：</p>
+					<ol>
+						<li><p>将新 sqljdbc_xa.dll 从 JDBC 驱动程序安装目录复制到每台要参与分布式事务的
+								SQL Server 计算机的 Binn 目录中。</p>
+							<div style="margin: .5em 1.5em .5em 1.5em">
+								<b></b>
+								<p>如果您将 XA 事务用于 32 位 SQL Server，则使用 x86 文件夹中的 sqljdbc_xa.dll
+									文件，即使 SQL Server 安装在 x64 处理器上也不例外。如果您在 x64 处理器上将 XA 事务用于 64 位
+									SQL Server，则使用 x64 文件夹中的 sqljdbc_xa.dll 文件。</p>
+							</div></li>
+						<li><p>对每个要参与分布式事务的 SQL Server 实例执行数据库脚本
+								xa_install.sql。此脚本将安装 sqljdbc_xa.dll 调用的扩展存储过程。这些扩展存储过程为
+								Microsoft JDBC Driver for SQL Server 实现分布式事务和 XA 支持。需要以 SQL
+								Server 实例管理员的身份来运行此脚本。</p></li>
+						<li><p>若要为特定用户授予使用 JDBC 驱动程序参与分布式事务的权限，请将该用户添加至
+								SqlJDBCXAUser 角色。</p></li>
+					</ol>
+					<p>在每个 SQL Server 实例上，一次只能配置一个版本的 sqljdbc_xa.dll
+						程序集。应用程序可能需要使用不同版本的 JDBC 驱动程序，才能使用 XA 连接来连接到同一个 SQL Server
+						实例。在这种情况下，必须在 SQL Server 实例上安装最新的 JDBC 驱动程序附带的 sqljdbc_xa.dll。</p>
+					<p>可以通过三种方法来验证 SQL Server 实例上当前安装的 sqljdbc_xa.dll 的版本：</p>
+					<ol>
+						<li><p>打开将参与分布式事务处理的 SQL Server 计算机的 LOG 目录。选择并打开 SQL
+								Server 的“ERRORLOG”文件。在“ERRORLOG”文件中搜索“使用‘SQLJDBC_XA.dll’版本
+								...”这一短语。</p></li>
+						<li><p>打开将参与分布式事务处理的 SQL Server 计算机的 Binn 目录。选择
+								sqljdbc_xa.dll 程序集。</p>
+							<ul>
+								<li><p>
+										在 Windows Vista 或更高版本上：右键单击 sqljdbc_xa.dll，然后选择“属性”。然后单击<span
+											class="ui">“详细信息”</span>选项卡。<span class="ui">“文件版本”</span>字段显示
+										SQL Server 实例上当前安装的 sqljdbc_xa.dll 的版本。
+									</p></li>
+							</ul></li>
+						<li><p>按照下一节的代码示例所示设置日志记录功能。在输出日志文件中搜索“服务器 XA DLL
+								版本:...”这一短语。</p></li>
+					</ol>
+				</div>
+				<h1 class="heading">升级 sqljdbc_xa.dll</h1>
+				<div class="subsection">
+					<p>您在安装新版本的 JDBC 驱动程序时，也应该使用新版本中的 sqljdbc_xa.dll 来升级服务器上的
+						sqljdbc_xa.dll。</p>
+					<div style="margin: .5em 1.5em .5em 1.5em">
+						<b></b>
+						<p>您应该在维护窗口期间或进程中没有 MS DTC 事务时升级 sqljdbc_xa.dll。</p>
+					</div>
+					<ol>
+						<li><p>
+								使用 Transact-SQL 命令 <b>DBCC sqljdbc_xa (FREE)</b> 卸载
+								sqljdbc_xa.dll。
+							</p></li>
+						<li><p>将新 sqljdbc_xa.dll 从 JDBC 驱动程序安装目录复制到每台要参与分布式事务的
+								SQL Server 计算机的 Binn 目录中。</p>
+							<p>当 sqljdbc_xa.dll 中调用扩展过程时，将会加载新 DLL。您不需要重新启动 SQL Server
+								来加载新定义。</p></li>
+					</ol>
+				</div>
+				<h1 class="heading">配置用户定义的角色</h1>
+				<div class="subsection">
+					<p>若要为特定用户授予使用 JDBC 驱动程序参与分布式事务的权限，请将该用户添加至 SqlJDBCXAUser
+						角色。例如，使用以下 Transact-SQL 代码将名为“shelby”（SQL 标准登录用户名为“shelby”）的用户添加至
+						SqlJDBCXAUser 角色：</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>USE master
+GO
+EXEC sp_grantdbaccess 'shelby', 'shelby'
+GO
+EXEC sp_addrolemember [SqlJDBCXAUser], 'shelby'</pre></span>
+					</div>
+					<p>SQL
+						用户定义的角色是按数据库定义的。若要出于安全目的创建自己的角色，必须在每个数据库中定义角色，并在每个数据库中添加用户。主数据库中
+						SqlJDBCXAUser 角色的定义非常严格，因为该角色用于授予对主数据库中驻留的 SQL JDBC
+						扩展存储过程的访问权限。登录到主数据库后，必须先授予单个用户对主数据库的访问权限，然后再授予这些用户对 SqlJDBCXAUser
+						角色的访问权限。</p>
+				</div>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>import java.net.Inet4Address;
+import java.sql.*;
+import java.util.Random;
+import javax.transaction.xa.*;
+import javax.sql.*;
+import com.microsoft.sqlserver.jdbc.*;
+
+public class testXA {
+
+   public static void main(String[] args) throws Exception {
+
+      // Create variables for the connection string.
+      String prefix = "jdbc:sqlserver://";
+      String serverName = "localhost";
+      int portNumber = 1433;
+      String databaseName = "AdventureWorks"; 
+      String user = "UserName"; 
+      String password = "*****";
+      String connectionUrl = prefix + serverName + ":" + portNumber
+         + ";databaseName=" + databaseName + ";user=" + user + ";password=" + password;
+
+      try {
+         // Establish the connection.
+         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+         Connection con = DriverManager.getConnection(connectionUrl);
+
+         // Create a test table.
+         Statement stmt = con.createStatement();
+         try {
+            stmt.executeUpdate("DROP TABLE XAMin"); 
+         }
+         catch (Exception e) {
+         }
+         stmt.executeUpdate("CREATE TABLE XAMin (f1 int, f2 varchar(max))");
+         stmt.close();
+         con.close();
+
+         // Create the XA data source and XA ready connection.
+         SQLServerXADataSource ds = new SQLServerXADataSource();
+         ds.setUser(user);
+         ds.setPassword(password);
+         ds.setServerName(serverName);
+         ds.setPortNumber(portNumber);
+         ds.setDatabaseName(databaseName);
+         XAConnection xaCon = ds.getXAConnection();
+         con = xaCon.getConnection();
+
+         // Get a unique Xid object for testing.
+         XAResource xaRes = null;
+         Xid xid = null;
+         xid = XidImpl.getUniqueXid(1);
+
+         // Get the XAResource object and set the timeout value.
+         xaRes = xaCon.getXAResource();
+         xaRes.setTransactionTimeout(0);
+
+         // Perform the XA transaction.
+         System.out.println("Write -&gt; xid = " + xid.toString());
+         xaRes.start(xid,XAResource.TMNOFLAGS);
+         PreparedStatement pstmt = 
+         con.prepareStatement("INSERT INTO XAMin (f1,f2) VALUES (?, ?)");
+         pstmt.setInt(1,1);
+         pstmt.setString(2,xid.toString());
+         pstmt.executeUpdate();
+
+         // Commit the transaction.
+         xaRes.end(xid,XAResource.TMSUCCESS);
+         xaRes.commit(xid,true);
+
+         // Cleanup.
+         con.close();
+         xaCon.close();
+
+         // Open a new connection and read back the record to verify that it worked.
+         con = DriverManager.getConnection(connectionUrl);
+         ResultSet rs = con.createStatement().executeQuery("SELECT * FROM XAMin");
+         rs.next();
+         System.out.println("Read -&gt; xid = " + rs.getString(2));
+         rs.close();
+         con.close();
+      } 
+
+      // Handle any errors that may have occurred.
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}
+
+
+class XidImpl implements Xid {
+
+   public int formatId;
+   public byte[] gtrid;
+   public byte[] bqual;
+   public byte[] getGlobalTransactionId() {return gtrid;}
+   public byte[] getBranchQualifier() {return bqual;}
+   public int getFormatId() {return formatId;}
+
+   XidImpl(int formatId, byte[] gtrid, byte[] bqual) {
+      this.formatId = formatId;
+      this.gtrid = gtrid;
+      this.bqual = bqual;
+   }
+
+   public String toString() {
+      int hexVal;
+      StringBuffer sb = new StringBuffer(512);
+      sb.append("formatId=" + formatId);
+      sb.append(" gtrid(" + gtrid.length + ")={0x");
+      for (int i=0; i&lt;gtrid.length; i++) {
+         hexVal = gtrid[i]&amp;0xFF;
+         if ( hexVal &lt; 0x10 )
+            sb.append("0" + Integer.toHexString(gtrid[i]&amp;0xFF));
+         else
+            sb.append(Integer.toHexString(gtrid[i]&amp;0xFF));
+         }
+         sb.append("} bqual(" + bqual.length + ")={0x");
+         for (int i=0; i&lt;bqual.length; i++) {
+            hexVal = bqual[i]&amp;0xFF;
+            if ( hexVal &lt; 0x10 )
+               sb.append("0" + Integer.toHexString(bqual[i]&amp;0xFF));
+            else
+               sb.append(Integer.toHexString(bqual[i]&amp;0xFF));
+         }
+         sb.append("}");
+         return sb.toString();
+      }
+
+      // Returns a globally unique transaction id.
+      static byte [] localIP = null;
+      static int txnUniqueID = 0;
+      static Xid getUniqueXid(int tid) {
+
+      Random rnd = new Random(System.currentTimeMillis());
+      txnUniqueID++;
+      int txnUID = txnUniqueID;
+      int tidID = tid;
+      int randID = rnd.nextInt();
+      byte[] gtrid = new byte[64];
+      byte[] bqual = new byte[64];
+      if ( null == localIP) {
+         try {
+            localIP = Inet4Address.getLocalHost().getAddress();
+         }
+         catch ( Exception ex ) {
+            localIP =  new byte[] { 0x01,0x02,0x03,0x04 };
+         }
+      }
+      System.arraycopy(localIP,0,gtrid,0,4);
+      System.arraycopy(localIP,0,bqual,0,4);
+
+      // Bytes 4 -&gt; 7 - unique transaction id.
+      // Bytes 8 -&gt;11 - thread id.
+      // Bytes 12-&gt;15 - random number generated by using seed from current time in milliseconds.
+      for (int i=0; i&lt;=3; i++) {
+         gtrid[i+4] = (byte)(txnUID%0x100);
+         bqual[i+4] = (byte)(txnUID%0x100);
+         txnUID &gt;&gt;= 8;
+         gtrid[i+8] = (byte)(tidID%0x100);
+         bqual[i+8] = (byte)(tidID%0x100);
+         tidID &gt;&gt;= 8;
+         gtrid[i+12] = (byte)(randID%0x100);
+         bqual[i+12] = (byte)(randID%0x100);
+         randID &gt;&gt;= 8;
+      }
+      return new XidImpl(0x1234, gtrid, bqual);
+   }
+}</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">通过 JDBC
+							驱动程序执行事务</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

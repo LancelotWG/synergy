@@ -1,0 +1,314 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>JDBC 驱动程序对高可用性和灾难恢复的支持</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="62de4be6-b027-427d-a7e5-352960e42877" />
+<meta name="Description"
+	content="本主题介绍 Microsoft JDBC Driver for SQL Server 对于高可用性及灾难恢复（AlwaysOn 可用性组）的支持。有关 AlwaysOn 可用性组 的详细信息，请参阅 SQL Server 2012 联机丛书。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">JDBC
+						驱动程序对高可用性和灾难恢复的支持</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>本主题介绍 Microsoft JDBC Driver for SQL Server
+					对于高可用性及灾难恢复（AlwaysOn 可用性组）的支持。有关 AlwaysOn 可用性组 的详细信息，请参阅 SQL Server
+					2012 联机丛书。</p>
+				<p>在 Microsoft JDBC Driver for SQL Server 4.0
+					版中，您可以先在连接属性中指定（高可用性、灾难恢复）可用性组 (AG) 的可用性组侦听器。如果将 Microsoft JDBC
+					Driver for SQL Server 应用程序连接到具有故障转移功能的 AlwaysOn
+					数据库，则在故障转移后，会断开原始连接，并且该应用程序必须建立一个新的连接才能继续运行。</p>
+				<p>如果未连接到可用性组侦听器，并且如果有多个 IP 地址与某个服务器关联，则 Microsoft JDBC Driver
+					for SQL Server 将尝试连接到第一个 IP 地址。如果 Microsoft JDBC Driver for SQL
+					Server 无法建立与第一个 IP 地址的连接，则连接将失败。Microsoft JDBC Driver for SQL
+					Server 将不会尝试连接到其后与该服务器关联的任何 IP 地址。连接到可用性组侦听器时，Microsoft JDBC Driver
+					for SQL Server 将尝试建立与所有 IP 地址的并行连接，如果连接尝试成功，则驱动程序将丢弃所有挂起的连接尝试。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>延长连接超时和实施连接重试逻辑将增加应用程序连接到可用性组的可能性。此外，由于连接可能会因可用性组的故障转移而失败，因此您应实施连接重试逻辑，重试失败的连接直到它重新连接。</p>
+				</div>
+				<p>
+					Microsoft JDBC Driver 4.0 for SQL Server 中新增了以下<a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">连接属性</a>：
+				</p>
+				<ul>
+					<li><p>
+							<span sdata="langKeyword" value="multiSubnetFailover"><span
+								class="keyword">multiSubnetFailover</span></span>
+						</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="applicationIntent"><span
+								class="keyword">applicationIntent</span></span>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">MultiSubnetFailover 连接</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					连接到 SQL Server 2012 可用性组的可用性组侦听器或 SQL Server 2012 故障转移群集实例时，始终指定 <span
+						sdata="langKeyword" value="multiSubnetFailover=true"><span
+						class="keyword">multiSubnetFailover=true</span></span>。<span
+						sdata="langKeyword" value="multiSubnetFailover"><span
+						class="keyword">multiSubnetFailover</span></span> 使 SQL Server 2012
+					中所有可用性组和故障转移群集实例的故障转移速度更快，明显减少了单子网和多子网 AlwaysOn
+					拓扑的故障转移时间。多子网故障转移期间，客户端将尝试并行连接。单子网故障转移期间，Microsoft JDBC Driver for
+					SQL Server 将积极地重试 TCP 连接。
+				</p>
+				<p>
+					<span sdata="langKeyword" value="multiSubnetFailover"><span
+						class="keyword">multiSubnetFailover</span></span>
+					连接属性指示将在可用性组还是故障转移群集实例中部署应用程序，还指示 Microsoft JDBC Driver for SQL
+					Server 将通过连接到所有 IP 地址的尝试连接到主 SQL Server 实例上的数据库。为连接指定 <span
+						sdata="langKeyword" value="MultiSubnetFailover=true"><span
+						class="keyword">MultiSubnetFailover=true</span></span> 后，客户端将在比操作系统的默认
+					TCP 重传间隔更短的时间内重试 TCP 连接尝试。这使 AlwaysOn 可用性组或 AlwaysOn
+					故障转移群集实例进行故障转移之后重新连接的速度更快，并且该设置同样适用于单子网和多子网的可用性组和故障转移群集实例。
+				</p>
+				<p>
+					有关 Microsoft JDBC Driver for SQL Server 中的连接字符串关键字的详细信息，请参阅<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+				<p>
+					连接到可用性组侦听器或故障转移群集实例之外的内容时指定 <span sdata="langKeyword"
+						value="multiSubnetFailover=true"><span class="keyword">multiSubnetFailover=true</span></span>，可能会产生负面的性能影响，因此不支持执行此操作。
+				</p>
+				<p>
+					如果未安装安全管理器，默认情况下，Java 虚拟机将缓存虚拟 IP 地址 (VIP) 一段时间（由您的 JDK 实现和 Java 属性
+					networkaddress.cache.ttl 和 networkaddress.cache.negative.ttl
+					定义）。如果已安装 JDK 安全管理器，默认情况下，Java 虚拟机将缓存 VIP 且不会刷新缓存。您应将 Java
+					虚拟机缓存的“生存时间”(networkaddress.cache.ttl)
+					设置为“一天”。如果您未将默认生存时间更改为“一天（左右）”，则添加或更新 VIP 后，不会清除 Java 虚拟机缓存中的旧值。有关
+					networkaddress.cache.ttl 和 networkaddress.cache.negative.ttl
+					的详细信息，请参阅 <a
+						href="http://download.oracle.com/javase/6/docs/technotes/guides/net/properties.html">http://download.oracle.com/javase/6/docs/technotes/guides/net/properties.html</a>。
+				</p>
+				<p>使用以下准则连接到可用性组或故障转移群集实例的服务器：</p>
+				<ul>
+					<li><p>
+							如果在同一连接字符串中使用 <span sdata="langKeyword"
+								value="multiSubnetFailover"><span class="keyword">multiSubnetFailover</span></span>
+							连接属性和 <span sdata="langKeyword" value="instanceName"><span
+								class="keyword">instanceName</span></span>
+							连接属性，则驱动程序将生成一条错误。这反映一个事实：可用性组中未使用 SQL Browser。但如果另外指定了 <span
+								sdata="langKeyword" value="portNumber"><span
+								class="keyword">portNumber</span></span> 连接属性，则驱动程序将忽略 <span
+								sdata="langKeyword" value="instanceName"><span
+								class="keyword">instanceName</span></span> 而使用 <span
+								sdata="langKeyword" value="portNumber"><span
+								class="keyword">portNumber</span></span>。
+						</p></li>
+					<li><p>
+							连接到单子网或多子网时使用 <span sdata="langKeyword"
+								value="multiSubnetFailover"><span class="keyword">multiSubnetFailover</span></span>
+							连接属性，这二者的性能都会得到改进。
+						</p></li>
+					<li><p>若要连接到可用性组，请在连接字符串中将可用性组的可用性组侦听器指定为服务器。例如，jdbc:sqlserver://VNN1。</p></li>
+					<li><p>连接到配置有 64 个以上 IP 地址的 SQL Server 实例将导致连接失败。</p></li>
+					<li><p>
+							基于以下身份验证类型，使用 <span sdata="langKeyword"
+								value="multiSubnetFailover"><span class="keyword">multiSubnetFailover</span></span>
+							连接属性的应用程序的行为不受影响：SQL Server 身份验证、Kerberos 身份验证或 Windows 身份验证。
+						</p></li>
+					<li><p>
+							延长 <span sdata="langKeyword" value="loginTimeout"><span
+								class="keyword">loginTimeout</span></span> 的值可调整故障转移时间，减少应用程序连接重试次数。
+						</p></li>
+					<li><p>不支持分布式事务。</p></li>
+				</ul>
+				<p>如果只读路由无效，则在以下情况下，连接到可用性组中的次副本位置将失败：</p>
+				<ol>
+					<li><p>在未将次副本位置配置为接受连接的情况下。</p></li>
+					<li><p>
+							在应用程序使用 <span sdata="langKeyword"
+								value="applicationIntent=ReadWrite"><span class="keyword">applicationIntent=ReadWrite</span></span>（将在下文中讨论）且次副本位置配置为只读访问的情况下。
+						</p></li>
+				</ol>
+				<p>
+					如果主副本配置为拒绝只读工作负荷且连接字符串包含 <span sdata="langKeyword"
+						value="ApplicationIntent=ReadOnly"><span class="keyword">ApplicationIntent=ReadOnly</span></span>，则连接将失败。
+				</p>
+			</div>
+			<h1 class="heading">从数据库镜像升级到使用多子网群集</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果要将当前使用数据库镜像的 Microsoft JDBC Driver for SQL Server
+					应用程序升级到多子网方案，则应删除 <span sdata="langKeyword" value="failoverPartner"><span
+						class="keyword">failoverPartner</span></span> 连接属性，将其替换为设置为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>
+					的 <span sdata="langKeyword" value="multiSubnetFailover"><span
+						class="keyword">multiSubnetFailover</span></span>，并将连接字符串中的服务器名称替换为可用性组侦听器。如果连接字符串使用
+					<span sdata="langKeyword" value="failoverPartner"><span
+						class="keyword">failoverPartner</span></span> 和 <span sdata="langKeyword"
+						value="multiSubnetFailover=true"><span class="keyword">multiSubnetFailover=true</span></span>，则驱动程序将生成一条错误。但如果连接字符串使用
+					<span sdata="langKeyword" value="failoverPartner"><span
+						class="keyword">failoverPartner</span></span> 和 <span sdata="langKeyword"
+						value="multiSubnetFailover=false"><span class="keyword">multiSubnetFailover=false</span></span>（或
+					<span sdata="langKeyword" value="ApplicationIntent=ReadWrite"><span
+						class="keyword">ApplicationIntent=ReadWrite</span></span>），则应用程序将使用数据库镜像。
+				</p>
+				<p>
+					如果在 AG 的主数据库中使用数据库镜像，同时在连接到主数据库而不是可用性组侦听器的连接字符串中使用 <span
+						sdata="langKeyword" value="multiSubnetFailover=true"><span
+						class="keyword">multiSubnetFailover=true</span></span>，则驱动程序将返回一条错误。
+				</p>
+			</div>
+			<h1 class="heading">指定应用程序意向</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果 <span sdata="langKeyword" value="applicationIntent=ReadOnly"><span
+						class="keyword">applicationIntent=ReadOnly</span></span>，则在连接到已启用
+					AlwaysOn 的数据库时，客户端将请求只读工作负荷。在连接时以及运行“USE
+					database”语句期间，服务器将强制实施该意向（但仅针对已启用 AlwaysOn 的数据库）。
+				</p>
+				<p>
+					<span sdata="langKeyword" value="applicationIntent"><span
+						class="keyword">applicationIntent</span></span> 关键字对旧版只读数据库不起作用。
+				</p>
+				<p>
+					数据库可允许或禁止对目标 AlwaysOn 数据库的读取工作负荷。（这可以使用 <span sdata="langKeyword"
+						value="PRIMARY_ROLE"><span class="keyword">PRIMARY_ROLE</span></span>
+					语句和 <span sdata="langKeyword" value="SECONDARY_ROLE"><span
+						class="keyword">SECONDARY_ROLE</span></span> Transact-SQL 语句的 <span
+						sdata="langKeyword" value="ALLOW_CONNECTIONS"><span
+						class="keyword">ALLOW_CONNECTIONS</span></span> 子句来实现。）
+				</p>
+				<p>
+					<span sdata="langKeyword" value="applicationIntent"><span
+						class="keyword">applicationIntent</span></span> 关键字可用于启用只读路由。
+				</p>
+			</div>
+			<h1 class="heading">只读路由</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>只读路由是一项功能，可用于确保数据库的只读副本的可用性。启用只读路由：</p>
+				<ol>
+					<li><p>必须连接到“AlwaysOn 可用性组”可用性组侦听器。</p></li>
+					<li><p>
+							<span sdata="langKeyword" value="applicationIntent"><span
+								class="keyword">applicationIntent</span></span> 连接字符串关键字必须设置为 <span
+								sdata="langKeyword" value="ReadOnly"><span
+								class="keyword">ReadOnly</span></span>。
+						</p></li>
+					<li><p>数据库管理员必须将可用性组配置为启用只读路由。</p></li>
+				</ol>
+				<p>
+					使用只读路由的多个连接可能不会全部连接到同一个只读副本。更改数据库同步或服务器路由配置可能导致客户端连接到不同的只读副本。若要确保所有只读请求连接到同一只读副本，请勿将可用性组侦听器或虚拟
+					IP 地址传递给 <span sdata="langKeyword" value="serverName"><span
+						class="keyword">serverName</span></span> 连接字符串关键字。而应指定只读实例的名称。
+				</p>
+				<p>因为只读路由首先连接到主副本，然后查找最适用的可读次副本，所以只读路由所需的时间可能会超过连接主副本的时间。因此，您应延长登录超时时间。</p>
+			</div>
+			<h1 class="heading">支持 multiSubnetFailover 和 applicationIntent
+				的新增方法</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>
+					利用下列方法，您可以编程方式访问 <span sdata="langKeyword"
+						value="multiSubnetFailover"><span class="keyword">multiSubnetFailover</span></span>
+					和 <span sdata="langKeyword" value="applicationIntent"><span
+						class="keyword">applicationIntent</span></span> 连接字符串关键字：
+				</p>
+				<ul>
+					<li><p>
+							<a href="19411e6c-c456-4533-8252-54569a2a6b1f.htm">SQLServerDataSource.getApplicationIntent</a>
+						</p></li>
+					<li><p>
+							<a href="e164c8ac-a0ae-4638-affb-ed454e7c0708.htm">SQLServerDataSource.setApplicationIntent</a>
+						</p></li>
+					<li><p>
+							<a href="1e8cb175-5f4c-4208-b4f5-3646990a30e3.htm">SQLServerDataSource.getMultiSubnetFailover</a>
+						</p></li>
+					<li><p>
+							<a href="7ffd282d-c2f6-4d1b-a7a6-859d18b388aa.htm">SQLServerDataSource.setMultiSubnetFailover</a>
+						</p></li>
+					<li><p>
+							<a href="b5eaad8a-31ef-44ac-af11-d5caa13ac3e2.htm">SQLServerDriver.getPropertyInfo</a>
+						</p></li>
+				</ul>
+				<p>
+					此外，已向 <span sdata="link"><a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+							类</a></span>、<span sdata="link"><a
+						href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource
+							类</a></span> 和 <span sdata="link"><a
+						href="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4.htm">SQLServerXADataSource
+							类</a></span> 添加了 <span sdata="langKeyword" value="getMultiSubnetFailover"><span
+						class="keyword">getMultiSubnetFailover</span></span>、<span
+						sdata="langKeyword" value="setMultiSubnetFailover"><span
+						class="keyword">setMultiSubnetFailover</span></span>、<span
+						sdata="langKeyword" value="getApplicationIntent"><span
+						class="keyword">getApplicationIntent</span></span> 和 <span
+						sdata="langKeyword" value="setApplicationIntent"><span
+						class="keyword">setApplicationIntent</span></span> 方法。
+				</p>
+			</div>
+			<h1 class="heading">SSL 证书验证</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>
+					可用性组包含多个物理服务器。Microsoft JDBC Driver 4.0 for SQL Server 新增了对 SSL
+					证书中的 <span sdata="langKeyword" value="Subject Alternate Name"><span
+						class="keyword">Subject Alternate Name</span></span>
+					的支持，因此多台主机可与同一个证书关联。有关 SSL 的详细信息，请参阅<span sdata="link"><a
+						href="073f3b9e-8edd-4815-88ea-de0655d0325e.htm">了解 SSL 支持</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

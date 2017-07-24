@@ -1,0 +1,141 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>支持 XML 数据</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="sqlxml" />
+<meta name="System.Keywords" content="支持 XML 数据" />
+<meta name="System.Keywords" content="xml" />
+<meta name="Microsoft.Help.Id"
+	content="32b7217e-1f0c-473d-9a45-176daa81584e" />
+<meta name="Description"
+	content="从 SQL Server 2005 开始，SQL Server 提供了 xml 数据类型。使用该数据类型，您可以将 XML 文档和碎片存储在 SQL Server 数据库中。xml 数据类型是 SQL Server 中的内置数据类型，在某些方面类似于其他内置类型，如 int 和 varchar。与其他内置类型一样，在创建表时或者在 Transact-SQL CAST 和 CONVERT 函数中，可以将 xml 数据类型用作变量类型、参数类型、函数返回类型或列类型。在 JDBC 驱动程序中，xml 数据类型可" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">支持 XML 数据</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					从 SQL Server 2005 开始，SQL Server 提供了 <span sdata="langKeyword"
+						value="xml"><span class="keyword">xml</span></span>
+					数据类型。使用该数据类型，您可以将 XML 文档和碎片存储在 SQL Server 数据库中。<span
+						sdata="langKeyword" value="xml"><span class="keyword">xml</span></span>
+					数据类型是 SQL Server 中的内置数据类型，在某些方面类似于其他内置类型，如 <span
+						sdata="langKeyword" value="int"><span class="keyword">int</span></span>
+					和 <span sdata="langKeyword" value="varchar"><span
+						class="keyword">varchar</span></span>。与其他内置类型一样，在创建表时或者在 Transact-SQL
+					CAST 和 CONVERT 函数中，可以将 <span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型用作变量类型、参数类型、函数返回类型或列类型。在 JDBC
+					驱动程序中，<span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型可以映射为字符串、字节数组、流、CLOB、BLOB 或 SQLXML
+					对象。字符串是默认映射。
+				</p>
+				<p>
+					JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者引入了 SQLXML 接口。SQLXML 接口定义与 XML
+					数据交互以及操作 XML 数据的方法。<span sdata="langKeyword" value="SQLXML"><span
+						class="keyword">SQLXML</span></span> 是 JDBC 4.0 数据类型，它映射到 SQL Server <span
+						sdata="langKeyword" value="xml"><span class="keyword">xml</span></span>
+					数据类型。因此，如果要在应用程序中使用 SQLXML 数据类型，必须将 classpath 设置为包含 sqljdbc4.jar
+					文件。如果应用程序在访问 SQLXML 对象及其方法时尝试使用 sqljdbc3.jar，将引发异常。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						SQL Server 在将 XML 数据存储到数据库列中之前，始终会对其进行验证。运行在 SQL Server 2005
+						或最高版本上的应用程序可以使用 <span sdata="langKeyword" value="SQLXML"><span
+							class="keyword">SQLXML</span></span> 数据类型，因为 JDBC 驱动程序 会自动将它映射为 <span
+							sdata="langKeyword" value="xml"><span class="keyword">xml</span></span>
+						数据类型。但是，在 SQL Server 2000 上使用 <span sdata="langKeyword"
+							value="SQLXML"><span class="keyword">SQLXML</span></span>
+						数据类型会引发异常。<span sdata="langKeyword" value="SQLXML"><span
+							class="keyword">SQLXML</span></span> 支持在 sqljdbc4.jar 中提供，后者只能在 Java
+						运行时环境 (JRE) 6.0 或更高版本中工作。
+					</p>
+				</div>
+				<p>
+					本节中的主题介绍 SQLXML 接口，并说明如何使用 JDBC API 方法和 <span sdata="langKeyword"
+						value="SQLXML"><span class="keyword">SQLXML</span></span>
+					数据类型进行编程。
+				</p>
+			</div>
+			<h1 class="heading">本节内容</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>主题</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="7c67be98-efb5-446c-a0e3-ee67c43cb170.htm">SQLXML 接口</a></span>
+								</p></td>
+							<td><p>介绍 SQLXML 接口及其方法。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="4d2cc57c-7293-4d92-b8b1-525e2b35f591.htm">使用 SQLXML
+											进行编程</a></span>
+								</p></td>
+							<td><p>
+									介绍如何使用 Microsoft JDBC Driver for SQL Server API 方法在具有 <span
+										sdata="langKeyword" value="SQLXML"><span
+										class="keyword">SQLXML</span></span> Java 数据类型的关系数据库中存储和检索 XML
+									数据。此外还包含有关 SQLXML 对象类型的信息，并提供使用 SQLXML 对象的重要准则和限制的列表。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

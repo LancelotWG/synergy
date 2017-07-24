@@ -1,0 +1,137 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>setResponseBuffering 方法 (ISQLServerStatement)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="ISQLServerStatement.setResponseBuffering 方法" />
+<meta name="Microsoft.Help.Id"
+	content="9f489835-6cda-4c8c-b139-079639a169cf" />
+<meta name="Description"
+	content="将此 SQLServerStatement 对象的响应缓冲模式设置为不区分大小写的 String full 或 adaptive。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">setResponseBuffering
+						方法 (ISQLServerStatement)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					将此 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					对象的响应缓冲模式设置为不区分大小写的<span sdata="langKeyword" value=" String full"><span
+						class="keyword"> String full</span></span> 或 <span sdata="langKeyword"
+						value="adaptive"><span class="keyword">adaptive</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public final void <b>setResponseBuffering</b>(java.lang.String value)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">value</span>
+				</p>
+				<p>
+					包含响应缓冲模式的 <span sdata="langKeyword" value="String"><span
+						class="keyword">String</span></span>。有效模式可以为下列不区分大小写的字符串之一：<span
+						sdata="langKeyword" value="full"><span class="keyword">full</span></span>
+					或 <span sdata="langKeyword" value="adaptive"><span
+						class="keyword">adaptive</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span sdata="langKeyword" value="adaptive"><span
+						class="keyword">adaptive</span></span> 指定在必要时缓冲尽可能少的数据。
+				</p>
+				<p>
+					<span sdata="langKeyword" value="full"><span class="keyword">full</span></span>
+					指定在运行时从服务器读取全部结果。
+				</p>
+				<p>adaptive 是 JDBC Driver 2.0 版和 3.0 版中的默认值。full 是 JDBC Driver
+					2.0 之前版本中的默认值。</p>
+				<p>
+					<a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+					方法允许覆盖当前 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					对象的 <span class="label">responseBuffering</span> 连接<span
+						sdata="langKeyword" value=" String "><span class="keyword">
+							String </span></span>属性。有关使用响应缓冲模式的更多信息，请参阅<span sdata="link"><a
+						href="92d4e3be-c3e9-4732-9a60-b57f4d0f7cb7.htm">使用自适应缓冲</a></span>。
+				</p>
+				<p>
+					如果应用程序将 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+					方法设置为一个无效的参数值，则会引发 <a
+						href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="828cbaa9-ea7a-4986-95c3-5ba0d7d01d83.htm">SQLServerStatement
+							成员</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="92d4e3be-c3e9-4732-9a60-b57f4d0f7cb7.htm">使用自适应缓冲</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

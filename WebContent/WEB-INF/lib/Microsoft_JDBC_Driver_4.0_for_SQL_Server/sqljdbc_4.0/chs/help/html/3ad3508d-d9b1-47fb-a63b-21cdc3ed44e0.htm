@@ -1,0 +1,128 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>部署 JDBC 驱动程序</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="部署 JDBC 驱动程序" />
+<meta name="Microsoft.Help.Id"
+	content="3ad3508d-d9b1-47fb-a63b-21cdc3ed44e0" />
+<meta name="Description"
+	content="部署依赖于 Microsoft JDBC Driver for SQL Server 的应用程序时，必须同时重新分配 JDBC 驱动程序和该应用程序。与 Windows 操作系统的组件 Windows 数据访问组件 (Data Access Components,Windows DAC) 不同，JDBC 驱动程序被认为是 SQL Server 的组件。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">部署 JDBC 驱动程序</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>部署依赖于 Microsoft JDBC Driver for SQL Server 的应用程序时，必须同时重新分配
+					JDBC 驱动程序和该应用程序。与 Windows 操作系统的组件 Windows 数据访问组件 (Data Access
+					Components,Windows DAC) 不同，JDBC 驱动程序被认为是 SQL Server 的组件。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						尽管可以根据应用程序的需求随意分配 JDBC 驱动程序，但必须先进行注册才能执行此操作。若要进行注册以重新分发 JDBC
+						驱动程序，请参阅<a href="http://go.microsoft.com/fwlink/?LinkId=111571">注册
+							Microsoft JDBC Driver for SQL Server 重新分发权限</a>。
+					</p>
+				</div>
+				<p>
+					有两种方法可用于部署 JDBC 驱动程序和应用程序。一种方法是将 JDBC
+					驱动程序文件添加到您自己的自定义安装包中。第二种方法涉及到使用 Microsoft 所提供的 JDBC 安装包，您可以从 <a
+						href="http://go.microsoft.com/fwlink/?LinkId=70166">Microsoft
+						JDBC Driver for SQL Server 开发中心</a>下载此安装包。
+				</p>
+				<p>以下各部分讨论如何在 Windows 和 UNIX 操作系统上使用 JDBC 安装包。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>有关部署 Java 应用程序的一般信息，请参阅 Java 网站。</p>
+				</div>
+			</div>
+			<h1 class="heading">在 Windows 系统中部署 JDBC 驱动程序</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在 Windows 操作系统中部署 JDBC 驱动程序时，必须使用安装包的可执行 zip 文件版本，其名称通常为 <span
+						class="code">sqljdbc_&lt;version&gt;_&lt;language&gt;.exe</span>。
+				</p>
+				<p>
+					若要无提示运行可执行 zip 文件，必须在命令行或批处理文件中使用<span class="code"> /auto </span>命令行选项，如下所示：
+				</p>
+				<p>
+					<span class="code">sqljdbc_&lt;version&gt;_&lt;language&gt;.exe
+						/auto</span>
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						使用<span class="code"> /auto </span>选项时，执行的并不是真正的无提示安装，因为 WinZip
+						对话框仍会出现在用户屏幕中。然而，您无需与其进行交互，解压缩操作完成后，它会立即关闭。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">在 UNIX 系统中部署驱动程序</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在 UNIX 操作系统中部署 JDBC 驱动程序时，必须使用安装包的 gzip 文件版本，其名称通常为 <span
+						class="code">sqljdbc_&lt;version&gt;_&lt;language&gt;.tar.gz</span>。
+				</p>
+				<p>在安装 JDBC 驱动程序前，请确保用户的系统中安装了 gzip 和 tar
+					实用程序，并已将包含这两个实用程序可执行文件的文件夹添加到了 PATH 环境变量中。</p>
+				<p>若要解压缩此压缩的 tar 文件，请导航至您要解压缩驱动程序的目录中，然后键入以下命令：</p>
+				<p>
+					<span class="code">gzip -d
+						sqljdbc_&lt;version&gt;_&lt;language&gt;.tar.gz</span>
+				</p>
+				<p>若要解压缩此 tar 文件，请将它移到您要安装驱动程序的目录中，然后键入以下命令：</p>
+				<p>
+					<span class="code">tar –xf
+						sqljdbc_&lt;version&gt;_&lt;language&gt;.tar</span>
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

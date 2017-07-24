@@ -1,0 +1,110 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>setPacketSize 方法 (SQLServerDataSource)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerDataSource.setPacketSize 方法" />
+<meta name="Microsoft.Help.Id"
+	content="5d490edc-a223-4870-a838-784952497e5f" />
+<meta name="Description"
+	content="设置用于与 SQL Server 通信的当前网络数据包大小，以字节为单位指定。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">setPacketSize 方法
+						(SQLServerDataSource)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>设置用于与 SQL Server 通信的当前网络数据包大小，以字节为单位指定。</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void <b>setPacketSize</b>(int <span class="parameter"
+								sdata="paramReference">packetSize</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">packetSize</span>
+				</p>
+				<p>
+					一个包含网络数据包大小的 <span sdata="langKeyword" value="int"><span
+						class="keyword">int</span></span> 值。
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>此属性可接受的值范围是 [-1 | 0 | 512..32767]。如果将此属性设置为可接受范围外的值，将出现异常。</p>
+				<p>
+					在使用 SSL（安全套接字层）加密功能连接时，应用程序可能希望设置 packetSize 属性。Microsoft JDBC
+					Driver for SQL Server 将与服务器协商数据包大小。如果加密属性设置为“<span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>”且协商的数据包大小大于
+					Java 虚拟机 (JVM) 的默认安全提供程序的 SSL 记录大小，则驱动程序将报错并终止连接。
+				</p>
+				<p>此外，应用程序可能还希望在不要求 SSL 加密的情况下设置 packetSize
+					属性。在此情况下，如果服务器要求客户端支持 SSL 加密，则驱动程序将查看 JVM 的默认安全提供程序的 SSL 记录大小。如果
+					packetSize 属性大于 JVM 的默认安全提供程序的 SSL 记录大小，则驱动程序将报告错误并终止连接。</p>
+				<p>
+					有关使用 SSL 的详细信息，请参阅<span sdata="link"><a
+						href="8e566243-2f93-4b21-8065-3c8336649309.htm">使用 SSL 加密</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7e749bc5-d765-4864-be2b-7822d4c20c09.htm">SQLServerDataSource
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

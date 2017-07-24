@@ -1,0 +1,146 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>updateBinaryStream 方法 (int, java.io.InputStream, long)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerResultSet.updateBinaryStream 方法" />
+<meta name="Microsoft.Help.Id"
+	content="f84cfbe6-ebab-4357-8770-f1db34ecb04f" />
+<meta name="Description" content="使用将具有指定字节数的二进制流值更新指定列。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">updateBinaryStream
+						方法 (int, java.io.InputStream, long)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>使用将具有指定字节数的二进制流值更新指定列。</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void <b>updateBinaryStream</b>(int column<span class="parameter"
+								sdata="paramReference">Index</span>,
+                               java.io.InputStream <span
+								class="parameter" sdata="paramReference">x</span>,
+                               long <span class="parameter"
+								sdata="paramReference">length</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">columnIndex</span>
+				</p>
+				<p>
+					指示列索引的 <span sdata="langKeyword" value="int"><span
+						class="keyword">int</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">x</span>
+				</p>
+				<p>
+					<b>InputStream</b> 对象。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">length</span>
+				</p>
+				<p>
+					指示流长度的 <span sdata="langKeyword" value="long"><span
+						class="keyword">long</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>updateBinaryStream</b> 方法由 java.sql.ResultSet 接口中的 <b>updateBinaryStream</b>
+					方法指定。
+				</p>
+				<p>
+					此方法将来自 <b>InputStream</b> 对象的字节传递给所选的 SQL Server 二进制列，例如
+					binary、varbinary、varbinary(max)、image、xml 和 udt。此方法不支持更新字符列。若要使用 <b>InputStream</b>
+					更新字符列，请使用 <a href="4959a0a9-ae55-4c4e-80a8-21119aaceb92.htm">updateAsciiStream</a>
+					方法。
+				</p>
+				<p>
+					如果流长度与 <span class="parameter" sdata="paramReference">length</span>
+					参数指定的长度不同，则 JDBC 驱动程序将在更新或插入行时引发异常。
+				</p>
+				<p>
+					如果流长度未知，则可将 <span class="parameter" sdata="paramReference">length</span>
+					参数设置为 -1 以指示驱动程序应接受流而不考虑其长度。使用
+					sqljdbc4.jar，当应用程序希望使用长度未知的流来更新列时，我们建议您使用 JDBC 4.0 方法 <span
+						sdata="link"><a
+						href="1db3a975-c108-45d1-8c0d-14a094f391bd.htm">updateBinaryStream
+							方法 (int, java.io.InputStream)</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="1af26ac2-76e5-4a26-a600-9919211333ba.htm">updateBinaryStream
+							方法 (ISQLServerResultSet)</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="2a438d5d-2d6a-46a0-a2ae-f35fbae4a472.htm">ISQLServerResultSet
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

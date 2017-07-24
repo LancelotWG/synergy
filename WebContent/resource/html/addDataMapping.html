@@ -1,0 +1,57 @@
+<!--form action="javascript:OnSaveDataMap()" method="" enctype="multipart/form-data" id="roleForm" dojoType="dijit.form.Form"-->
+<form id="dataMapForm" dojoType="dojox.form.Manager">
+	<table class="no_border">
+		<tr>
+			<td class="label"><strong>变量名<label style="color:red">*</label>:</strong></td>
+			<td class="text" colspan="2">
+				<input data-dojo-type="dijit.form.Select" id="pvsSelect" name="pvsSelect" observer="enableSave, enableCreateBtn" style="width:100px">
+			</td>
+		</tr>
+		<tr>
+			<td class="label"><strong>变量方向<label style="color:red">*</label>:</strong></td>
+			<td class="text" colspan="2">
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="direction" id="in_radio" value="in" checked>
+				<label for="in_radio">输入</label>
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="direction" id="out_radio" value="out">
+				<label for="out_radio">输出</label>			
+			</td>
+		</tr>
+		<tr height="32px">
+			<td class="label"><strong>关联文件<label style="color:red">*</label>:</strong></td>
+			<td colspan="2" class="text">
+				<!--input dojoType="dojox.form.FileInput" label="浏览" id="pvFile" name="pvFile" observer="enableSave"-->
+				<input type="file" dojoType="dijit.form.ValidationTextBox" id="pvFile" required=true name="pvFile" observer="enableSave, enableCreateBtn" style="width:248px;height:21px;">
+			</td>
+		</tr>
+		<tr>
+			<td class="label"><strong>映射关系<label style="color:red">*</label>:</strong></td>
+			<td><input type="text" dojoType="dijit.form.ValidationTextBox" data-dojo-props="required:true" id="dataMappingText" name="dataMappingText" observer="enableSave"></td>
+			<td>
+				<button dojoType="dijit.form.Button" type="button" id="CreateDataMappingBtn" disabled=true onClick="showDataMappingDialog()">打开关联文件</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center">
+				<button dojoType="dijit.form.Button" type="button" id="dmSaveBtn" disabled=true>
+					保存
+					<script type="dojo/method" event="onClick">
+						var owner = dijit.byId("propsDialog").connectedComp.name;
+						var values = dijit.byId("dataMapForm").gatherFormValues(["pvsSelect", "direction","pvFile","dataMappingText"]);
+						var returnId = addOrEdit(dataMap_store,{name:values.pvsSelect,map:values.dataMappingText,direction:values.direction,file:values.pvFile,owner:owner,valid:"有效"},dataMap_maxID,"dataMapDlg");
+						if(returnId) dataMap_maxID = returnId;
+						dijit.byId('dm_grid').setStore(dataMap_store,{owner:owner});
+					</script>
+				</button>
+			</td>
+		</tr>
+	</table>
+	<script type="dojo/method" event="enableSave">
+		if(this.validate()) dijit.byId("dmSaveBtn").setDisabled(false);
+		else dijit.byId("dmSaveBtn").setDisabled(true);
+	</script>
+	<script type="dojo/method" event="enableCreateBtn">
+		var values = this.gatherFormValues(["pvsSelect","pvFile"]);
+		if(values.pvsSelect&&values.pvFile) dijit.byId("CreateDataMappingBtn").setDisabled(false);
+		else dijit.byId("CreateDataMappingBtn").setDisabled(true);
+	</script>	
+</form>

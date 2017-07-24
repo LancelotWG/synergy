@@ -1,0 +1,227 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>包装和接口</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="27fc9b72-9f21-4728-abcb-5c015f28a6ab" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 支持允许您创建类的代理的接口，并且支持允许您访问对 JDBC API 的扩展（特定于通过代理接口的 Microsoft JDBC Driver for SQL Server）的包装。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">包装和接口</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server
+					支持允许您创建类的代理的接口，并且支持允许您访问对 JDBC API 的扩展（特定于通过代理接口的 Microsoft JDBC
+					Driver for SQL Server）的包装。</p>
+			</div>
+			<h1 class="heading">包装</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>Microsoft JDBC Driver for SQL Server 支持 java.sql.Wrapper
+					接口。该接口提供一种机制，通过代理接口访问特定于 Microsoft JDBC Driver for SQL Server 的
+					JDBC API 扩展。</p>
+				<p>
+					java.sql.Wrapper 接口定义两个方法：<span sdata="langKeyword"
+						value="isWrapperFor"><span class="keyword">isWrapperFor</span></span>
+					和 <span sdata="langKeyword" value="unwrap"><span
+						class="keyword">unwrap</span></span>。<span sdata="langKeyword"
+						value="isWrapperFor"><span class="keyword">isWrapperFor</span></span>
+					方法检查指定的输入对象是否实现此接口。<span sdata="langKeyword" value="unwrap"><span
+						class="keyword">unwrap</span></span> 方法返回一个实现此接口的对象，从而允许访问特定于 Microsoft
+					JDBC Driver for SQL Server 的方法。
+				</p>
+				<p>
+					<span sdata="langKeyword" value="isWrapperFor"><span
+						class="keyword">isWrapperFor</span></span> 和 <span sdata="langKeyword"
+						value="unwrap"><span class="keyword">unwrap</span></span>
+					方法按如下所示公开：
+				</p>
+				<ul>
+					<li><p>
+							<span sdata="link"><a
+								href="71156863-3588-453e-b5a5-0573b2c1bebf.htm">isWrapperFor
+									方法 (SQLServerCallableStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="cbbf2728-b8c8-4c35-875a-6e967c8285dc.htm">unwrap 方法
+									(SQLServerCallableStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="09ed10eb-6e46-437b-a7c0-3c55574aad38.htm">isWrapperFor
+									方法 (SQLServerConnectionPoolDataSource)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="f5c9b734-2096-4ae4-a284-6b4d1b4a00d4.htm">unwrap 方法
+									(SQLServerConnectionPoolDataSource)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="f77af027-c021-4a17-b264-1ee592bfdd84.htm">isWrapperFor
+									方法 (SQLServerDataSource)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="eb8abe29-f3ec-4752-a590-1d5dc3e48f08.htm">unwrap 方法
+									(SQLServerDataSource)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="b0e591b1-73e2-4f90-967f-5555eadfc3f1.htm">isWrapperFor
+									方法 (SQLServerPreparedStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="8e3ec950-3ac1-4c28-9e97-ddce3bd46578.htm">unwrap 方法
+									(SQLServerPreparedStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="53f3291f-d43a-476b-a656-d86168dacf6c.htm">isWrapperFor
+									方法 (SQLServerStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="ce680176-ef04-4e44-bb6c-ec50bd06e7e6.htm">unwrap 方法
+									(SQLServerStatement)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="d612461d-4c3f-46db-b968-ff4c80b2aa7c.htm">isWrapperFor
+									方法 (SQLServerXADataSource)</a></span>
+						</p></li>
+					<li><p>
+							<span sdata="link"><a
+								href="d97c99b3-2224-4abb-8b32-40aff49fe759.htm">unwrap 方法
+									(SQLServerXADataSource)</a></span>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">接口</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>从 SQL Server JDBC Driver 3.0
+					开始，接口可用于应用程序服务器，以便从关联的类访问驱动程序特定的方法。应用程序服务器通过创建代理对类进行包装，并且从接口公开
+					Microsoft JDBC Driver for SQL Server 特定的函数。Microsoft JDBC Driver
+					for SQL Server 支持具有 Microsoft JDBC Driver for SQL Server
+					特定的方法和常量的接口，因此应用程序服务器可以创建类的代理。</p>
+				<p>这些接口从标准 Java 接口派生，这样，一旦取消对接口的包装以便访问驱动程序特定的功能或一般 Microsoft
+					JDBC Driver for SQL Server 功能时，您可以使用相同的对象。</p>
+				<p>新增了以下接口：</p>
+				<ul>
+					<li><p>
+							<a href="030a1631-cfcd-41e0-beb5-47f93c01e8e0.htm">ISQLServerCallableStatement</a>
+						</p></li>
+					<li><p>
+							<a href="031c01e2-2c65-4fe4-9700-fdbcc7a39f30.htm">ISQLServerConnection</a>
+						</p></li>
+					<li><p>
+							<a href="ba1d3242-19ca-4321-83fe-867a4f69f1d4.htm">ISQLServerDataSource</a>
+						</p></li>
+					<li><p>
+							<a href="cf87892e-5c34-4ac6-8258-c2a81e117b26.htm">ISQLServerPreparedStatement</a>
+						</p></li>
+					<li><p>
+							<a href="002496f7-8ec0-4267-b4e6-ba095e2ef306.htm">ISQLServerResultSet</a>
+						</p></li>
+					<li><p>
+							<a href="7f83b514-6e76-4f37-baf3-a10db2010e7c.htm">ISQLServerStatement</a>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<h1 class="heading">说明</h1>
+				<div class="subsection">
+					<p>
+						此示例说明如何从 <b>DataSource</b> 对象访问 Microsoft JDBC Driver for SQL
+						Server 特定的函数。此 <b>DataSource</b> 类可能已由应用程序服务器包装。若要访问 JDBC
+						驱动程序特定的函数或常量，您可以取消数据源对 <b>ISQLServerDataSource</b>
+						接口的数据源的包装，并且使用在此接口中声明的函数。
+					</p>
+				</div>
+				<h1 class="heading">代码</h1>
+				<div class="subsection">
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>import javax.sql.*;
+import java.sql.*;
+import com.microsoft.sqlserver.jdbc.*;
+
+public class UnWrapTest {
+   public static void main(String[] args) {
+      // This is a test.  This DataSource object could be something from an appserver 
+      // which has wrapped the real SQLServerDataSource with its own wrapper
+      SQLServerDataSource ds = new SQLServerDataSource();
+      checkSendStringParametersAsUnicode(ds);
+   }
+
+   // Unwrap to the ISQLServerDataSource interface to access the getSendStringParametersAsUnicode function
+   static void checkSendStringParametersAsUnicode(DataSource ds) {
+      try {
+         final ISQLServerDataSource sqlServerDataSource = ds.unwrap(ISQLServerDataSource.class);
+         boolean sendStringParametersAsUnicode = sqlServerDataSource.getSendStringParametersAsUnicode();
+
+         System.out.println("Send string as parameter value is:-" + sendStringParametersAsUnicode);
+
+      } catch (SQLException sqlE) {
+         System.out.println("Exception:-" + sqlE);
+      }
+   }
+}</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

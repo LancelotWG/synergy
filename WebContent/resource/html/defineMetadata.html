@@ -1,0 +1,34 @@
+<div style="width:100%;height:95%;" id="matadata_panel">
+    <table style="width: 100%;">
+        <tr>
+            <td align="center">
+                按<label style="color: red;">名称/拼音</label>过滤:
+                <select id="metadata_select" data-dojo-type="dijit.form.ComboBox" style="margin: 0px;"
+                       data-dojo-props='store:metadata_store,
+                    searchAttr:"pyName",
+                    labelAttr:"name",
+                    pageSize:10,
+                    name:"state5",
+                    required:true,
+                    missingMessage:"未输入检索条件",
+                    autoComplete:false,
+                    hasDownArrow:false,
+                    highlightMatch:"all",
+                    onChange:inputChanged,
+                    queryExpr:"*${0}*"
+                '>
+                </select>
+                <img src="icons/unclassified/search.png" alt="检索" style="vertical-align: bottom;" onclick="selectOrAdd()" onmouseover="showMetaBorder(0)" onmouseout="hideMetaBorder(0)">
+                <!--<button data-dojo-type="dijit.form.Button" data-dojo-props="label:'选中',onClick:selectOrAdd" style="margin: 0px;"></button>-->
+            </td>
+            <td style="width: 37px;">
+                <img src="icons/unclassified/showSelected.png" alt="显示选中"  style="vertical-align: bottom;" onclick="showSelected()" onmouseover="showMetaBorder(1)" onmouseout="hideMetaBorder(1)">
+                <img src="icons/unclassified/showAll.png" alt="显示全部"  style="vertical-align: bottom;" onclick="showAll()" onmouseover="showMetaBorder(2)" onmouseout="hideMetaBorder(2)">
+            </td>
+        </tr>
+    </table>
+     <div id='metadata_grid' jsid='metadata_grid' dojoType='dojox.grid.LazyTreeGrid' style="margin-top: 5px;clear: both;"
+         structure='metadata_layout' treeModel='metadata_model'
+         keepSelection='true' rowSelector='true'>
+    </div>
+</div>

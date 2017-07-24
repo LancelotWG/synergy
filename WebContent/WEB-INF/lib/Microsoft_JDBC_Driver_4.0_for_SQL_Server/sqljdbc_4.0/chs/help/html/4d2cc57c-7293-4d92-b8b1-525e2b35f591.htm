@@ -1,0 +1,289 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 SQLXML 进行编程</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="自适应缓冲" />
+<meta name="System.Keywords" content="使用 SQLXML 进行编程" />
+<meta name="System.Keywords" content="sqlxml" />
+<meta name="System.Keywords" content="xml" />
+<meta name="Microsoft.Help.Id"
+	content="4d2cc57c-7293-4d92-b8b1-525e2b35f591" />
+<meta name="Description"
+	content="本节介绍如何使用 Microsoft JDBC Driver for SQL Server API 方法和 SQLXML 对象在关系数据库中存储和检索 XML 文档。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 SQLXML 进行编程</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					本节介绍如何使用 Microsoft JDBC Driver for SQL Server API 方法和 <span
+						sdata="langKeyword" value="SQLXML"><span class="keyword">SQLXML</span></span>
+					对象在关系数据库中存储和检索 XML 文档。
+				</p>
+				<p>本节还包含有关 SQLXML 对象类型的信息，并提供使用 SQLXML 对象的重要准则和限制的列表。</p>
+			</div>
+			<h1 class="heading">使用 SQLXML 对象读取和写入 XML 数据</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>下面的列表介绍如何使用 Microsoft JDBC Driver for SQL Server API 方法和
+					SQLXML 对象来读取和写入 XML 数据：</p>
+				<ul>
+					<li><p>
+							若要创建 SQLXML 对象，请使用 <a
+								href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+							类的 <a href="cf5bfcdd-bc03-4c5b-b554-d8a8a4067e93.htm">createSQLXML</a>
+							方法。请注意，此方法创建的是无任何数据的 SQLXML 对象。若要向 SQLXML 对象中添加 <span
+								sdata="langKeyword" value="xml"><span class="keyword">xml</span></span>
+							数据，应调用在 SQLXML 接口中指定的下列方法之一：<b>setResult</b>、<b>setCharacterStream</b>、<b>setBinaryStream</b>
+							或 <b>setString</b>。
+						</p></li>
+					<li><p>
+							要检索 SQLXML 对象本身，应使用 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							类或 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类的 <b>getSQLXML</b> 方法。
+						</p></li>
+					<li><p>
+							若要从 SQLXML 对象中检索 <span sdata="langKeyword" value="xml"><span
+								class="keyword">xml</span></span> 数据，应使用在 SQLXML 接口中指定的下列方法之一：<b>getSource</b>、<b>getCharacterStream</b>、<b>getBinaryStream</b>
+							或 <b>getString</b>。
+						</p></li>
+					<li><p>
+							要更新 SQLXML 对象中的 <span sdata="langKeyword" value="xml"><span
+								class="keyword">xml</span></span> 数据，请使用 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							类的 <a href="abe8ff37-72e5-4ec1-a226-6b68dbf2c1b4.htm">updateSQLXML</a>
+							方法。
+						</p></li>
+					<li><p>
+							要将 SQLXML 对象存储在 <span sdata="langKeyword" value="xml"><span
+								class="keyword">xml</span></span> 类型的数据库表列中，应使用 <a
+								href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+							类或 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类的 <b>setSQLXML</b> 方法。
+						</p></li>
+				</ul>
+				<p>
+					<a href="8f2ff25b-71fd-46d7-b6de-d656095d2aad.htm">SQLXML
+						数据类型示例</a>中的示例代码演示了如何执行这些常见的 API 任务。
+				</p>
+			</div>
+			<h1 class="heading">可读写的 SQLXML 对象</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>下表列出 JDBC API 提供的 setter、getter 和 updater 方法所支持的 SQLXML
+					对象类型。表中的列引用以下内容：</p>
+				<ul>
+					<li><p>
+							<b>方法名</b>列列出 JDBC API 中受支持的 getter、setter 和 updater 方法。
+						</p></li>
+					<li><p>
+							<b>Getter SQLXML 对象</b>列表示由 <a
+								href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类的 <a href="8bcf9eda-b36c-480c-8bf2-91c392d5a0ee.htm">getSQLXML</a>
+							方法或 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							类的 <a href="a07e0f30-cbc6-4ad7-b931-c30cad382e64.htm">getSQLXML</a>
+							方法创建的 SQLXML 对象。
+						</p></li>
+					<li><p>
+							<b>Setter SQLXML </b>对象列表示 <a
+								href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+							类的 <a href="cf5bfcdd-bc03-4c5b-b554-d8a8a4067e93.htm">createSQLXML</a>
+							方法创建的 SQLXML 对象。请注意，下面的 setter 方法仅接受 <a
+								href="cf5bfcdd-bc03-4c5b-b554-d8a8a4067e93.htm">createSQLXML</a>
+							方法创建的 SQLXML 对象。
+						</p></li>
+				</ul>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>方法名称</p></th>
+							<th><p>Getter SQLXML 对象</p>
+								<p>（可读）</p></th>
+							<th><p>Setter SQLXML 对象</p>
+								<p>（可写）</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<b>CallableStatement.setSQLXML()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>CallableStatement.setObject()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>PreparedStatement.setSQLXML()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>PreparedStatement.setObject()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>ResultSet.updateSQLXML()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>ResultSet.updateObject()</b>
+								</p></td>
+							<td><p>不支持</p></td>
+							<td><p>支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>ResultSet.getSQLXML()</b>
+								</p></td>
+							<td><p>支持</p></td>
+							<td><p>不支持</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<b>CallableStatement.getSQLXML()</b>
+								</p></td>
+							<td><p>支持</p></td>
+							<td><p>不支持</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>如上表所示，setter SQLXML 方法将不会处理可读的 SQLXML 对象；同样，getter 方法将不会处理可写的
+					SQLXML 对象。</p>
+				<p>
+					如果应用程序在调用 <b>setObject</b> 方法时为 SQLXML
+					对象指定了小数位数或长度参数，则小数位数或长度参数将被忽略。
+				</p>
+			</div>
+			<h1 class="heading">使用 SQLXML 对象的指导原则和限制</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>应用程序可以使用 SQLXML 对象从/向数据库中读取/写入 XML 数据。下面的列表提供了有关使用 SQLXML
+					对象时的具体限制和准则的信息：</p>
+				<ul>
+					<li><p>SQLXML 对象只能在创建它的事务的持续时间内保持有效。</p></li>
+					<li><p>通过 getter 方法接收的 SQLXML 对象只能用于读取数据。</p></li>
+					<li><p>通过连接对象创建的 SQLXML 对象只能用于写入数据。</p></li>
+					<li><p>应用程序只能对可读的 SQLXML 对象调用一个 getter 方法来读取数据。调用该 getter
+							方法后，对同一 SQLXML 对象调用其他所有 getter 或 setter 方法都将失败。</p></li>
+					<li><p>
+							应用程序只能对已读取或已写入的 SQLXML 对象调用 <b>free</b>
+							方法。但是，只要基础列或参数处于活动状态，就仍然可以处理返回的流或源。如果基础列或参数变为非活动状态，与 SQLXML
+							对象关联的流或源就会关闭。如果基础列或参数不再有效，Stream、Simple API for XML (SAX) 和
+							Streaming API for XML (StAX) getter 将无法使用基础数据。
+						</p></li>
+					<li><p>应用程序只能对可写的 SQLXML 对象调用一个 setter 方法。调用该 setter
+							方法后，对同一 SQLXML 对象调用其他所有 getter 或 setter 方法都将失败。</p></li>
+					<li><p>要为 SQLXML 对象设置数据，应用程序必须在返回的对象中使用相应的 setter 方法和函数。</p></li>
+					<li><p>
+							如果基础列为 <span sdata="langKeyword" value="null"><span
+								class="keyword">null</span></span>，<a
+								href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类和 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							类的 <b>getSQLXML</b> 方法将返回 <span sdata="langKeyword" value="null"><span
+								class="keyword">null</span></span>。
+						</p></li>
+					<li><p>setter 对象可以在创建它们的连接期间内保持有效。</p></li>
+					<li><p>
+							应用程序不能使用 SQLXML 接口提供的 setter 方法来设置 <span sdata="langKeyword"
+								value="null"><span class="keyword">null</span></span> 值。应用程序可以使用
+							SQLXML 接口中提供的 setter 方法来设置空字符串 ("")。要设置 <span sdata="langKeyword"
+								value="null"><span class="keyword">null</span></span>
+							值，应用程序应调用下列方法之一：
+						</p>
+						<ul>
+							<li><p>
+									<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+									类和 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+									类的 <b>setNull</b> 方法。
+								</p></li>
+							<li><p>
+									<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+									类和 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+									类的 <b>setObject</b> 方法。
+								</p></li>
+							<li><p>
+									<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+									类和 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+									类的 <b>setSQLXML</b> 方法以及 <span sdata="langKeyword" value="null"><span
+										class="keyword">null</span></span> 参数值。
+								</p></li>
+						</ul></li>
+					<li><p>处理 XML 文档时，出于性能方面的考虑，建议使用 Simple API for XML (SAX)
+							和 Streaming API for XML (StAX) 分析器，而不要使用文档对象模型 (DOM) 分析器。</p></li>
+				</ul>
+				<p>XML 分析器无法处理空值。但是，SQL Server 允许应用程序在 XML
+					数据类型的数据库列中检索和存储空值。这意味着，分析 XML 数据时，如果基础值为空，分析器将引发异常。对于 DOM 输出，JDBC
+					driver 会捕获该异常并引发错误。对于 SAX 和 Stax 输出，此错误直接来自分析器。</p>
+			</div>
+			<h1 class="heading">自适应缓冲和 SQLXML 支持</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					SQLXML 对象返回的二进制流和字符流遵循自适应或完全缓冲模式。另一方面，如果 XML
+					分析器不是流，则不会遵循自适应或完全设置。有关自适应缓冲的详细信息，请参阅<span sdata="link"><a
+						href="92d4e3be-c3e9-4732-9a60-b57f4d0f7cb7.htm">使用自适应缓冲</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="32b7217e-1f0c-473d-9a45-176daa81584e.htm">支持 XML 数据</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

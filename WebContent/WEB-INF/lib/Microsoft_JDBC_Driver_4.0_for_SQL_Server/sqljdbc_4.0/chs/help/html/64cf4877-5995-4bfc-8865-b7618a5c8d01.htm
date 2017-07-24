@@ -1,0 +1,131 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用带有更新计数的存储过程</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="64cf4877-5995-4bfc-8865-b7618a5c8d01" />
+<meta name="Description"
+	content="为了使用存储过程修改 SQL Server 数据库中的数据，Microsoft JDBC Driver for SQL Server 提供了 SQLServerCallableStatement 类。通过使用 SQLServerCallableStatement 类，可以调用修改数据库中所包含数据的存储过程，然后返回受影响的行数计数（也称为更新计数）。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用带有更新计数的存储过程</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					为了使用存储过程修改 SQL Server 数据库中的数据，Microsoft JDBC Driver for SQL Server
+					提供了 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+					类。通过使用 <b>SQLServerCallableStatement</b>
+					类，可以调用修改数据库中所包含数据的存储过程，然后返回受影响的行数计数（也称为更新计数）。
+				</p>
+				<p>
+					使用 <b>SQLServerCallableStatement</b> 类构建对存储过程的调用之后，可以使用 <a
+						href="e1367f39-23d7-4e26-b160-6d988d7e6988.htm">execute</a> 或 <a
+						href="10ae662a-ce3c-4b24-875c-5c2df319d93b.htm">executeUpdate</a>
+					方法中的任意一个来调用此存储过程。<b>executeUpdate</b> 方法将返回一个 <span
+						sdata="langKeyword" value="int"><span class="keyword">int</span></span>
+					值，该值包含受此存储过程影响的行数，但 <b>execute</b> 方法不返回此值。如果使用 <b>execute</b>
+					方法，并且希望获得受影响的行数计数，则可以在运行存储过程后调用 <a
+						href="e9570228-4500-44b6-b2f1-84ac050b5112.htm">getUpdateCount</a>
+					方法。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						如果要让 JDBC 驱动程序返回所有更新计数，包括任何可能已不再使用的触发器所返回的更新计数，请将 lastUpdateCount
+						连接字符串属性设置为“false”。有关 lastUpdateCount 属性的详细信息，请参阅<span sdata="link"><a
+							href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+					</p>
+				</div>
+				<p>作为示例，在 SQL Server 2005 AdventureWorks
+					示例数据库中创建以下表和存储过程，以及插入示例数据：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>CREATE TABLE TestTable 
+   (Col1 int IDENTITY, 
+    Col2 varchar(50), 
+    Col3 int);
+
+CREATE PROCEDURE UpdateTestTable
+   @Col2 varchar(50),
+   @Col3 int
+AS
+BEGIN
+   UPDATE TestTable
+   SET Col2 = @Col2, Col3 = @Col3
+END;
+INSERT INTO dbo.TestTable (Col2, Col3) VALUES ('b', 10);</pre></span>
+				</div>
+				<p>
+					在下面的示例中，将向此函数传递 AdventureWorks 示例数据库的打开连接，并使用 <b>execute</b> 方法调用
+					UpdateTestTable 存储过程，然后使用 <b>getUpdateCount</b> 方法返回受存储过程影响的行计数。 
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>public static void executeUpdateStoredProcedure(Connection con) {
+   try {
+      CallableStatement cstmt = con.prepareCall("{call dbo.UpdateTestTable(?, ?)}");
+      cstmt.setString(1, "A");
+      cstmt.setInt(2, 100);
+      cstmt.execute();
+      int count = cstmt.getUpdateCount();
+      cstmt.close();
+
+      System.out.println("ROWS AFFECTED: " + count);
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+</pre></span>
+					</div>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="0041f9e1-09b6-4487-b052-afd636c8e89a.htm">使用带有存储过程的语句</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

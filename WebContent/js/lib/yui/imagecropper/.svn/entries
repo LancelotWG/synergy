@@ -1,0 +1,67 @@
+8
+
+dir
+5048
+http://192.168.0.100/svn/trunk/PSM/Editor/processdesigner/lib/yui/imagecropper
+http://192.168.0.100/svn
+
+
+
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3b7ddcfd-8522-0410-b790-dbbf41f9375a
+
+assets
+dir
+
+imagecropper.js
+file
+
+
+
+
+2012-05-28T08:18:58.553312Z
+87700d951d5b19e07b1d9b9a8f812163
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+imagecropper-min.js
+file
+
+
+
+
+2012-05-28T08:18:58.553312Z
+16010be7e2c6f29b7eda7a44205accc1
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+imagecropper-debug.js
+file
+
+
+
+
+2012-05-28T08:18:58.553312Z
+9a4b8f309ee1952ea8543e0ea57f8715
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+

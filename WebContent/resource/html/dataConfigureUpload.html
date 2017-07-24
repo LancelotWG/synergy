@@ -1,0 +1,10 @@
+<div style="width:100%;height:45px;float:left;">
+	<div style="width:100%;height:33%;float:right;">
+		<div style="float:left;">请上传通过程序生成的构件配置文件: </div><br>
+		<div style="float:right;margin-top: 5px;" id="dataConfigureUploadPath"></div>
+		<input style="float:left; margin-top: 5px;" id="dataConfigureUploadName" style="margin:8px;" dojoType="dijit.form.ValidationTextBox" promptMessage="请输入构件配置文件路径。" regExp="^.*?\.cfg$" required=true>
+	</div>
+</div>	
+<div style="width:260px;height:25px;float:right">
+	<button style="float:right;; margin-right:100px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="确定" iconClass="dijitNoIcon" onClick="Component.prototype.dataConfigureUploadApply"></button>
+</div>

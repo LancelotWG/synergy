@@ -1,0 +1,74 @@
+<form method="" enctype="multipart/form-data" id="ifConditionForm" dojoType="dijit.form.Form" style="width: 100%;height: 95%;">
+<!--form id="ifConditionForm" dojoType="dojox.form.Manager"-->
+	<table width="600" border="0" cellspacing="0" cellpadding="0">
+		<tr align="center">
+			<td colspan="3">
+				<span id="expression_name" data-dojo-type="dijit.InlineEditBox" data-dojo-props='editor:"dijit.form.ValidationTextBox",editorParams:{autoSave:true,required:true},title:"单击更改", width:"200px"' style="color:red;font-weight:bold"></span>
+			</td>			
+		</tr>
+	    <tr>
+	        <td>
+	        	<table width="225" border="0" cellspacing="0" cellpadding="0">
+				    <tr>
+				        <td class="label" style="width:125px;"><strong>左操作数类型<label style="color:red">*</label>：</strong></td>
+				        <td class="text">
+				        	<select dojoType="dijit.form.Select" id="left_operand_type" name="left_operand_type" style="width:95%" required=true onChange="leftOperandTypeChanged">
+				        		<option value="">&nbsp;</option>
+								<option value="type_pv">流程变量</option>
+								<option value="type_role">角色</option>
+								<option value="type_duration">任务持续时间</option>
+								<option value="type_expression">表达式</option>
+							</select>
+				        </td>
+				    </tr>
+				    <tr>
+				        <td class="label" style="width:100px;"><strong>左操作数<label style="color:red">*</label>：</strong></td>
+				        <td class="text">
+				        	<select dojoType="dijit.form.Select" id="left_operand" name="left_operand" style="width:95%" required=true onChange="leftOperandChanged"></select>
+				        </td>
+				    </tr>
+				</table>
+	        </td>
+	        <td>
+	        	<table width="150" border="0" cellspacing="0" cellpadding="0">
+				    <tr>
+				        <td class="label" style="width:50%;"><strong>操作符<label style="color:red">*</label>:</strong></td>
+				        <td class="text">
+				        	<select dojoType="dijit.form.Select" id="operatorSelect" name="operatorSelect" style="width:95%"></select>
+				        </td>
+				    </tr>
+				</table>
+	        </td>
+	        <td>
+	        	<table width="225" border="0" cellspacing="0" cellpadding="0">
+				    <tr>
+				        <td class="label" style="width:125px;"><strong>右操作数类型<label style="color:red">*</label>：</strong></td>
+				        <td class="text">
+				        	<select dojoType="dijit.form.Select" id="right_operand_type" name="right_operand_type" style="width:95%" required=true onChange="rightOperandTypeChanged">
+				        		<option value="">&nbsp;</option>
+								<option value="type_direct">直接值</option>
+								<option value="type_pv">流程变量</option>
+								<option value="type_role">角色</option>
+								<option value="type_duration">任务持续时间</option>
+								<option value="type_expression">表达式</option>				
+							</select>
+				        </td>
+				    </tr>
+				    <tr>
+				        <td class="label" style="width:100px;"><strong>右操作数<label style="color:red">*</label>：</strong></td>
+				        <td class="text">
+				        	<select dojoType="dijit.form.Select" id="right_operand" name="right_operand" style="width:95%" required=true onChange="rightOperandChanged"></select>
+				        </td>
+				    </tr>
+				    <tr align="right">
+				        <td colspan="2" id="dynamicTD" style="display:none">
+				        </td>
+				    </tr>
+				</table>
+	        </td>
+	    </tr>
+		<tr align="center">
+			<td colspan="3"><button type="button" dojoType="dijit.form.Button" onClick="addCondition" id="expSaveBtn">保存</button></td>
+		</tr>
+	</table>
+</form>

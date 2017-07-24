@@ -1,0 +1,169 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>JDBC Driver 的系统要求</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="系统要求" />
+<meta name="Microsoft.Help.Id"
+	content="447792bb-f39b-49b4-9fd0-1ef4154c74ab" />
+<meta name="Description"
+	content="若要使用 Microsoft JDBC Driver for SQL Server 访问 SQL Server 数据库中的数据，计算机上必须安装有下列组件：" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">JDBC Driver 的系统要求</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>若要使用 Microsoft JDBC Driver for SQL Server 访问 SQL Server
+					数据库中的数据，计算机上必须安装有下列组件：</p>
+				<ul>
+					<li><p>Microsoft JDBC Driver for SQL Server</p></li>
+					<li><p>Java 运行时环境</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">Java 运行时环境要求</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>从 Microsoft JDBC Driver for SQL Server 开始，JDBC 驱动程序对 Java
+					数据库连接 (JDBC) Spec API 的支持扩展为包括 JDBC 4.0 API。JDBC 4.0 是作为 Sun Java
+					SE 开发工具包 (JDK) 6.0 和 Java 运行时环境 (JRE) 6.0 的一部分引入的。JDBC 4.0 是 JDBC
+					3.0 的超集。</p>
+				<p>Microsoft JDBC Driver for SQL Server 同时支持 JDBC 3.0 和 JDBC
+					4.0。</p>
+				<p>
+					在 Windows 和 UNIX 操作系统上部署 Microsoft JDBC Driver for SQL Server
+					时，必须分别使用 <i>sqljdbc_&lt;版本&gt;_enu.exe</i> 和 <i>sqljdbc_&lt;版本&gt;_enu.tar.gz</i>
+					的安装包。有关如何部署 JDBC Driver 的详细信息，请参阅<span sdata="link"><a
+						href="3ad3508d-d9b1-47fb-a63b-21cdc3ed44e0.htm">部署 JDBC 驱动程序</a></span>
+					主题。
+				</p>
+				<p>
+					为了支持向后兼容以及可能的升级方案，JDBC 驱动程序在每个安装包中都包括 2 个 JAR 类库：<span
+						sdata="langKeyword" value="sqljdbc.jar"><span
+						class="keyword">sqljdbc.jar</span></span> 和 <span sdata="langKeyword"
+						value="sqljdbc4.jar"><span class="keyword">sqljdbc4.jar</span></span>。
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>JAR</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>sqljdbc.jar</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="sqljdbc.jar"><span
+										class="keyword">sqljdbc.jar</span></span> 类库提供对 JDBC 3.0 的支持。
+								</p>
+								<p>
+									<span sdata="langKeyword" value="sqljdbc.jar"><span
+										class="keyword">sqljdbc.jar</span></span> 类库要求使用 5.0 版的 Java 运行时环境
+									(JRE)。连接到数据库时，在 JRE 6.0 上使用 <span sdata="langKeyword"
+										value="sqljdbc.jar"><span class="keyword">sqljdbc.jar</span></span>
+									会引发异常。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>JDBC 驱动程序不支持 JRE 1.4。使用 JDBC Driver 时必须将 JRE 1.4 升级至 JRE
+										5.0 或 JRE 6.0。在某些情况下，您可能需要重新编译应用程序，因为它可能与 JDK 5.0
+										或更高版本不兼容。有关详细信息，请参阅 Sun Microsystems 网站上的文档。</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>sqljdbc4.jar</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="sqljdbc4.jar"><span
+										class="keyword">sqljdbc4.jar</span></span> 类库提供对 JDBC 4.0 的支持。它不仅包括 <span
+										sdata="langKeyword" value="sqljdbc.jar"><span
+										class="keyword">sqljdbc.jar</span></span> 的所有功能，还包括新增的 JDBC 4.0 方法。
+								</p>
+								<p>
+									<span sdata="langKeyword" value="sqljdbc4.jar"><span
+										class="keyword">sqljdbc4.jar</span></span> 类库要求使用 6.0 版的 Java 运行时环境
+									(JRE)。在 JRE 1.4 或 5.0 上使用 <span sdata="langKeyword"
+										value="sqljdbc4.jar"><span class="keyword">sqljdbc4.jar</span></span>
+									会引发异常。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										如果应用程序必须在 JRE 6.0 上运行，即使该应用程序不使用 JDBC 4.0 功能，也应使用 <span
+											sdata="langKeyword" value="sqljdbc4.jar"><span
+											class="keyword">sqljdbc4.jar</span></span>。
+									</p>
+								</div></td>
+						</tr>
+					</table>
+				</div>
+				<p>请注意，尽管 JDBC 驱动程序旨在与所有主要的 Sun 等效 Java 虚拟机一起工作并由这些虚拟机支持，但却是在
+					Sun JRE 5.0 或更高版本上进行测试的。</p>
+			</div>
+			<h1 class="heading">SQL Server 要求</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 驱动程序支持与 SQL Server 2005 和更高版本建立连接。</p>
+			</div>
+			<h1 class="heading">操作系统要求</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 驱动程序可在任何支持使用 Java 虚拟机 (JVM) 的操作系统上工作。但是，仅 Sun
+					Solaris、SUSE Linux、Windows Vista 和 Windows 7 操作系统经过了正式测试。</p>
+			</div>
+			<h1 class="heading">支持的语言</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC Driver 支持所有的 SQL Server 列排序规则。有关 JDBC driver 支持的排序规则的详细信息，请参阅
+					<span sdata="link"><a
+						href="bbb74a1d-9278-401f-9530-7b5f45aa79de.htm">JDBC Driver
+							的国际功能</a></span>。
+				</p>
+				<p>有关排序规则的详细信息，请参阅 SQL Server 联机丛书中的“使用排序规则”。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

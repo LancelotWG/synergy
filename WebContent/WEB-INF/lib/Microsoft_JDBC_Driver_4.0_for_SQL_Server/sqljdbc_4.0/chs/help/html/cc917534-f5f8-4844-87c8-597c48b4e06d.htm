@@ -1,0 +1,126 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用语句和结果集</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="结果集性能" />
+<meta name="System.Keywords" content="语句性能" />
+<meta name="Microsoft.Help.Id"
+	content="cc917534-f5f8-4844-87c8-597c48b4e06d" />
+<meta name="Description"
+	content="使用 Microsoft JDBC Driver for SQL Server 及其提供的 Statement 和 ResultSet 对象时，可使用多种技术来提高应用程序的性能和可靠性。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用语句和结果集</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					使用 Microsoft JDBC Driver for SQL Server 及其提供的 <b>Statement</b> 和 <b>ResultSet</b>
+					对象时，可使用多种技术来提高应用程序的性能和可靠性。
+				</p>
+			</div>
+			<h1 class="heading">使用适当的语句对象</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					使用 JDBC 驱动程序的某个 <b>Statement</b> 对象时（如 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>、<a
+						href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+					或 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+					对象），请确保所使用的对象适用于您的作业。
+				</p>
+				<ul>
+					<li><p>
+							如果不带 OUT 参数，则无需使用 <b>SQLServerCallableStatement</b> 对象。而是使用 <b>SQLServerStatement</b>
+							或 <b>SQLServerPreparedStatement</b> 对象。
+						</p></li>
+					<li><p>
+							如果不想多次执行语句或不带 IN 或 OUT 参数，则无需使用 <b>SQLServerCallableStatement</b>
+							或 <b>SQLServerPreparedStatement</b> 对象。而是使用 <b>SQLServerStatement</b>
+							对象。
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">为 ResultSet 对象使用适当的并发</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>创建生成结果集的语句时，不要请求可更新的并发，除非您的实际意图就是更新这些结果。对于读取较小的结果集来说，默认的只进、只读游标模型速度最快。</p>
+			</div>
+			<h1 class="heading">限制结果集的大小</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					考虑使用 <a href="cccc0667-589b-4655-8ea8-14ae8b2eb9dc.htm">setMaxRows</a>
+					方法（或 SET ROWCOUNT 或 SELECT TOP N SQL
+					语法）来限制从可能较大的结果集中返回的行数。如果必须处理大型结果集，请考虑通过设置连接字符串属性
+					responseBuffering=adaptive（默认模式）来使用自适应响应缓冲。此方法使应用程序无需服务器端游标即可处理大型结果集，并最大限度地减少应用程序使用的内存。有关详细信息，请参阅<span
+						sdata="link"><a
+						href="92d4e3be-c3e9-4732-9a60-b57f4d0f7cb7.htm">使用自适应缓冲</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">使用适当的提取大小</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于只读服务器游标，需要权衡的是与服务器之间的往返通信与驱动程序所使用的内存量。对于可更新的服务器游标，提取大小还会影响结果集对更改的敏感度和服务器上的并发。在显式调用
+					<a href="048fe245-157f-4fd8-be75-ce54b83e02b3.htm">refreshRow</a>
+					方法或游标离开提取缓冲区之前，当前提取缓冲区中的行更新并不可见。如果使用 CONCUR_SS_SCROLL_LOCKS
+					(1009)，则较大的提取缓冲区具有较好的性能（较少的服务器往返通信），但具有较低的更改敏感度且服务器上的并发会减少。若要获得最大的更改敏感度，请将提取大小设为
+					1。然而，需要注意的是，这样会导致每提取一行就发生一次服务器往返通信。
+				</p>
+			</div>
+			<h1 class="heading">对较大的 IN 参数使用流</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>可使用已逐渐具体化的流或 BLOB 和 CLOB，来处理对较大的列值的更新或对较大的 IN 参数的发送。JDBC
+					驱动程序通过多次往返通信将其“分块”发送到服务器，这样您便可以设置和更新超出内存允许范围的值。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="e1592499-b87b-45ee-bab8-beaba8fde841.htm">借助 JDBC
+							驱动程序提高性能和可靠性</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

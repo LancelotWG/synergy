@@ -1,0 +1,145 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解 Java EE 支持</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="Java EE 支持" />
+<meta name="Microsoft.Help.Id"
+	content="a9448b80-b7a3-49cf-8bb4-322c73676005" />
+<meta name="Description"
+	content="以下各部分介绍 Microsoft JDBC Driver for SQL Server 如何为 Java Platform, Enterprise Edition (Java EE) 和 JDBC 3.0 可选 API 功能提供支持。本“帮助”系统中提供的源代码示例提供了很好的参考资料，供您开始使用这些功能。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解 Java EE 支持</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>以下各部分介绍 Microsoft JDBC Driver for SQL Server 如何为 Java
+					Platform, Enterprise Edition (Java EE) 和 JDBC 3.0 可选 API
+					功能提供支持。本“帮助”系统中提供的源代码示例提供了很好的参考资料，供您开始使用这些功能。</p>
+				<p>首先，确保您的 Java 环境（JDK、JRE）包含 javax.sql 包。这是使用可选 API 的任何 JDBC
+					应用程序所必需的包。JDK 1.5 和更高版本已包含此包，因此您不需要单独安装它。</p>
+			</div>
+			<h1 class="heading">驱动程序名称</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					驱动程序类名称为 <span class="label">com.microsoft.sqlserver.jdbc.SQLServerDriver</span>。驱动程序包含在
+					sqljdbc.jar 或 sqljdb4.jar 文件中。
+				</p>
+				<p>
+					只要您使用 JDBC <b>DriverManager</b>
+					类加载驱动程序，就会使用此类名称。另外，只要您在任何驱动程序配置中必须指定驱动程序的类名称，则也将用到它。例如，配置 Java EE
+					应用程序服务器内的数据源可能要求您输入驱动程序类名称。
+				</p>
+			</div>
+			<h1 class="heading">数据源</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 驱动程序为 Java EE / JDBC 3.0 数据源提供支持。JDBC 驱动程序 <a
+						href="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4.htm">SQLServerXADataSource</a>
+					类是由 <span class="label">com.microsoft.sqlserver.jdbc.SQLServerXADataSource</span>
+					实现的。
+				</p>
+				<h1 class="heading">数据源名称</h1>
+				<div class="subsection">
+					<p>可以使用数据源来建立数据库连接。下表中描述了可用于 JDBC 驱动程序的数据源：</p>
+					<div class="tableSection">
+						<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+							<tr>
+								<th><p>数据源类型</p></th>
+								<th><p>类名称</p></th>
+								<th><p>说明</p></th>
+							</tr>
+							<tr>
+								<td><p>数据源</p></td>
+								<td><p>com.microsoft.sqlserver.jdbc.SQLServerDataSource</p></td>
+								<td><p>非连接池数据源。</p></td>
+							</tr>
+							<tr>
+								<td><p>ConnectionPoolDataSource</p></td>
+								<td><p>com.microsoft.sqlserver.jdbc.SQLServerConnectionPoolDataSource</p></td>
+								<td><p>用于配置 JAVA EE 应用程序服务器连接池的数据源。通常当应用程序在 JAVA EE
+										应用程序服务器中运行时使用。</p></td>
+							</tr>
+							<tr>
+								<td><p>XADataSource</p></td>
+								<td><p>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</p></td>
+								<td><p>用于配置 JAVA EE XA 数据源的数据源。通常当应用程序在 JAVA EE
+										应用程序服务器和 XA 事务管理器中运行时使用。</p></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<h1 class="heading">数据源属性</h1>
+				<div class="subsection">
+					<p>所有数据源均支持设置和获取与基础驱动程序的属性集关联的任何属性的功能。</p>
+					<p>示例：</p>
+					<p>
+						<span class="code">setServerName("localhost");</span>
+					</p>
+					<p>
+						<span class="code">setDatabaseName("AdventureWorks"); </span>
+					</p>
+					<p>下面的内容说明应用程序如何使用数据源进行连接：</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>initialize JNDI ..
+Context ctx = new InitialContext(System.getProperties());
+...
+DataSource ds = (DataSource) ctx.lookup("MyDataSource");
+Connection c = ds.getConnection("user", "pwd");</pre></span>
+					</div>
+					<p>
+						有关数据源属性的详细信息，请参阅<span sdata="link"><a
+							href="f3363d05-07fc-4bf8-ae5e-2a7a968808ad.htm">设置数据源属性</a></span>。
+					</p>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

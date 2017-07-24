@@ -1,0 +1,145 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解 JDBC 驱动程序数据类型</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="数据类型" />
+<meta name="Microsoft.Help.Id"
+	content="7802328d-4d23-4775-9573-4169b127d258" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 支持在使用 SQL Server 作为数据库的 Java 应用程序中使用 JDBC 的基本数据类型和高级数据类型。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解 JDBC 驱动程序数据类型</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server 支持在使用 SQL Server 作为数据库的
+					Java 应用程序中使用 JDBC 的基本数据类型和高级数据类型。</p>
+				<p>JDBC 类型系统负责调解 SQL Server 数据类型与 Java 语言类型和对象之间的转换。JDBC
+					类型的模型建立在 SQL-92 和 SQL-99 类型的基础之上。JDBC 驱动程序符合 JDBC
+					规范，且设计为在可预测性与灵活性之间提供适当的平衡。</p>
+				<p>这部分的各个主题介绍如何使用基本数据类型和高级数据类型，以及如何可以将数据类型转换为其他数据类型。</p>
+			</div>
+			<h1 class="heading">本节涉及的主题</h1>
+			<div id="inThisSectionSection" class="section"
+				name="collapseableSection" style="">
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>主题</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="d7044936-5b8c-4def-858c-28a11ef70a97.htm">使用基本数据类型</a></span>
+								</p></td>
+							<td><p>描述 JDBC
+									基本数据类型。包括一些示例，介绍如何通过结果集、参数化查询和存储过程来使用数据类型。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="07eb00dd-621a-46f9-a5a5-8cab4d6058b5.htm">配置如何将
+											java.sql.Time 值发送到服务器</a></span>
+								</p></td>
+							<td><p>说明 JDBC 驱动程序如何生成日期。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="b39461d3-48d6-4048-8300-1a886c00756d.htm">使用高级数据类型</a></span>
+								</p></td>
+							<td><p>描述 JDBC 高级数据类型。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="ab8fa00f-cb16-47e2-94b8-3a76f56c2b84.htm">了解数据类型的差异</a></span>
+								</p></td>
+							<td><p>描述不同 JDBC 驱动程序数据类型之间的差异。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="98fa7488-aac3-45b4-8aa4-83ed6ab638b4.htm">了解数据类型转换</a></span>
+								</p></td>
+							<td><p>描述当使用 getter 和 setter 方法时如何处理数据类型转换。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="4fceacfd-df4f-40cd-b7a2-5e5e58a5979f.htm">区域字符集支持</a></span>
+								</p></td>
+							<td><p>介绍对区域字符集类型的支持。</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="32b7217e-1f0c-473d-9a45-176daa81584e.htm">支持 XML 数据</a></span>
+								</p></td>
+							<td><p>
+									介绍 SQLXML 接口。此外还说明了如何使用 <span sdata="langKeyword"
+										value="SQLXML"><span class="keyword">SQLXML</span></span> Java
+									数据类型在关系数据库中读取和写入 XML 数据。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>
+									<span sdata="link"><a
+										href="27fc9b72-9f21-4728-abcb-5c015f28a6ab.htm">包装和接口</a></span>
+								</p></td>
+							<td><p>论述具有允许应用程序服务器创建类代理的 Microsoft JDBC Driver for SQL
+									Server 特定的方法和常量的接口，还论述对 java.sql.Wrapper 接口的支持。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="939a8773-2583-49a4-bf00-6b892fbe39dc.htm">JDBC 驱动程序概述</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

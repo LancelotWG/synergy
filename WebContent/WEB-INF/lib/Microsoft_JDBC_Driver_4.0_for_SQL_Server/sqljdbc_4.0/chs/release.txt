@@ -1,0 +1,127 @@
+﻿版本信息
+Microsoft JDBC Driver 4.0 for SQL Server
+2012 年 3 月
+
+
+简介
+------------
+此文件包含为 Microsoft JDBC Driver 4.0 for SQL Server 文档
+提供补充的最新信息或其他重要信息。在安装 JDBC 驱动程序之前，应通读此
+文件。
+
+您的反馈对于我们非常重要，我们将力求及时回复您的
+反馈。有关使用 JDBC 驱动程序博客和在线论坛提供反馈的信
+息，请参阅 http://msdn.microsoft.com/data/jdbc 上的
+Microsoft JDBC Driver 4.0 for SQL Server 页。
+
+
+安装
+------------
+install.txt 中提供了有关安装 JDBC 驱动程序的说明。
+有关在 Windows 和 Unix 操作系统上安装 JDBC 驱动程序
+的信息，请参阅该文件。
+
+支持的操作系统
+---------------------------
+Microsoft JDBC Driver 4.0 for SQL Server 支持以下操作系统：
+Linux、Unix、Windows Server 2008、
+Windows Vista Service Pack 1、Windows Server 2008 R2 和 Windows 7。
+
+上面的列表是某些受支持的操作系统的示例。
+JDBC 驱动程序可在任何支持使用 Java 虚拟机 (JVM) 的操作系统上工作。
+但是，仅 Sun Solaris、SUSE Linux 以及 Windows Vista Service Pack 1
+或更高版本的操作系统经过了测试。
+
+版本内容
+----------------
+Microsoft JDBC Driver 4.0 for SQL Server 可执行 zip 或 tar 文件
+将以下文件解压缩到指定的位置（相对于所选安装目录）：
+
+<安装目录>\sqljdbc_<版本>\<语言>\install.txt
+<安装目录>\sqljdbc_<版本>\<语言>\release.txt
+<安装目录>\sqljdbc_<版本>\<语言>\license.txt
+<安装目录>\sqljdbc_<版本>\<语言>\sqljdbc.jar
+<安装目录>\sqljdbc_<版本>\<语言>\\sqljdbc4.jar
+<安装目录>\sqljdbc_<版本>\<语言>\auth\x86\sqljdbc_auth.dll
+<安装目录>\sqljdbc_<版本>\<语言>\auth\x64\sqljdbc_auth.dll
+<安装目录>\sqljdbc_<版本>\<语言>\help\default.htm
+<安装目录>\sqljdbc_<版本>\<语言>\help\index.htm
+<安装目录>\sqljdbc_<版本>\<语言>\help\toc.htm
+<安装目录>\sqljdbc_<版本>\<语言>\help\html\<文档页...>
+<安装目录>\sqljdbc_<版本>\<语言>\help\local\<文档页...>
+<安装目录>\sqljdbc_<版本>\<语言>\help\samples\<示例文件...>
+<安装目录>\sqljdbc_<版本>\<语言>\xa\xa_install.sql
+<安装目录>\sqljdbc_<版本>\<语言>\xa\x86\sqljdbc_xa.dll
+<安装目录>\sqljdbc_<版本>\<语言>\xa\x64\sqljdbc_xa.dll
+
+
+更改列表
+-----------
+从 3.0 到 4.0 的更改：
+
+1765616 对于 katmai 和更高版本，DatabaseMetadata.getTypeInfo 现在为 date、time、
+datetime2、datetimeoffset 返回新 java.sql.Type 值。
+
+1764334 增加了对于跟踪 JDBC XA 超时和 XID 的支持。
+
+1750318 SQLServerDatabaseMetaData 函数现在可在重复使用入池连接时正确工作。
+
+1768845 setTimestamp 和 updateTimestamp 的行为在关于往返方面已经一致。驱动程序会在将数据发送到 
+        服务器之前先将其舍入到 7 位小数。
+
+1770134 具有最大值 (23:59:59.999) 的时间后端类型上的 updateTime 现在可导致正确的舍入行为。
+
+1761042 DataSource Boolean 属性现在会记录退出调用。
+
+1750330 更新了 XA SQL 脚本以避免在首次运行时出现误导错误。
+
+1761393 为 unwrap 方法改进了跟踪。
+
+1945579 DatabaseMetaData.getSchemas 现在可针对所有排序规则与 SQL Azure 和 SQL Server 一起正常工作。
+
+1963089 hostNameInCertificate 连接属性不再是针对 SQL Azure 验证 SSL 证书时所必需的。
+
+1958531 如果不是为数据库镜像设置的服务器连接在登录过程中失败（例如，数据库不存在），驱动程序不会自动重试。
+
+1954701 插入重复行时引发的异常现在包含 SQLState 23000。
+
+2055259 改进了加载 sqljdbc_auth.dll 后集成身份验证失败时的错误信息。
+
+2083373 针对 SQL Azure 的使用了无效参数的大型参数化查询现在引发异常时不关闭连接。
+
+2084385 getDate、getTimestamp、getDateTimeOffset 现在返回所有日期都使用 JRE 1.7 的正确值。
+
+2105115 从 DatabaseMetaData.getColumns 获取的 ResultSet 上的 getObject 现在可以正常工作。
+
+
+已知问题
+------------
+下面是有关 Microsoft JDBC Driver 4.0 for SQL Server 的已知问题：
+
+1) SQL MERGE 语句的参数元数据限制
+
+PreparedStatement.getParameterMetadata() 在与参数化 MERGE 查询一起使用时
+引发 SQLException。
+
+
+2) JavaKerberos 和 IBM VM
+
+如果在 Windows 环境下运行，可能会需要在配置文件中指定 principalname 以便让 Java Kerberos 工作。例如：
+SQLJDBCDriver {
+com.ibm.security.auth.module.Krb5LoginModule required  useDefaultCcache=true credsType=initiator principal=principalname@principaldomain;
+};
+
+
+3) 与 SQL AZURE 的连接被断开
+
+连接到 SQL Azure 时，空闲连接在处于不活动状态一定时间后可能被某个网络组件（如防火墙）终止。为了避免网络组件删除空闲连接，应在加载驱动程序的操作系统上设置以下
+注册表设置（或非 Windows 的等效设置）：
+           
+           注册表设置                                                                               推荐值
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime                 30000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveInterval             1000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmission      10
+  
+
+
+

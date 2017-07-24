@@ -1,0 +1,178 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>连接到 SQL Azure 上的数据库</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="SQL Azure" />
+<meta name="Microsoft.Help.Id"
+	content="49645b1f-39b1-4757-bda1-c51ebc375c34" />
+<meta name="Description"
+	content="本主题讨论使用 Microsoft JDBC Driver for SQL Server 连接到 SQL Azure 数据库时遇到的问题。有关 SQL Azure 数据库的详细信息，请参阅：" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">连接到 SQL Azure
+						上的数据库</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>本主题讨论使用 Microsoft JDBC Driver for SQL Server 连接到 SQL Azure
+					数据库时遇到的问题。有关 SQL Azure 数据库的详细信息，请参阅：</p>
+				<ul>
+					<li><p>
+							<a href="http://go.microsoft.com/fwlink/?LinkID=202490">SQL
+								Azure 数据库</a>
+						</p></li>
+					<li><p>
+							<a href="http://msdn.microsoft.com/library/gg715284.aspx">如何：使用
+								JDBC 连接到 SQL Azure</a>
+						</p></li>
+					<li><p>
+							<a
+								href="http://msdn.microsoft.com/library/windowsazure/hh749029(VS.103).aspx">在
+								Java 中使用 SQL Azure</a>
+						</p></li>
+				</ul>
+			</div>
+			<h1 class="heading">详细信息</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<dl class="authored">
+					<dt>
+						在 SQL Azure 上，您应连接到 master 数据库以调用 <span sdata="langKeyword"
+							value="SQLServerDatabaseMetaData.getCatalogs"><span
+							class="keyword">SQLServerDatabaseMetaData.getCatalogs</span></span>。
+					</dt>
+					<dd>
+						<p>
+							SQL Azure 不支持从用户数据库中返回整个目录集。<span sdata="langKeyword"
+								value="SQLServerDatabaseMetaData.getCatalogs"><span
+								class="keyword">SQLServerDatabaseMetaData.getCatalogs</span></span> 使用
+							sys.databases 视图获取目录。请参考 <a
+								href="http://go.microsoft.com/fwlink/?LinkId=217396">sys.databases（SQL
+								Azure 数据库）</a>中讨论的权限来了解 SQL Azure 上的 <span sdata="langKeyword"
+								value="SQLServerDatabaseMetaData.getCatalogs"><span
+								class="keyword">SQLServerDatabaseMetaData.getCatalogs</span></span> 行为。
+						</p>
+					</dd>
+					<dt>删除的连接</dt>
+					<dd>
+						<p>连接到 SQL Azure
+							时，空闲连接在处于不活动状态一定时间后可能被某个网络组件（如防火墙）终止。为了避免网络组件删除空闲连接，应在加载驱动程序的操作系统上设置以下注册表设置（或非
+							Windows 的等效设置）：</p>
+						<div class="tableSection">
+							<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+								<tr>
+									<th><p>注册表设置</p></th>
+									<th><p>建议的值</p></th>
+								</tr>
+								<tr>
+									<td><p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime</p></td>
+									<td><p>30000</p></td>
+								</tr>
+								<tr>
+									<td><p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveInterval</p></td>
+									<td><p>1000</p></td>
+								</tr>
+								<tr>
+									<td><p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmission</p></td>
+									<td><p>10</p></td>
+								</tr>
+							</table>
+						</div>
+						<p>然后必须重新启动计算机，注册表设置才能生效。</p>
+						<p>为此，在 Windows Azure
+							中运行时，创建一个启动任务来添加注册表项。例如，将以下启动任务添加到服务定义文件：</p>
+						<div class="sampleCode">
+							<span codeLanguage="other"><pre>&lt;Startup&gt;
+    &lt;Task commandLine="AddKeepAlive.cmd" executionContext="elevated" taskType="simple"&gt;
+    &lt;/Task&gt;
+&lt;/Startup&gt;</pre></span>
+						</div>
+						<p>然后将 AddKeepAlive.cmd 文件添加到您的项目。将“复制到输出目录”设置为“始终复制”。以下是一个
+							AddKeepAlive.cmd 文件示例：</p>
+						<div class="sampleCode">
+							<span codeLanguage="other"><pre>if exist keepalive.txt goto done
+time /t &gt; keepalive.txt
+REM Workaround for JDBC keep alive on SQL Azure
+REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v KeepAliveTime /t REG_DWORD /d 30000 &gt;&gt; keepalive.txt
+REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v KeepAliveInterval /t REG_DWORD /d 1000 &gt;&gt; keepalive.txt
+REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v TcpMaxDataRetransmission /t REG_DWORD /d 10 &gt;&gt; keepalive.txt
+shutdown /r /t 1
+:done</pre></span>
+						</div>
+					</dd>
+					<dt>将服务器名称追加到连接字符串中的 UserId</dt>
+					<dd>
+						<p>在 Microsoft JDBC Driver for SQL Server 4.0 之前的版本中，连接到 SQL
+							Azure 数据库时，要求您将服务器名称追加到连接字符串中的 UserId，例如 user@servername。从
+							Microsoft JDBC Driver for SQL Server 4.0 版本开始，不再要求将 @servername
+							追加到连接字符串中的 UserId。</p>
+					</dd>
+					<dt>使用加密要求设置 hostNameInCertificate</dt>
+					<dd>
+						<p>
+							连接到 SQL Azure 时，如果指定 <span sdata="langKeyword"
+								value="encrypt=true"><span class="keyword">encrypt=true</span></span>，应指定
+							<span sdata="langKeyword" value="hostNameInCertificate"><span
+								class="keyword">hostNameInCertificate</span></span>。（如果连接字符串中的服务器名称为 <span
+								class="parameter" sdata="paramReference">shortName</span>.<span
+								class="parameter" sdata="paramReference">domainName</span>，则将 <span
+								sdata="langKeyword" value="hostNameInCertificate"><span
+								class="keyword">hostNameInCertificate</span></span> 属性设置为 *.<span
+								class="parameter" sdata="paramReference">domainName</span>。）
+						</p>
+						<p>例如：</p>
+						<div class="sampleCode">
+							<span codeLanguage="other"><pre>jdbc:sqlserver://abcd.int.mscds.com;databaseName= myDatabase;user=myName;password=myPassword;encrypt=true;hostNameInCertificate= *.int.mscds.com;</pre></span>
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

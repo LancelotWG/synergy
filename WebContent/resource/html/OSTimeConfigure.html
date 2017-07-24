@@ -1,0 +1,14 @@
+<div style="width:250px;height:200px;float:left;">
+    <span>现有时间片：</span></br>
+    <select id="timeConfigureMultiSelect"></select>
+    <button style="float:right;margin-top:25px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="增加" iconClass="dijitNoIcon" onClick="os.addTimeConfigureItemDlg()"></button>
+    <button style="float:right;margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="删除" iconClass="dijitNoIcon" onClick="os.removeTimeConfigureItemDlg()"></button>
+    <button style="float:right;margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="上移" iconClass="dijitNoIcon" onClick="os.upTimeConfigureItemDlg()"></button>
+    <button style="float:right;margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="下移" iconClass="dijitNoIcon" onClick="os.downTimeConfigureItemDlg()"></button>
+</div>
+<div style="width:110px;height:200px;float:right">
+    <span>新增时间片：</span></br>
+    <input id="timeConfigureNew" style='width:80px;float:right;margin:10px;' dojoType="dijit.form.NumberTextBox" data-dojo-props="">
+    <button style="float:left;margin-left:10px;margin-top:130px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="应用" iconClass="dijitNoIcon" onClick="os.timeConfigureChangeApplyDlg()"></button>
+    <button style="float:right;margin-right:10px;margin-top:130px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onClick="os.timeConfigureChangeAbolishDlg()"></button>
+</div>

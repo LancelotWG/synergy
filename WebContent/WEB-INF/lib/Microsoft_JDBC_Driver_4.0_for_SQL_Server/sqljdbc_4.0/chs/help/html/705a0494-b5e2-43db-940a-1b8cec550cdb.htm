@@ -1,0 +1,118 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>setSendTimeAsDatetime 方法 (SQLServerDataSource)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerDataSource.setSendTimeAsDatetime 方法" />
+<meta name="Microsoft.Help.Id"
+	content="705a0494-b5e2-43db-940a-1b8cec550cdb" />
+<meta name="Description" content="SQL Server JDBC Driver 3.0 中新增了此方法。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">setSendTimeAsDatetime
+						方法 (SQLServerDataSource)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>SQL Server JDBC Driver 3.0 中新增了此方法。</p>
+				<p>
+					修改 <span sdata="langKeyword" value="sendTimeAsDatetime"><span
+						class="keyword">sendTimeAsDatetime</span></span> 连接属性的设置。
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public void setSendTimeAsDatetime(boolean <span class="parameter"
+								sdata="paramReference">sendTimeAsDateTime</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">sendTimeAsDateTime</span>
+				</p>
+				<p>
+					布尔值。如果设置为 true，java.sql.Time 值将作为 SQL Server<span
+						sdata="langKeyword" value="datetime"><span class="keyword">datetime</span></span>
+					类型发送到服务器。如果设置为 false，java.sql.Time 值将作为 SQL Server<span
+						sdata="langKeyword" value="time"><span class="keyword">time</span></span>
+					类型发送到服务器。
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="02287122-5dc1-455d-987f-95fd9a69d503.htm">SQLServerDataSource.getSendTimeAsDatetime</a>
+					返回 <span sdata="langKeyword" value="sendTimeAsDatetime"><span
+						class="keyword">sendTimeAsDatetime</span></span> 连接属性的设置。
+				</p>
+				<p>
+					有关 <span sdata="langKeyword" value="sendTimeAsDatetime"><span
+						class="keyword">sendTimeAsDatetime</span></span> 连接属性的详细信息，请参阅<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+				<p>
+					有关详细信息，请参阅<span sdata="link"><a
+						href="07eb00dd-621a-46f9-a5a5-8cab4d6058b5.htm">配置如何将
+							java.sql.Time 值发送到服务器</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7e749bc5-d765-4864-be2b-7822d4c20c09.htm">SQLServerDataSource
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

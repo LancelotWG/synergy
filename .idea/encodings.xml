@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/OSConfigure.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/OSTimeConfigure.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/addRole.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/busConfigure.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/busDataEditor.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/codeEditor.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/codeGeneration.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/componentConfigure.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/componentDataDefinition.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/dataConfigure.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/dataConfigureUpload.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/newProject.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/openFile.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/openProject.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/setComponentPropertyDialog.html" charset="GB2312" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

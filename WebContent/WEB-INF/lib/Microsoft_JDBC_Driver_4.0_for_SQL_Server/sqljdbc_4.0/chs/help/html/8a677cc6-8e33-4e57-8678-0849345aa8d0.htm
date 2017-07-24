@@ -1,0 +1,322 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>getIndexInfo 方法 (SQLServerDatabaseMetaData)</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords"
+	content="SQLServerDatabaseMetaData.getIndexInfo 方法" />
+<meta name="Microsoft.Help.Id"
+	content="8a677cc6-8e33-4e57-8678-0849345aa8d0" />
+<meta name="Description" content="检索给定表的索引和统计信息的说明。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">getIndexInfo 方法
+						(SQLServerDatabaseMetaData)</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>检索给定表的索引和统计信息的说明。</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public java.sql.ResultSet <b>getIndexInfo</b>(java.lang.String <span
+								class="parameter" sdata="paramReference">cat</span>,
+java.lang.String <span class="parameter" sdata="paramReference">schema</span>,
+java.lang.String <span class="parameter" sdata="paramReference">table</span>,
+boolean <span class="parameter" sdata="paramReference">unique</span>,
+boolean <span class="parameter" sdata="paramReference">approximate</span>)</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">参数</h1>
+			<div id="parametersSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<span class="parameter" sdata="paramReference">cat</span>
+				</p>
+				<p>
+					包含目录名称的<span sdata="langKeyword" value=" String"><span
+						class="keyword"> String</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">schema</span>
+				</p>
+				<p>
+					包含架构名称的<span sdata="langKeyword" value=" String"><span
+						class="keyword"> String</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">table</span>
+				</p>
+				<p>
+					包含表名称的<span sdata="langKeyword" value=" String"><span
+						class="keyword"> String</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">unique</span>
+				</p>
+				<p>
+					如果仅返回唯一值的索引，则为 <span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>。如果返回所有索引，则为 <span sdata="langKeyword"
+						value="false"><span class="keyword">false</span></span>。
+				</p>
+				<p>
+					<span class="parameter" sdata="paramReference">approximate</span>
+				</p>
+				<p>
+					如果结果反映近似值或过期值，则为 <span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>。如果结果是准确的，则为 <span sdata="langKeyword"
+						value="false"><span class="keyword">false</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">返回值</h1>
+			<div id="returnValueSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					对象。
+				</p>
+			</div>
+			<h1 class="heading">异常</h1>
+			<div id="ddueExceptionsSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					<a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+				</p>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					此 <b>getIndexInfo</b> 方法由 java.sql.DatabaseMetaData 接口中的 <b>getIndexInfo</b>
+					方法指定。
+				</p>
+				<p>
+					由 <b>getIndexInfo</b> 方法返回的结果集将包含下列信息：
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>名称</p></th>
+							<th><p>类型</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>TABLE_CAT</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>指定的表所在的数据库的名称。</p></td>
+						</tr>
+						<tr>
+							<td><p>TABLE_SCHEM</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>表的架构。</p></td>
+						</tr>
+						<tr>
+							<td><p>TABLE_NAME</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>表的名称。</p></td>
+						</tr>
+						<tr>
+							<td><p>NON_UNIQUE</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="boolean"><span
+										class="keyword">boolean</span></span>
+								</p></td>
+							<td><p>指示索引值是否可以不唯一。</p></td>
+						</tr>
+						<tr>
+							<td><p>INDEX_QUALIFIER</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>索引所有者的名称。当 TYPE 为 tableIndexStatistic 时，该名称为
+									Null。</p></td>
+						</tr>
+						<tr>
+							<td><p>INDEX_NAME</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>索引的名称。</p></td>
+						</tr>
+						<tr>
+							<td><p>TYPE</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="short"><span
+										class="keyword">short</span></span>
+								</p></td>
+							<td><p>索引的类型。可以是下列值之一：</p>
+								<p>tableIndexStatistic (0)</p>
+								<p>tableIndexClustered (1)</p>
+								<p>tableIndexHashed (2)</p>
+								<p>tableIndexOther (3)</p></td>
+						</tr>
+						<tr>
+							<td><p>ORDINAL_POSITION</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="short"><span
+										class="keyword">short</span></span>
+								</p></td>
+							<td><p>列在索引中的序号位置。索引中的第一列为 1。</p></td>
+						</tr>
+						<tr>
+							<td><p>COLUMN_NAME</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>列的名称。</p></td>
+						</tr>
+						<tr>
+							<td><p>ASC_OR_DESC</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>索引排序规则中所用的顺序。可以是下列值之一：</p>
+								<p>A（升序）</p>
+								<p>D（降序）</p>
+								<p>NULL（不适用）</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>SQL Server 始终返回“A”。</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>CARDINALITY</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="int"><span
+										class="keyword">int</span></span>
+								</p></td>
+							<td><p>表中的行数或索引中的唯一值个数。</p></td>
+						</tr>
+						<tr>
+							<td><p>PAGES</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="int"><span
+										class="keyword">int</span></span>
+								</p></td>
+							<td><p>用于存储索引或表的页数。</p></td>
+						</tr>
+						<tr>
+							<td><p>FILTER_CONDITION</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="String"><span
+										class="keyword">String</span></span>
+								</p></td>
+							<td><p>筛选条件。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>SQL Server 始终返回 Null。</p>
+								</div></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						有关 <b>getIndexInfo</b> 方法返回的数据的详细信息，请参阅 SQL Server
+						联机丛书中的“sp_indexes (Transact-SQL)”。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">示例</h1>
+			<div id="exampleSection" class="section" name="collapseableSection"
+				style="">
+				<p>
+					下例演示了如何使用 <b>getIndexInfo</b> 方法返回 SQL Server 2005AdventureWorks
+					示例数据库中的 Person.Contact 表的索引信息和统计信息。
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>public static void executeGetIndexInfo(Connection con) {
+   try {
+      DatabaseMetaData dbmd = con.getMetaData();
+      ResultSet rs = dbmd.getIndexInfo("AdventureWorks", "Person", "Contact", false, true);
+      ResultSetMetaData rsmd = rs.getMetaData();
+
+      // Display the result set data.
+      int cols = rsmd.getColumnCount();
+      while(rs.next()) {
+         for (int i = 1; i &lt;= cols; i++) {
+            System.out.println(rs.getString(i));
+         }
+      }
+      rs.close();
+   } 
+
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="8b8049d0-8c6d-4476-866b-098709f37eec.htm">SQLServerDatabaseMetaData
+							类</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="772de447-c922-4b85-8e10-5f0d9277966c.htm">SQLServerDatabaseMetaData
+							方法</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="327ba0bc-438a-494c-b119-1cd4a096bb58.htm">SQLServerDatabaseMetaData
+							成员</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

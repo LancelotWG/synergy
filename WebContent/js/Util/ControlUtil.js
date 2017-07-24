@@ -1,0 +1,34 @@
+/**
+ * @author LancelotWG
+ * 控制常量
+ */
+dojo.require("dojo.Stateful");
+dojo.declare("ControlUtil",dojo.Stateful,{
+    //鼠标点击操作
+    selectColor:ColorUtil.prototype.colorSkyBlue,//蓝色背景
+    unSelectColor:ColorUtil.prototype.colorGray,//灰色背景
+    unSelectTransparentColor:ColorUtil.prototype.colorTransparent,//透明背景
+    selectOther:0,//拾取其它元素
+    selectComponent:1,//拾取组件
+    selectBusConnect:2,//拾取总线交联
+    selectControlFlow:3,//拾取传输控制
+    selectBus:4,//拾取传输控制
+    //程序执行到的创建步骤（菜单类别）
+    createOS:0,//OS创建阶段
+    configureOS:1,//OS配置阶段
+    createProject:2,//工程创建阶段
+    //程序状态
+    statusBlank:0,
+    statusPrepare:1,
+    statusReady:2,
+    //组件操作方式
+    ComponentCreateMode:0,
+    ComponentNetCreateMode:1,
+    ComponentServerCreateMode:2,
+    ComponentMoveMode:3,
+    ComponentNetMoveMode:4,
+    //自动登出时间
+    logoutTime:1500,//25分钟自动登出
+    //模块数据类型
+    modelDataType:["DT_SINT16","DT_UINT16"]
+});

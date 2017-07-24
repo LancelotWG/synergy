@@ -1,0 +1,118 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>区域字符集支持</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="JDBC 4.0" />
+<meta name="System.Keywords" content="区域" />
+<meta name="System.Keywords" content="区域字符类型" />
+<meta name="Microsoft.Help.Id"
+	content="4fceacfd-df4f-40cd-b7a2-5e5e58a5979f" />
+<meta name="Description"
+	content="JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者包括新的区域字符集转换 API 方法。该支持包括用于 NCHAR、NVARCHAR、LONGNVARCHAR 和 NCLOB JDBC 类型的新增 setter、getter 和 updater 方法。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">区域字符集支持</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者包括新的区域字符集转换 API 方法。该支持包括用于 <span
+						sdata="langKeyword" value="NCHAR"><span class="keyword">NCHAR</span></span>、<span
+						sdata="langKeyword" value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>、<span
+						sdata="langKeyword" value="LONGNVARCHAR"><span
+						class="keyword">LONGNVARCHAR</span></span> 和 <span sdata="langKeyword"
+						value="NCLOB"><span class="keyword">NCLOB</span></span> JDBC 类型的新增
+					setter、getter 和 updater 方法。
+				</p>
+				<p>下面是支持区域字符集转换的新增 getter、setter 和 updater 方法的列表：</p>
+				<ul>
+					<li><p>
+							<a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>：<a
+								href="b7da6d44-f5b1-44f8-95f5-40179968b1b0.htm">setNString</a>、<a
+								href="2c245f0e-85ec-4d94-93ac-4957aa52b984.htm">setNCharacterStream</a>、<a
+								href="7ec1d24d-f732-44f3-9608-734ce2df4489.htm">setNClob</a>。
+						</p></li>
+					<li><p>
+							<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>：<a
+								href="9a86daeb-03b2-45ef-82d3-495f33fb0113.htm">getNClob</a>、<a
+								href="5ac360e8-a1ee-4577-93b4-bb2018f1087a.htm">getNString</a>、<a
+								href="e4f1e99c-4c7a-4c83-b202-4608538ab50b.htm">getNCharacterStream</a>、<a
+								href="6494300b-7fc0-4076-8311-22d35a96cdc6.htm">setNString</a>、<a
+								href="77905630-0135-46ad-a419-215e648996e2.htm">setNCharacterStream</a>、<a
+								href="fd972acc-57e5-4971-9744-0e8fca5f05a6.htm">setNClob</a>。
+						</p></li>
+					<li><p>
+							<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>：<a
+								href="432901eb-57b6-44ad-98b4-43164bcbc2b6.htm">getNClob</a>、<a
+								href="023a238b-37f2-4966-bc91-ef2b22aebc46.htm">getNString</a>、<a
+								href="69620047-78fd-4be9-a245-1851afaeac1b.htm">getNCharacterStream</a>、<a
+								href="0cb0d347-4449-4920-b382-05f88f2a3225.htm">updateNClob</a>、<a
+								href="0b6b65a1-8e62-4cd5-ab28-6231c3e20d81.htm">updateNString</a>、<a
+								href="d6a21d01-6d8e-4449-9fdf-ddb09bd4fdb8.htm">updateNCharacterStream</a>。
+						</p></li>
+				</ul>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>要在应用程序中使用这些方法，必须将 classpath 设置为包含 sqljdbc4.jar 文件。</p>
+				</div>
+				<p>
+					若要以 Unicode 格式发送 String 参数，应用程序应当使用新的 JDBC 4.0
+					区域字符方法；如果使用非区域字符方法，则应当将 <span sdata="langKeyword"
+						value="sendStringParametersAsUnicode"><span class="keyword">sendStringParametersAsUnicode</span></span>
+					连接属性设置为“<span sdata="langKeyword" value="true"><span
+						class="keyword">true</span></span>”。建议尽可能使用新的 JDBC 4.0 区域字符方法。有关 <span
+						sdata="langKeyword" value="sendStringParametersAsUnicode"><span
+						class="keyword">sendStringParametersAsUnicode</span></span> 连接属性的详细信息，请参阅<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

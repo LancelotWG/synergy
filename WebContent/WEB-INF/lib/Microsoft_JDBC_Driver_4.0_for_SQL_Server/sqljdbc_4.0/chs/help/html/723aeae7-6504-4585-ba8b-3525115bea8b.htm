@@ -1,0 +1,486 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>跟踪驱动程序操作</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="跟踪" />
+<meta name="Microsoft.Help.Id"
+	content="723aeae7-6504-4585-ba8b-3525115bea8b" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 支持使用跟踪（或日志记录）协助解决在应用程序中使用 JDBC 驱动程序时出现的问题。若要启用跟踪，JDBC 驱动程序需要使用 java.util.logging 中的日志记录 API，它可提供用于创建 Logger 和 LogRecord 对象的类集。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">跟踪驱动程序操作</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					Microsoft JDBC Driver for SQL Server 支持使用跟踪（或日志记录）协助解决在应用程序中使用 JDBC
+					驱动程序时出现的问题。若要启用跟踪，JDBC 驱动程序需要使用 java.util.logging 中的日志记录
+					API，它可提供用于创建 <b>Logger</b> 和 <b>LogRecord</b> 对象的类集。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						对于 JDBC 驱动程序中包含的本地组件 (sqljdbc_xa.dll)，可通过内置诊断 (BID) 框架启用跟踪。有关 BID
+						的信息，请参阅 <a href="http://go.microsoft.com/fwlink/?LinkId=70042">Data
+							Access Tracing in SQL Server 2005（SQL Server 2005 中的数据访问跟踪）</a>。
+					</p>
+				</div>
+				<p>
+					开发应用程序时，可对 <b>Logger</b> 对象进行调用，它会创建 <b>LogRecord</b> 对象，然后将这些对象传递给
+					<b>Handler</b> 对象进行处理。<b>Logger</b> 和 <b>Handler</b>
+					对象都会使用日志记录级别和日志记录筛选器（可选）来规定要处理的 <b>LogRecords</b>。完成日志记录操作后，<b>Handler</b>
+					对象可选择使用 <b>Formatter</b> 对象发布日志信息。
+				</p>
+				<p>默认情况下，java.util.logging 框架会将其输出写入到文件中。该输出日志文件必须对 JDBC
+					驱动程序运行时所在的上下文具有写入权限。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>有关使用各种日志记录对象进行程序跟踪的详细信息，请参阅 Sun Microsystems 网站上的 Java
+						Logging APIs（英文）文档。</p>
+				</div>
+				<p>以下各部分介绍了可记录的日志记录级别和类别，并提供了有关如何在应用程序中启用跟踪的信息。</p>
+			</div>
+			<h1 class="heading">日志记录级别</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					创建的每条日志消息都有相关联的日志记录级别。日志记录级别决定了日志消息的重要性，该重要性由 java.util.logging 中的
+					<span class="label">Level</span>
+					类定义。启用一个级别的日志记录还会启用所有较高级别的日志记录。本节介绍公共日志记录类别和内部日志记录类别的日志记录级别。有关日志记录类别的详细信息，请参阅本主题的“日志记录类别”部分。
+				</p>
+				<p>下表逐一介绍了公共日志记录类别每个可用的日志记录级别。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>SEVERE</p></td>
+							<td><p>表示严重故障，为最高日志记录级别。在 JDBC 驱动程序中，该级别用于报告错误和异常。</p></td>
+						</tr>
+						<tr>
+							<td><p>WARNING</p></td>
+							<td><p>指示潜在的问题。</p></td>
+						</tr>
+						<tr>
+							<td><p>INFO</p></td>
+							<td><p>提供信息性消息。</p></td>
+						</tr>
+						<tr>
+							<td><p>CONFIG</p></td>
+							<td><p>提供配置消息。请注意，JDBC Driver 当前不提供任何配置消息。</p></td>
+						</tr>
+						<tr>
+							<td><p>FINE</p></td>
+							<td><p>提供基本的跟踪信息，包括公共方法引发的所有异常。</p></td>
+						</tr>
+						<tr>
+							<td><p>FINER</p></td>
+							<td><p>提供详细的跟踪信息，包括具有相关参数数据类型的所有公共方法的进入点和退出点，以及公共类的所有公共属性。此外，还包括输入参数、输出参数以及除
+									CLOB、BLOB、NCLOB、Reader 和 &lt;stream&gt; 返回值类型以外的方法返回值。</p></td>
+						</tr>
+						<tr>
+							<td><p>FINEST</p></td>
+							<td><p>提供非常详细的跟踪信息。此为最低日志记录级别。</p></td>
+						</tr>
+						<tr>
+							<td><p>OFF</p></td>
+							<td><p>关闭日志记录。</p></td>
+						</tr>
+						<tr>
+							<td><p>ALL</p></td>
+							<td><p>启用所有消息的日志记录。</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>下表逐一介绍了内部日志记录类别每个可用的日志记录级别。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>SEVERE</p></td>
+							<td><p>表示严重故障，为最高日志记录级别。在 JDBC 驱动程序中，该级别用于报告错误和异常。</p></td>
+						</tr>
+						<tr>
+							<td><p>WARNING</p></td>
+							<td><p>指示潜在的问题。</p></td>
+						</tr>
+						<tr>
+							<td><p>INFO</p></td>
+							<td><p>提供信息性消息。</p></td>
+						</tr>
+						<tr>
+							<td><p>FINE</p></td>
+							<td><p>提供跟踪信息，包括基本的对象创建和析构。此外，还包括公共方法引发的所有异常。</p></td>
+						</tr>
+						<tr>
+							<td><p>FINER</p></td>
+							<td><p>提供详细的跟踪信息，包括具有相关参数数据类型的所有公共方法的进入点和退出点，以及公共类的所有公共属性。此外，还包括输入参数、输出参数以及除
+									CLOB、BLOB、NCLOB、Reader 和 &lt;stream&gt; 返回值类型以外的方法返回值。</p>
+								<p>
+									下列日志记录类别存在于 JDBC Driver 1.2 中并具有 FINE 日志记录级别：<a
+										href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>、<a
+										href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>、XA
+									和 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>。从
+									2.0 发行版开始，这些日志记录类别升级到 FINER 级别。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>FINEST</p></td>
+							<td><p>提供非常详细的跟踪信息。此为最低日志记录级别。</p>
+								<p>下列日志记录类别存在于 JDBC Driver 1.2 中并具有 FINEST 日志记录级别：TDS.DATA 和
+									TDS.TOKEN。从 2.0 发行版开始，这些日志记录类别保持 FINEST 日志记录级别。</p></td>
+						</tr>
+						<tr>
+							<td><p>OFF</p></td>
+							<td><p>关闭日志记录。</p></td>
+						</tr>
+						<tr>
+							<td><p>ALL</p></td>
+							<td><p>启用所有消息的日志记录。</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">日志记录类别</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					创建 <b>Logger</b> 对象时，必须告知该对象您希望从其中获取日志信息的指定实体或类别。JDBC Driver
+					支持下列公共日志记录类别，这些日志记录类别都是在 com.microsoft.sqlserver.jdbc 驱动程序包中定义的。
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>连接</p></td>
+							<td><p>
+									在 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>语句</p></td>
+							<td><p>
+									在 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>数据源</p></td>
+							<td><p>
+									在 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>结果集</p></td>
+							<td><p>
+									在 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>驱动程序</p></td>
+							<td><p>
+									在 <a href="fbdceae5-7e7b-4edb-8c33-c701ca6b2d53.htm">SQLServerDriver</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINER。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>从 Microsoft JDBC Driver 2.0 开始，JDBC Driver 还提供了
+					com.microsoft.sqlserver.jdbc.internals 包，后者包括对下列内部日志记录类别的日志记录支持。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>名称</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>AuthenticationJNI</p></td>
+							<td><p>
+									记录有关 Windows 集成身份验证问题的消息（当 <span sdata="langKeyword"
+										value="authenticationScheme"><span class="keyword">authenticationScheme</span></span>
+									连接属性隐式或显式设置为 <span sdata="langKeyword"
+										value="NativeAuthentication"><span class="keyword">NativeAuthentication</span></span>
+									时）。
+								</p>
+								<p>应用程序可将日志记录级别设置为 FINEST 和 FINE。</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerConnection</p></td>
+							<td><p>
+									在 <a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE 和 FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerDataSource</p></td>
+							<td><p>
+									在 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>、<a
+										href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource</a>
+									和 <a href="4c87e9d3-904a-4b86-90cc-3684034c86ee.htm">SQLServerPooledConnection</a>
+									类中记录消息。
+								</p>
+								<p>应用程序可将日志记录级别设置为 FINER。</p></td>
+						</tr>
+						<tr>
+							<td><p>InputStream</p></td>
+							<td><p>记录有关下列数据类型的消息：java.io.InputStream、java.io.Reader
+									以及具有 max 说明符的数据类型（如 varchar、nvarchar 和 varbinary 数据类型）。</p>
+								<p>应用程序可将日志记录级别设置为 FINER。</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerException</p></td>
+							<td><p>
+									在 <a href="af5ef257-7cf6-4db3-b1ee-07d22d82bef1.htm">SQLServerException</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerResultSet</p></td>
+							<td><p>
+									在 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE、FINER 和 FINEST。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerStatement</p></td>
+							<td><p>
+									在 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE、FINER 和 FINEST。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>XA</p></td>
+							<td><p>
+									在 <a href="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4.htm">SQLServerXADataSource</a>
+									类中记录所有 XA 事务的日志消息。应用程序可将日志记录级别设置为 FINE 和 FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>KerbAuthentication</p></td>
+							<td><p>
+									记录有关“类型 4”Kerberos 身份验证的消息（当 <span sdata="langKeyword"
+										value="authenticationScheme"><span class="keyword">authenticationScheme</span></span>
+									连接属性设置为 <span sdata="langKeyword" value="JavaKerberos"><span
+										class="keyword">JavaKerberos</span></span> 时）。应用程序可将日志记录级别设置为 FINE 或
+									FINER。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.DATA</p></td>
+							<td><p>记录包含驱动程序和 SQL Server 之间的 TDS 协议级别对话的消息。发送和接收的每个
+									TDS 数据包的详细内容都以 ASCII 和十六进制格式记录。不记录登录凭据（用户名和密码）。但记录所有其他数据。</p>
+								<p>该类别会创建非常冗长而详细的消息，并且只有通过将日志记录级别设置为 FINEST 才能启用它。</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.Channel</p></td>
+							<td><p>该类别跟踪 SQL Server 对 TCP
+									通信通道的操作。记录的消息包括套接字的打开和关闭以及读取和写入。还跟踪与 SQL Server 建立安全套接字层 (SSL)
+									连接的相关消息。</p>
+								<p>该类别只有通过将日志记录级别设置为 FINE、FINER 或 FINEST 才能启用。</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.Writer</p></td>
+							<td><p>该类别跟踪对 TDS
+									信道的写入。请注意，只跟踪写入的长度，不跟踪内容。该类别还跟踪将关注信号发送给服务器以取消语句的执行时出现的问题。</p>
+								<p>该类别只有通过将日志记录级别设置为 FINEST 才能启用。</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.Reader</p></td>
+							<td><p>该类别跟踪 FINEST 级别 TDS 信道的某些读取操作。在 FINEST
+									级别，跟踪可能非常详细。在 WARNING 和 SEVERE 级别，该类别跟踪在驱动程序关闭连接之前，驱动程序何时从 SQL
+									Server 收到无效的 TDS 协议。</p>
+								<p>该类别只有通过将日志记录级别设置为 FINER 和 FINEST 才能启用。</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.Command</p></td>
+							<td><p>该类别跟踪低级状态切换以及与执行 TDS 命令（例如 Transact-SQL
+									语句执行、ResultSet 游标获取、提交等）关联的其他信息。</p>
+								<p>该类别只有通过将日志记录级别设置为 FINEST 才能启用。</p></td>
+						</tr>
+						<tr>
+							<td><p>TDS.TOKEN</p></td>
+							<td><p>该类别仅记录 TDS 包内的标记，不如 TDS.DATA
+									类别详细。该类别只有通过将日志记录级别设置为 FINEST 才能启用。</p>
+								<p>在 FINEST 级别，当 TDS 标记在响应中进行处理时，此类别对其进行跟踪。在 SEVERE
+									级别，该类别跟踪何时遇到无效的 TDS 标记。</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerDatabaseMetaData</p></td>
+							<td><p>
+									在 <a href="8b8049d0-8c6d-4476-866b-098709f37eec.htm">SQLServerDatabaseMetaData</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerResultSetMetaData</p></td>
+							<td><p>
+									在 <a href="9a36885f-83f3-44af-85f0-2b849dfd20d4.htm">SQLServerResultSetMetaData</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerParameterMetaData</p></td>
+							<td><p>
+									在 <a href="546290e0-9411-4a2b-aa36-61251e70e9cf.htm">SQLServerParameterMetaData</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerBlob</p></td>
+							<td><p>
+									在 <a href="88bd8623-889d-4b5d-99ff-c85b32f3ff5c.htm">SQLServerBlob</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerClob</p></td>
+							<td><p>
+									在 <a href="24170524-e1ab-4e80-8fd1-6688efacfbde.htm">SQLServerClob</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerSQLXML</p></td>
+							<td><p>
+									在内部 <b>SQLServerSQLXML</b> 类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerDriver</p></td>
+							<td><p>
+									在 <a href="fbdceae5-7e7b-4edb-8c33-c701ca6b2d53.htm">SQLServerDriver</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SQLServerNClob</p></td>
+							<td><p>
+									在 <a href="3d3883a2-c39c-439f-bbc0-01e73968672b.htm">SQLServerNClob</a>
+									类中记录消息。应用程序可将日志记录级别设置为 FINE。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">以编程方式启用跟踪</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					通过创建 <b>Logger</b> 对象并指示记录类别，可以编程方式启用跟踪。例如，以下代码显示了如何启用 SQL 语句的日志记录：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.Statement");
+logger.setLevel(Level.FINER);</pre></span>
+				</div>
+				<p>若要在代码中关闭日志记录，请使用以下代码：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>logger.setLevel(Level.OFF);</pre></span>
+				</div>
+				<p>若要记录所有可用类别，请使用以下代码：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc");
+logger.setLevel(Level.FINE);</pre></span>
+				</div>
+				<p>若要禁止记录某个特定类别，请使用以下代码：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.Statement");
+logger.setLevel(Level.OFF);</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">使用 Logging.Properties 文件启用跟踪</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					除了以编程方式启用跟踪外，还可以使用<span class="code"> logging.properties </span>文件来启用，该文件可在
+					Java 运行时环境 (JRE) 安装文件的<span class="code"> lib </span>目录中找到。该文件可用于设置记录程序和处理程序的默认值，在启用跟踪时会用到这些值。
+				</p>
+				<p>
+					以下是可在 <span class="code">logging.properties</span> 文件中进行的设置的示例：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre># Specify the handler, the handlers will be installed during VM startup.
+handlers= java.util.logging.FileHandler
+ 
+# Default global logging level.
+.level= OFF
+
+# default file output is in user's home directory.
+java.util.logging.FileHandler.pattern = %h/java%u.log
+java.util.logging.FileHandler.limit = 5000000
+java.util.logging.FileHandler.count = 20
+java.util.logging.FileHandler.formatter = java.util.logging.SimpleFormatter
+java.util.logging.FileHandler.level = FINEST
+
+# Facility specific properties.
+com.microsoft.sqlserver.jdbc.level=FINEST
+</pre></span>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						使用 java.util.logging 中的 <b>LogManager</b> 对象可设置<span class="code">
+							logging.properties </span>文件中的属性。
+					</p>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="723e2680-a0c5-4a7d-a319-1e49e41078cf.htm">诊断与 JDBC
+							驱动程序有关的问题</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

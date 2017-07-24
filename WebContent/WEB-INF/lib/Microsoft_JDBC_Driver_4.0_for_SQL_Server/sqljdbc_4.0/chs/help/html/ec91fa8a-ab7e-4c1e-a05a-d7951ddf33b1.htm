@@ -1,0 +1,159 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 SSL 加密进行连接</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="加密" />
+<meta name="System.Keywords" content="SSL" />
+<meta name="Microsoft.Help.Id"
+	content="ec91fa8a-ab7e-4c1e-a05a-d7951ddf33b1" />
+<meta name="Description"
+	content="本主题中的示例描述如何使用连接字符串属性允许应用程序在 Java 应用程序中使用安全套接字层 (SSL) 加密。有关这些新的连接字符串属性（如 encrypt、trustServerCertificate、trustStore、trustStorePassword 和 hostNameInCertificate）的详细信息，请参阅Setting the Connection Properties。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 SSL 加密进行连接</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					本主题中的示例描述如何使用连接字符串属性允许应用程序在 Java 应用程序中使用安全套接字层 (SSL)
+					加密。有关这些新的连接字符串属性（如 <span class="label">encrypt</span>、<span
+						class="label">trustServerCertificate</span>、<span class="label">trustStore</span>、<span
+						class="label">trustStorePassword</span> 和 <span class="label">hostNameInCertificate</span>）的详细信息，请参阅<span
+						sdata="link"><a
+						href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+				</p>
+				<p>
+					当 <span class="label">encrypt</span> 属性设置为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>
+					且 <span class="label">trustServerCertificate</span> 属性设置为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>
+					时，Microsoft JDBC Driver for SQL Server 将不验证 SQL Server SSL
+					证书。这一点对于允许在测试环境中建立连接通常是必需的，如 SQL Server 实例只具有自签名证书的情况。
+				</p>
+				<p>
+					下面的代码示例演示如何在连接字符串中设置 <span class="label">trustServerCertificate</span>
+					属性：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>String connectionUrl = 
+    "jdbc:sqlserver://localhost:1433;" +
+     "databaseName=AdventureWorks;integratedSecurity=true;" +
+     "encrypt=true;trustServerCertificate=true";</pre></span>
+				</div>
+				<p>
+					当 <span class="label">encrypt</span> 属性设置为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>
+					且 <span class="label">trustServerCertificate</span> 属性设置为 <span
+						sdata="langKeyword" value="false"><span class="keyword">false</span></span>
+					时，Microsoft JDBC Driver for SQL Server 将验证 SQL Server SSL
+					证书。验证服务器证书是 SSL
+					握手过程的一部分，这可确保服务器是要连接到的正确服务器。为了验证服务器证书，在连接时必须提供信任材料，既可以使用 <span
+						class="label">trustStore</span> 和 <span class="label">trustStorePassword</span>
+					连接属性显式提供材料，也可以使用基础 Java 虚拟机 (JVM) 的默认信任存储区隐式提供材料。
+				</p>
+				<p>
+					<span class="label">trustStore</span> 属性指定指向证书 trustStore
+					文件的路径（包括文件名），该文件中包含客户端信任的证书的列表。<span class="label">trustStorePassword</span>
+					属性指定用来检查 trustStore 数据完整性的密码。有关使用 JVM 的默认信任存储区的详细信息，请参阅<span
+						sdata="link"><a
+						href="ae34cd1f-3569-4759-80c7-7c9b33b3e9eb.htm">为 SSL 加密配置客户端</a></span>。
+				</p>
+				<p>
+					下面的代码示例演示如何在连接字符串中设置 <span class="label">trustStore</span> 和 <span
+						class="label">trustStorePassword</span> 属性：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>String connectionUrl = 
+    "jdbc:sqlserver://localhost:1433;" +
+     "databaseName=AdventureWorks;integratedSecurity=true;" +
+     "encrypt=true; trustServerCertificate=false;" +
+     "trustStore=storeName;trustStorePassword=storePassword";</pre></span>
+				</div>
+				<p>
+					JDBC Driver 提供了一个附加属性 <span class="label">hostNameInCertificate</span>，该属性指定服务器的主机名。此属性的值必须与证书的
+					subject 属性一致。
+				</p>
+				<p>
+					下面的代码示例演示如何在连接字符串中使用 <span class="label">hostNameInCertificate</span>
+					属性：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>String connectionUrl = 
+    "jdbc:sqlserver://localhost:1433;" +
+     "databaseName=AdventureWorks;integratedSecurity=true;" +
+     "encrypt=true; trustServerCertificate=false;" +
+     "trustStore=storeName;trustStorePassword=storePassword" +
+     "hostNameInCertificate=hostName";</pre></span>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						或者，您可以使用由 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+						类提供的适当的 <span sdata="langKeyword" value="setter"><span
+							class="keyword">setter</span></span> 方法来设置连接属性的值。
+					</p>
+				</div>
+				<p>
+					在 <span class="label">encrypt</span> 属性设置为 <span
+						sdata="langKeyword" value="true"><span class="keyword">true</span></span>
+					且 <span class="label">trustServerCertificate</span> 属性设置为 <span
+						sdata="langKeyword" value="false"><span class="keyword">false</span></span>
+					的情况下，如果连接字符串中的服务器名称与 SQL Server SSL 证书中的服务器名称不符，则将出现以下错误:
+					驱动程序无法通过使用安全套接字层(SSL)加密与 SQL Server
+					建立安全连接。错误:“java.security.cert.CertificateException:
+					在安全套接字层(SSL)初始化过程中验证证书中的服务器名称失败。”
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="8e566243-2f93-4b21-8065-3c8336649309.htm">使用 SSL 加密</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="90724ec6-a9cb-43ef-903e-793f89410bc0.htm">保护 JDBC Driver
+							应用程序</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

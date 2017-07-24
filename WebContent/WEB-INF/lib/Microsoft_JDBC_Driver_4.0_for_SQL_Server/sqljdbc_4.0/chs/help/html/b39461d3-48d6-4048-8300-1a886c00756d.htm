@@ -1,0 +1,331 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用高级数据类型</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="高级数据类型" />
+<meta name="Microsoft.Help.Id"
+	content="b39461d3-48d6-4048-8300-1a886c00756d" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 使用 JDBC 高级数据类型将 SQL Server 数据类型转换为 Java 编程语言所支持的格式。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用高级数据类型</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Microsoft JDBC Driver for SQL Server 使用 JDBC 高级数据类型将 SQL
+					Server 数据类型转换为 Java 编程语言所支持的格式。</p>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>下表列出了高级 SQL Server、JDBC 和 Java 编程语言数据类型之间的默认映射。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>SQL Server 类型</p></th>
+							<th><p>JDBC 类型 (java.sql.Types)</p></th>
+							<th><p>Java 语言类型</p></th>
+						</tr>
+						<tr>
+							<td><p>varbinary(max)</p>
+								<p>image</p></td>
+							<td><p>LONGVARBINARY</p></td>
+							<td><p>byte[]（默认）、Blob、InputStream、String</p></td>
+						</tr>
+						<tr>
+							<td><p>text</p>
+								<p>varchar(max)</p></td>
+							<td><p>LONGVARCHAR</p></td>
+							<td><p>String（默认）、Clob、InputStream</p></td>
+						</tr>
+						<tr>
+							<td><p>ntext</p>
+								<p>nvarchar(max)</p></td>
+							<td><p>LONGVARCHAR</p>
+								<p>LONGNVARCHAR (Java SE 6.0)</p></td>
+							<td><p>String（默认）、Clob、NClob (Java SE 6.0)</p></td>
+						</tr>
+						<tr>
+							<td><p>xml</p></td>
+							<td><p>LONGVARCHAR</p>
+								<p>SQLXML (Java SE 6.0)</p></td>
+							<td><p>String（默认）、InputStream、Clob、byte[]、Blob、SQLXML
+									(Java SE 6.0)</p></td>
+						</tr>
+						<tr>
+							<td><p>udt</p></td>
+							<td><p>VARBINARY</p></td>
+							<td><p>String（默认）、byte[]、InputStream</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>以下部分提供了关于如何使用 JDBC Driver 和高级数据类型的示例。</p>
+			</div>
+			<h1 class="heading">BLOB、CLOB 和 NCLOB 数据类型</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC Driver 实现了 java.sql.Blob、java.sql.Clob 和 java.sql.NClob
+					接口的所有方法。</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						CLOB 值可与 SQL Server 2005（或更高版本）大值数据类型一同使用。具体来说，CLOB 类型可以与 <span
+							sdata="langKeyword" value="varchar(max)"><span
+							class="keyword">varchar(max)</span></span> 和 <span sdata="langKeyword"
+							value="nvarchar(max)"><span class="keyword">nvarchar(max)</span></span>
+						数据类型一起使用，BLOB 类型可以与 <span sdata="langKeyword"
+							value="varbinary(max)"><span class="keyword">varbinary(max)</span></span>
+						和 <span sdata="langKeyword" value="image"><span
+							class="keyword">image</span></span> 数据类型一起使用，NCLOB 类型可以与 <span
+							sdata="langKeyword" value="ntext"><span class="keyword">ntext</span></span>
+						和 <span sdata="langKeyword" value="nvarchar(max)"><span
+							class="keyword">nvarchar(max)</span></span> 一起使用。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">大值数据类型</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					在 SQL Server 的早期版本中，使用大值数据类型需要特殊处理。大值数据类型是指超过 8 KB 最大行大小的数据类型。SQL
+					Server 针对 <span sdata="langKeyword" value="varchar"><span
+						class="keyword">varchar</span></span>、<span sdata="langKeyword"
+						value="nvarchar"><span class="keyword">nvarchar</span></span> 和 <span
+						sdata="langKeyword" value="varbinary"><span class="keyword">varbinary</span></span>
+					数据类型引入了一个 max 说明符，以允许存储大至 2^31 个字节的值。表列和 Transact-SQL 变量可以指定 <span
+						sdata="langKeyword" value="varchar(max)"><span
+						class="keyword">varchar(max)</span></span>、<span sdata="langKeyword"
+						value="nvarchar(max)"><span class="keyword">nvarchar(max)</span></span>
+					或 <span sdata="langKeyword" value="varbinary(max)"><span
+						class="keyword">varbinary(max)</span></span> 数据类型。
+				</p>
+				<p>大值类型主要用于以下场合：从数据库中检索这些类型，或者将其添加到数据库。以下部分介绍了完成这些任务的几种不同方法。</p>
+				<h1 class="heading">从数据库中检索大值类型</h1>
+				<div class="subsection">
+					<p>
+						当您从数据库检索非二进制大值数据类型（如 <span sdata="langKeyword"
+							value="varchar(max)"><span class="keyword">varchar(max)</span></span>
+						数据类型）时，一种方法是将该数据作为字符流进行读取。以下实例使用了 <a
+							href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+						类的 <a href="599cf463-e19f-4baa-bacb-513cad7c6cd8.htm">executeQuery</a>
+						方法从数据库中检索数据，并将其返回为结果集。然后，使用 <a
+							href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+						类的 <a href="c70e210f-0288-47cc-9268-a29c45979729.htm">getCharacterStream</a>
+						方法从结果集读取大值数据。
+					</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>ResultSet rs = stmt.executeQuery("SELECT TOP 1 * FROM Test1");
+rs.next();
+Reader reader = rs.getCharacterStream(2);</pre></span>
+					</div>
+					<div style="margin: .5em 1.5em .5em 1.5em">
+						<b></b>
+						<p>
+							可以将此同一方法用于 <span sdata="langKeyword" value="text"><span
+								class="keyword">text</span></span>、<span sdata="langKeyword"
+								value="ntext"><span class="keyword">ntext</span></span> 和 <span
+								sdata="langKeyword" value="nvarchar(max)"><span
+								class="keyword">nvarchar(max)</span></span> 数据类型。
+						</p>
+					</div>
+					<p>
+						当您从数据库检索二进制大值数据类型（如 <span sdata="langKeyword"
+							value="varbinary(max)"><span class="keyword">varbinary(max)</span></span>
+						数据类型）时，您可以采取多种方法。最有效的方法是将数据作为二进制流进行读取，如下所示：
+					</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>ResultSet rs = stmt.executeQuery("SELECT photo FROM mypics");
+rs.next();
+InputStream is = rs.getBinaryStream(2);</pre></span>
+					</div>
+					<p>
+						也可以使用 <a href="d16a0aea-6144-4fcb-bcbc-5d7daa36d327.htm">getBytes</a>
+						方法将数据作为字节数组进行读取，如下所示：
+					</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>ResultSet rs = stmt.executeQuery("SELECT photo FROM mypics");
+rs.next();
+byte [] b = rs.getBytes(2);</pre></span>
+					</div>
+					<div style="margin: .5em 1.5em .5em 1.5em">
+						<b></b>
+						<p>还可以将数据作为 BLOB 进行读取。但是，这种方法与前两种方法相比效率较低。</p>
+					</div>
+				</div>
+				<h1 class="heading">向数据库添加大值类型</h1>
+				<div class="subsection">
+					<p>通过 JDBC
+						驱动程序上载较大数据适用于内存大小合适的情况，而对于大于内存的情况，流是主要选择。但是，最有效的上载较大数据的方法是通过流接口。</p>
+					<p>使用字符串或字节也是一个选项，如下所示：</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>PreparedStatement pstmt = con.prepareStatement("INSERT INTO test1 (c1_id, c2_vcmax) VALUES (?, ?)");
+pstmt.setInt(1, 1);
+pstmt.setString(2, htmlStr);
+pstmt.executeUpdate();</pre></span>
+					</div>
+					<div style="margin: .5em 1.5em .5em 1.5em">
+						<b></b>
+						<p>
+							还可以将这种方法用于存储在 <span sdata="langKeyword" value="text"><span
+								class="keyword">text</span></span>、<span sdata="langKeyword"
+								value="ntext"><span class="keyword">ntext</span></span> 和 <span
+								sdata="langKeyword" value="nvarchar(max)"><span
+								class="keyword">nvarchar(max)</span></span> 列中的值。
+						</p>
+					</div>
+					<p>
+						如果您在服务器上具有图像库并且必须将整个二进制图像文件上载到 <span sdata="langKeyword"
+							value="varbinary(max)"><span class="keyword">varbinary(max)</span></span>
+						列，则适用于 JDBC 驱动程序的最有效方法是直接使用流，如下所示：
+					</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>PreparedStatement pstmt = con.prepareStatement("INSERT INTO test1 (Col1, Col2) VALUES(?,?)");
+File inputFile = new File("CLOBFile20mb.jpg");
+FileInputStream inStream = new FileInputStream(inputFile);
+int id = 1;
+pstmt.setInt(1,id);
+pstmt.setBinaryStream(2, inStream);
+pstmt.executeUpdate();
+inStream.close();</pre></span>
+					</div>
+					<div style="margin: .5em 1.5em .5em 1.5em">
+						<b></b>
+						<p>使用 CLOB 或 BLOB 方法不是上载较大数据的有效方法。</p>
+					</div>
+				</div>
+				<h1 class="heading">修改数据库中的大值类型</h1>
+				<div class="subsection">
+					<p>
+						在大多数情况下，对更新或修改数据库中的大值建议使用的方法为：使用 Transact-SQL 命令（例如 UPDATE、WRITE 和
+						SUBSTRING）通过 <a href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+						和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+						类传递参数。
+					</p>
+					<p>
+						如果必须替换较大文本文件（例如已存档的 HTML 文件）中某个字的实例，则可以使用 <b>Clob</b> 对象，如下所示：
+					</p>
+					<div class="sampleCode">
+						<span codeLanguage="other"><pre>String SQL = "SELECT * FROM test1;";
+Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+ResultSet rs = stmt.executeQuery(SQL);
+rs.next();
+
+Clob clob = rs.getClob(2);
+long pos = clob.position("dog", 1);
+clob.setString(pos, "cat");
+rs.updateClob(2, clob);
+rs.updateRow();</pre></span>
+					</div>
+					<p>此外，可以在服务器上完成全部工作，仅将参数传递到准备好的 UPDATE 语句。</p>
+					<p>有关大值类型的详细信息，请参阅 SQL Server 联机丛书中的“使用大值类型”。</p>
+				</div>
+			</div>
+			<h1 class="heading">XML 数据类型</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					SQL Server 提供了 <span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型，该数据类型允许您将 XML 文档和碎片存储在 SQL Server
+					数据库中。<span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型是 SQL Server
+					中的内置数据类型，在某些方面类似于其他内置类型，如 <span sdata="langKeyword" value="int"><span
+						class="keyword">int</span></span> 和 <span sdata="langKeyword"
+						value="varchar"><span class="keyword">varchar</span></span>。对于其他内置类型，在作为变量类型、参数类型、函数返回类型或在
+					Transact-SQL CAST 和 CONVERT 函数中创建表时，可以使用 <span sdata="langKeyword"
+						value="xml"><span class="keyword">xml</span></span> 数据类型作为列类型。
+				</p>
+				<p>
+					在 JDBC Driver 中，<span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型可以映射为字符串、字节数组、流、CLOB、BLOB 或 SQLXML
+					对象。字符串是默认映射。从 JDBC Driver 2.0 开始，JDBC Driver 为 JDBC 4.0 API
+					提供支持，后者引入了 SQLXML 接口。SQLXML 接口定义与 XML 数据交互以及操作 XML 数据的方法。<span
+						sdata="langKeyword" value="SQLXML"><span class="keyword">SQLXML</span></span>
+					数据类型映射到 SQL Server <span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型。有关如何使用 <span sdata="langKeyword"
+						value="SQLXML"><span class="keyword">SQLXML</span></span> Java
+					数据类型从/向关系数据库读取/写入 XML 数据的详细信息，请参阅<span sdata="link"><a
+						href="32b7217e-1f0c-473d-9a45-176daa81584e.htm">支持 XML 数据</a></span>。
+				</p>
+				<p>
+					在 JDBC Driver 中实现 <span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型为以下各项提供了支持：
+				</p>
+				<ul>
+					<li><p>在大多数常见的编程场景中，对作为标准 Java UTF-16 字符串的 XML 的访问</p></li>
+					<li><p>输入以 UTF-8 和其他 8 格式进行编码的 XML</p></li>
+					<li><p>为了可与其他 XML 处理器和磁盘文件进行互换而以 UTF-16 进行编码时，对作为带有前导 BOM
+							的字节数组的 XML 的访问</p></li>
+				</ul>
+				<p>SQL Server 要求以 UTF-16 编码的 XML 具有前导 BOM。当以字节数组形式提供 XML
+					参数值时，应用程序必须提供此前导 BOM。SQL Server 始终以 UTF-16 字符串形式输出 XML 值，而不带有 BOM
+					或嵌入式编码声明。当将 XML 值作为 byte[]、BinaryStream 或 Blob 进行检索时，会为该值预置一个
+					UTF-16 BOM。</p>
+				<p>
+					有关 <span sdata="langKeyword" value="xml"><span
+						class="keyword">xml</span></span> 数据类型的详细信息，请参阅 SQL Server 联机丛书中的“xml
+					数据类型”。
+				</p>
+			</div>
+			<h1 class="heading">用户定义的数据类型</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>通过允许在 SQL Server 数据库中存储对象和自定义数据结构，在 SQL Server 2005
+					中引入了用户定义的类型 (UDT)，从而扩展了 SQL 类型系统。UDT
+					可以包含多种数据类型，也可以具有多种行为，这一点使它与传统的由单个 SQL Server
+					系统数据类型组成的别名数据类型区分开来。可使用 Microsoft .NET 公共语言运行时
+					(CLR)（生成可验证的代码）所支持的任意一种语言定义 UDT。这些语言包括 Microsoft Visual C# 和 Visual
+					Basic .NET。数据被公开为基于 .NET Framework 的类或结构的字段和属性，行为由类或结构的方法定义。</p>
+				<p>在 SQL Server 中，UDT 可用作表的列定义、Transact-SQL 批处理的变量或 Transact-SQL
+					函数或存储过程的参数。</p>
+				<p>有关用户定义的数据类型的详细信息，请参阅 SQL Server 联机丛书中的“使用和修改用户定义类型的实例”。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

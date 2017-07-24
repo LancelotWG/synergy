@@ -1,0 +1,120 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>SQLServerXADataSource 类</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="SQLServerXADataSource 类" />
+<meta name="Microsoft.Help.Id"
+	content="95fc7b07-2498-4a7e-8f7f-ee0d86b598b4" />
+<meta name="Description" content="表示在内部使用的 SQLServerXAConnection 的对象工厂。" />
+<meta name="Microsoft.Help.ContentType" content="Reference" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">SQLServerXADataSource
+						类</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					表示在内部使用的 <a href="5ecb4bf1-b8d1-47cf-9cb1-7a18acc11ce2.htm">SQLServerXAConnection</a>
+					的对象工厂。
+				</p>
+				<p>
+					<span class="label">包：</span>com.microsoft.sqlserver.jdbc
+				</p>
+				<p>
+					<span class="label">扩展：</span><a
+						href="b00e5a90-2af7-4d04-8ef8-256183777dcf.htm">SQLServerConnectionPoolDataSource</a>
+				</p>
+				<p>
+					<span class="label">实现：</span>javax.sql.XADataSource
+				</p>
+			</div>
+			<h1 class="heading">语法</h1>
+			<div id="syntaxSection" class="section">
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>
+public class <b>SQLServerXADataSource</b>
+						</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">注释</h1>
+			<div id="languageReferenceRemarksSection" class="section"
+				name="collapseableSection" style="">
+				<p>
+					实现 <b>SQLServerXADataSource</b> 接口的对象通常在使用 Java 命名和目录接口 (JNDI)
+					的命名服务中注册。
+				</p>
+				<p>
+					<b>SQLServerXADataSource</b> 类提供可用于分布式 (XA) 事务的数据库连接。<b>SQLServerXADataSource</b>
+					类还支持物理连接的连接池。<b>SQLServerXADataSource</b> 和 <b>SQLServerXAConnection</b>
+					接口（在包 javax.sql 中定义）由 SQL Server 实现。
+				</p>
+				<p>
+					<b>SQLServerXAConnection</b> 对象是可参与分布式事务的池连接。更准确地说，<b>SQLServerXAConnection</b>
+					通过添加方法 <a href="e1d2828f-fd20-44b0-b796-dc70f77c5b03.htm">getXAResource</a>
+					扩展了 <b>SQLServerPooledConnection</b> 接口。此方法生成 <a
+						href="df957b79-536f-4db7-b6ac-3d59343559fc.htm">SQLServerXAResource</a>
+					对象，事务管理器可以使用该对象在基于此连接执行的操作与分布式事务中的其他参与者之间进行协调。由于它们扩展了 <b>SQLServerPooledConnection</b>
+					接口，<b>SQLServerXAConnection</b> 对象支持 <b>SQLServerPooledConnection</b>
+					对象的所有方法。它们是可重用的基础数据源物理连接，并且可生成可传递回 JDBC 应用程序的逻辑连接句柄。
+				</p>
+				<p>
+					<b>SQLServerXAConnection</b> 对象由 <b>SQLServerXADataSource</b> 对象生成。<b>SQLServerConnectionPoolDataSource</b>
+					对象类似于 <b>SQLServerXADataSource</b> 对象，这两个对象都是在对 JDBC
+					应用程序可见的数据源层之下实现的。此体系结构使 SQL Server 能以对应用程序透明的方式支持分布式事务。可配置 <b>SQLServerXADataSource</b>
+					与 Microsoft 分布式事务处理协调器 (DTC) 集成，以提供真正的分布式事务处理。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="04178645-915f-4569-8907-d45e299bbe7d.htm">SQLServerXADataSource
+							成员</a></span>
+				</div>
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="e4e1ae9d-18a6-41db-8bd2-9cf0eee4cccb.htm">JDBC 驱动程序 API
+							参考</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

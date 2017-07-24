@@ -1,0 +1,375 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>了解数据类型的差异</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="数据类型的差异" />
+<meta name="Microsoft.Help.Id"
+	content="ab8fa00f-cb16-47e2-94b8-3a76f56c2b84" />
+<meta name="Description"
+	content="Java 编程语言数据类型和 SQL Server 数据类型之间存在很多差异。Microsoft JDBC Driver for SQL Server 通过各种类型的转换来帮助消除这些差异。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">了解数据类型的差异</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>Java 编程语言数据类型和 SQL Server 数据类型之间存在很多差异。Microsoft JDBC Driver
+					for SQL Server 通过各种类型的转换来帮助消除这些差异。</p>
+			</div>
+			<h1 class="heading">字符类型</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 字符串数据类型为 <span sdata="langKeyword" value="CHAR"><span
+						class="keyword">CHAR</span></span>、<span sdata="langKeyword"
+						value="VARCHAR"><span class="keyword">VARCHAR</span></span> 和 <span
+						sdata="langKeyword" value="LONGVARCHAR"><span
+						class="keyword">LONGVARCHAR</span></span>。JDBC 提供程序提供对 JDBC 4.0 API 的支持。在
+					JDBC 4.0 中，JDBC 字符串数据类型也可以是 <span sdata="langKeyword" value="NCHAR"><span
+						class="keyword">NCHAR</span></span>、<span sdata="langKeyword"
+						value="NVARCHAR"><span class="keyword">NVARCHAR</span></span> 和 <span
+						sdata="langKeyword" value="LONGNVARCHAR"><span
+						class="keyword">LONGNVARCHAR</span></span>。这些新的字符串类型以 Unicode 格式维护 Java
+					本机字符类型，从而不必执行任何 ANSI 到 Unicode 或 Unicode 到 ANSI 的转换。
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类型</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>Fixed-length</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="char"><span
+										class="keyword">char</span></span> 和 <span sdata="langKeyword"
+										value="nchar"><span class="keyword">nchar</span></span>
+									数据类型直接映射到 JDBC <span sdata="langKeyword" value="CHAR"><span
+										class="keyword">CHAR</span></span> 和 <span sdata="langKeyword"
+										value="NCHAR"><span class="keyword">NCHAR</span></span>
+									类型。这些都是在列具有 SET ANSI_PADDING ON 的情况下，具有由服务器提供的填充的固定长度的类型。对于 <span
+										sdata="langKeyword" value="nchar"><span class="keyword">nchar</span></span>，填充始终是启用的，但对于
+									<span sdata="langKeyword" value="char"><span
+										class="keyword">char</span></span>，在未填充服务器字符列的情况下，JDBC Driver 将添加填充。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>Variable-length</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="varchar"><span
+										class="keyword">varchar</span></span> 和 <span sdata="langKeyword"
+										value="nvarchar"><span class="keyword">nvarchar</span></span>
+									类型分别直接映射到 JDBC <span sdata="langKeyword" value="VARCHAR"><span
+										class="keyword">VARCHAR</span></span> 和 <span sdata="langKeyword"
+										value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>
+									类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>Long</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="text"><span
+										class="keyword">text</span></span> 和 <span sdata="langKeyword"
+										value="ntext"><span class="keyword">ntext</span></span>
+									类型分别映射到 JDBC <span sdata="langKeyword" value="LONGVARCHAR"><span
+										class="keyword">LONGVARCHAR</span></span> 和 <span sdata="langKeyword"
+										value="LONGNVARCHAR"><span class="keyword">LONGNVARCHAR</span></span>
+									类型。从 SQL Server 2005 开始不推荐使用这些类型，因此应改用大值类型 <span
+										sdata="langKeyword" value="varchar(max)"><span
+										class="keyword">varchar(max)</span></span> 或 <span
+										sdata="langKeyword" value="nvarchar(max)"><span
+										class="keyword">nvarchar(max)</span></span>。
+								</p>
+								<p>
+									针对 <span sdata="langKeyword" value="text"><span
+										class="keyword">text</span></span> 和 <span sdata="langKeyword"
+										value="ntext"><span class="keyword">ntext</span></span> 服务器列使用
+									<b>update&lt;Numeric Type&gt;</b> 和 <a
+										href="4993dfe1-2232-4b3c-b931-dfdb35dd225a.htm">updateObject
+										(int, java.lang.Object)</a> 方法时将失败。然而，对于 <span sdata="langKeyword"
+										value="text"><span class="keyword">text</span></span> 和 <span
+										sdata="langKeyword" value="ntext"><span class="keyword">ntext</span></span>
+									服务器列，支持将 <a href="93a2b22c-82b4-48c7-a428-369ebe98a372.htm">setObject</a>
+									方法用于指定的字符转换类型。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">二进制字符串类型</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 二进制字符串类型为 <span sdata="langKeyword" value="BINARY"><span
+						class="keyword">BINARY</span></span>、<span sdata="langKeyword"
+						value="VARBINARY"><span class="keyword">VARBINARY</span></span> 和
+					<span sdata="langKeyword" value="LONGVARBINARY"><span
+						class="keyword">LONGVARBINARY</span></span>。
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类型</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>固定长度</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="binary"><span
+										class="keyword">binary</span></span> 类型直接映射到 JDBC <span
+										sdata="langKeyword" value="BINARY"><span
+										class="keyword">BINARY</span></span> 类型。这是在列具有 SET ANSI_PADDING ON
+									的情况下，具有由服务器提供填充的固定长度类型。没有填充服务器 char 列时，JDBC 驱动程序会添加填充。
+								</p>
+								<p>
+									SQL Server <span sdata="langKeyword" value="timestamp"><span
+										class="keyword">timestamp</span></span> 类型是具有 8 个字节的固定长度的 JDBC <span
+										sdata="langKeyword" value="BINARY"><span
+										class="keyword">BINARY</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>Variable-length</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="varbinary"><span
+										class="keyword">varbinary</span></span> 类型映射到 JDBC <span
+										sdata="langKeyword" value="VARBINARY"><span
+										class="keyword">VARBINARY</span></span> 类型。
+								</p>
+								<p>
+									SQL Server 中的 <span sdata="langKeyword" value="udt"><span
+										class="keyword">udt</span></span> 类型作为 <span sdata="langKeyword"
+										value="VARBINARY"><span class="keyword">VARBINARY</span></span>
+									类型映射到 JDBC。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>Long</p></td>
+							<td><p>
+									SQL Server <span sdata="langKeyword" value="image"><span
+										class="keyword">image</span></span> 类型映射到 JDBC <span
+										sdata="langKeyword" value="LONGVARBINARY"><span
+										class="keyword">LONGVARBINARY</span></span> 类型。从 SQL Server 2005
+									开始不推荐使用此类型，因此应改用大值类型 <span sdata="langKeyword"
+										value="varbinary(max)"><span class="keyword">varbinary(max)</span></span>。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">精确数字类型</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 精确数字类型直接映射到其对应的 SQL Server 类型。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类型</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>BIT</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="BIT"><span
+										class="keyword">BIT</span></span> 类型表示可能是 0 或 1 的单个位。此类型映射到 SQL
+									Server <span sdata="langKeyword" value="bit"><span
+										class="keyword">bit</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>TINYINT</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="TINYINT"><span
+										class="keyword">TINYINT</span></span> 类型表示单个字节。此类型映射到 SQL Server <span
+										sdata="langKeyword" value="tinyint"><span
+										class="keyword">tinyint</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>SMALLINT</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="SMALLINT"><span
+										class="keyword">SMALLINT</span></span> 类型表示有符号的 16 位整数。此类型映射到 SQL
+									Server <span sdata="langKeyword" value="smallint"><span
+										class="keyword">smallint</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>INTEGER</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="INTEGER"><span
+										class="keyword">INTEGER</span></span> 类型表示有符号的 32 位整数。此类型映射到 SQL
+									Server <span sdata="langKeyword" value="int"><span
+										class="keyword">int</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>BIGINT</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="BIGINT"><span
+										class="keyword">BIGINT</span></span> 类型表示有符号的 64 位整数。此类型映射到 SQL
+									Server <span sdata="langKeyword" value="bigint"><span
+										class="keyword">bigint</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>NUMERIC</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="NUMERIC"><span
+										class="keyword">NUMERIC</span></span> 类型表示固定精度的十进制值，它可存放相同精度的值。<span
+										sdata="langKeyword" value="NUMERIC"><span
+										class="keyword">NUMERIC</span></span> 类型映射到 SQL Server <span
+										sdata="langKeyword" value="numeric"><span
+										class="keyword">numeric</span></span> 类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>DECIMAL</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="DECIMAL"><span
+										class="keyword">DECIMAL</span></span> 类型表示固定精度的十进制值，它可存放至少具有指定精度的值。<span
+										sdata="langKeyword" value="DECIMAL"><span
+										class="keyword">DECIMAL</span></span> 类型映射到 SQL Server <span
+										sdata="langKeyword" value="decimal"><span
+										class="keyword">decimal</span></span> 类型。
+								</p>
+								<p>
+									JDBC <span sdata="langKeyword" value="DECIMAL"><span
+										class="keyword">DECIMAL</span></span> 类型还映射到 SQL Server <span
+										sdata="langKeyword" value="money"><span class="keyword">money</span></span>
+									和 <span sdata="langKeyword" value="smallmoney"><span
+										class="keyword">smallmoney</span></span> 类型，这些类型是特定的固定精度的十进制类型，分别以 8
+									个字节和 4 个字节进行存储。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">近似数字类型</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 近似数值数据类型为 <span sdata="langKeyword" value="REAL"><span
+						class="keyword">REAL</span></span>、<span sdata="langKeyword"
+						value="DOUBLE"><span class="keyword">DOUBLE</span></span> 和 <span
+						sdata="langKeyword" value="FLOAT"><span class="keyword">FLOAT</span></span>。
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>类型</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>REAL</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="REAL"><span
+										class="keyword">REAL</span></span> 类型具有 7 位精度（单精度）并直接映射到 SQL Server <span
+										sdata="langKeyword" value="real"><span class="keyword">real</span></span>
+									类型。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>DOUBLE</p></td>
+							<td><p>
+									JDBC <span sdata="langKeyword" value="DOUBLE"><span
+										class="keyword">DOUBLE</span></span> 类型具有 15 位精度（双精度）并直接映射到 SQL
+									Server <span sdata="langKeyword" value="float"><span
+										class="keyword">float</span></span> 类型。JDBC <span sdata="langKeyword"
+										value="FLOAT"><span class="keyword">FLOAT</span></span> 类型是 <span
+										sdata="langKeyword" value="DOUBLE"><span
+										class="keyword">DOUBLE</span></span> 的同义词。由于 <span
+										sdata="langKeyword" value="FLOAT"><span class="keyword">FLOAT</span></span>
+									与 <span sdata="langKeyword" value="DOUBLE"><span
+										class="keyword">DOUBLE</span></span> 之间可能存在冲突，因此 <span
+										sdata="langKeyword" value="DOUBLE"><span
+										class="keyword">DOUBLE</span></span> 为首选类型。
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<h1 class="heading">日期时间类型</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC <span sdata="langKeyword" value="TIMESTAMP"><span
+						class="keyword">TIMESTAMP</span></span> 类型映射到 SQL Server <span
+						sdata="langKeyword" value="datetime"><span class="keyword">datetime</span></span>
+					和 <span sdata="langKeyword" value="smalldatetime"><span
+						class="keyword">smalldatetime</span></span> 类型。<span sdata="langKeyword"
+						value="datetime"><span class="keyword">datetime</span></span>
+					类型以两个 4 字节整数进行存储。<span sdata="langKeyword" value="smalldatetime"><span
+						class="keyword">smalldatetime</span></span> 类型可存放相同的信息（日期和时间），但精度较低，为两个 2
+					字节的小整数。
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						SQL Server <span sdata="langKeyword" value="timestamp"><span
+							class="keyword">timestamp</span></span> 类型是固定长度的二进制字符串类型。它不映射到任何 JDBC
+						时间类型：<span sdata="langKeyword" value="DATE"><span
+							class="keyword">DATE</span></span>、<span sdata="langKeyword"
+							value="TIME"><span class="keyword">TIME</span></span> 或 <span
+							sdata="langKeyword" value="TIMESTAMP"><span
+							class="keyword">TIMESTAMP</span></span>。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">自定义类型映射</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 驱动程序中未实现将 <b>SQLData</b> 接口用于 JDBC 高级类型（UDT、Struct 等）的 JDBC
+					自定义类型映射功能。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

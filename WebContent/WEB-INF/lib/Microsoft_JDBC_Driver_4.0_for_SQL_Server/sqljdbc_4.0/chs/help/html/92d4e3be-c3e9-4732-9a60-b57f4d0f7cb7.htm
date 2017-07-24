@@ -1,0 +1,269 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用自适应缓冲</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="自适应" />
+<meta name="System.Keywords" content="自适应缓冲" />
+<meta name="System.Keywords" content="isWrapperFor" />
+<meta name="System.Keywords" content="selectMethod" />
+<meta name="System.Keywords" content="unwrap" />
+<meta name="Microsoft.Help.Id"
+	content="92d4e3be-c3e9-4732-9a60-b57f4d0f7cb7" />
+<meta name="Description"
+	content="自适应缓冲的作用是在无需服务器游标开销的情况下检索任何类型的大值数据。应用程序可以在受驱动程序支持的所有 SQL Server 版本中使用自适应缓冲功能。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用自适应缓冲</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>自适应缓冲的作用是在无需服务器游标开销的情况下检索任何类型的大值数据。应用程序可以在受驱动程序支持的所有 SQL
+					Server 版本中使用自适应缓冲功能。</p>
+				<p>
+					通常，当 Microsoft JDBC Driver for SQL Server
+					执行查询时，驱动程序会将服务器中的所有结果检索到应用程序内存中。尽管这种方法可以最大程度地减少 SQL Server
+					上的资源占用，但它可能会在 JDBC 应用程序中针对生成非常大的结果的查询引发 <b>OutOfMemoryError</b>。
+				</p>
+				<p>为了使应用程序可以处理非常大的结果，Microsoft JDBC Driver for SQL Server
+					提供了自适应缓冲。借助于自适应缓冲，驱动程序可以在应用程序需要时从 SQL Server
+					中检索语句执行结果，而不是一次性检索全部结果。一旦应用程序不再访问结果，驱动程序还会立即丢弃它们。以下是可以使用自适应缓冲的一些示例：</p>
+				<ul>
+					<li><p>
+							<b>查询生成非常大的结果集：</b>应用程序可能执行一个 SELECT
+							语句，此语句生成的行数超过了应用程序可在内存中存储的行数。在先前的版本中，应用程序必须使用服务器游标才能避免 <b>OutOfMemoryError</b>。借助于自适应缓冲，可以对任意大的结果集执行只进只读传递，而不需要服务器游标。
+						</p></li>
+					<li><p>
+							<b>查询生成非常大的 </b><a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a><b>
+								列或 </b><a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a><b>
+								OUT 参数值：</b>应用程序可能检索单个值（列或 OUT
+							参数），而该值太大，无法全部放入应用程序内存中。通过自适应缓冲，客户端应用程序可以使用 <b>getAsciiStream</b>、<b>getBinaryStream,</b>
+							或 <b>getCharacterStream</b> 方法将此类值作为流来进行检索。当应用程序从流中读取数据时，将从 SQL
+							Server 中检索值。
+						</p>
+						<p /></li>
+				</ul>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>使用自适应缓冲时，JDBC Driver
+						只会缓冲它必须缓冲的那些数据。该驱动程序未提供任何公共方法来控制或限制缓冲区的大小。</p>
+				</div>
+			</div>
+			<h1 class="heading">设置自适应缓冲</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					从 JDBC Driver 2.0 开始，驱动程序的默认行为是“<span sdata="langKeyword"
+						value="adaptive"><span class="keyword">adaptive</span></span>”。换言之，要获取自适应缓冲行为，应用程序不必显式请求自适应行为。不过，在版本
+					1.2 中，默认情况下，缓冲模式为“<span sdata="langKeyword" value="full"><span
+						class="keyword">full</span></span>”，即应用程序必须显式地请求自适应缓冲模式。
+				</p>
+				<p>应用程序可以通过三种方法请求语句执行应使用自适应缓冲：</p>
+				<ul>
+					<li><p>
+							应用程序可以将连接属性 <span sdata="langKeyword" value="responseBuffering"><span
+								class="keyword">responseBuffering</span></span>
+							设置为“adaptive”（自适应）。有关设置连接属性的详细信息，请参阅<span sdata="link"><a
+								href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">设置连接属性</a></span>。
+						</p></li>
+					<li><p>
+							应用程序可以使用 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+							对象的 <a href="c9e43ff2-8117-4dca-982d-83c863d0c8e1.htm">setResponseBuffering</a>
+							方法为通过该 <a href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+							对象创建的所有连接设置响应缓冲模式。
+						</p></li>
+					<li><p>
+							应用程序可以使用 <a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+							类的 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+							方法为特定的语句对象设置响应缓冲模式。
+						</p></li>
+				</ul>
+				<p>
+					使用 JDBC Driver 1.2 时，应用程序需要将语句对象强制转换为 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+					类才能使用 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+					方法。<span sdata="link"><a
+						href="6c986144-3854-4352-8331-e79eccbefc28.htm">读取大型数据的示例</a></span> 和 <span
+						sdata="link"><a
+						href="58c76635-a117-4661-8781-d6cb231c5809.htm">使用存储过程读取大型数据的示例</a></span>
+					中的代码示例说明了这种旧的用法。
+				</p>
+				<p>
+					但是，使用 JDBC Driver 2.0 时，应用程序无需关于实现类层次结构的任何假设，即可使用 <a
+						href="53f3291f-d43a-476b-a656-d86168dacf6c.htm">isWrapperFor</a>
+					方法和 <a href="ce680176-ef04-4e44-bb6c-ec50bd06e7e6.htm">unwrap</a>
+					方法来访问供应商特定的功能。有关示例代码，请参阅<span sdata="link"><a
+						href="76ecc05f-a77d-40a2-bab9-91a7fcf17347.htm">更新大型数据的示例</a></span>主题。
+				</p>
+			</div>
+			<h1 class="heading">使用自适应缓冲检索大型数据</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>当使用 get&lt;类型&gt;Stream 方法一次性读取大值，并且 SQL Server 按返回的顺序访问
+					ResultSet 列和 CallableStatement OUT
+					参数时，自适应缓冲在处理结果时可以最大程度地减少使用的应用程序内存。使用自适应缓冲时：</p>
+				<ul>
+					<li><p>
+							在 <a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类中定义的 <b>get&lt;Type&gt;Stream</b>
+							方法默认情况下返回只读取一次的流，尽管可以重置流（如果应用程序已进行标记）。如果应用程序要对流执行 <span
+								class="code">reset</span>，它必须先对该流调用 <span class="code">mark</span>
+							方法。
+						</p></li>
+					<li><p>
+							在 <a href="24170524-e1ab-4e80-8fd1-6688efacfbde.htm">SQLServerClob</a>
+							和 <a href="88bd8623-889d-4b5d-99ff-c85b32f3ff5c.htm">SQLServerBlob</a>
+							类中定义的 <b>get&lt;Type&gt;Stream</b> 方法返回的流始终可以重定位至流的开始位置，而不必调用 <span
+								class="code">mark</span> 方法。
+						</p></li>
+				</ul>
+				<p>
+					当应用程序使用自定义缓冲时，由 <b>get&lt;Type&gt;Stream</b>
+					方法检索的值仅供检索一次。如果您在调用同一列或同一参数的 <b>get&lt;Type&gt;Stream</b>
+					方法后，试图对同一对象调用任何 <b>get&lt;Type&gt;</b>
+					方法，则将引发异常并显示消息“数据已访问，不可用于此列或此参数”。
+				</p>
+			</div>
+			<h1 class="heading">自适应缓冲使用准则</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>开发人员应遵循以下重要准则，以尽可能减少应用程序占用的内存：</p>
+				<ul>
+					<li><p>
+							应避免使用连接字符串属性 <span sdata="langKeyword"
+								value="selectMethod=cursor"><span class="keyword">selectMethod=cursor</span></span>
+							来允许应用程序处理非常大的结果集。自适应缓冲功能允许应用程序在不使用服务器游标的情况下处理非常大的只进、只读结果集。请注意，设置
+							<span sdata="langKeyword" value="selectMethod=cursor"><span
+								class="keyword">selectMethod=cursor</span></span>
+							时，该连接生成的所有只进只读结果集都会受到影响。换言之，如果应用程序例行处理只有几行的短结果集，则与没有将 <span
+								sdata="langKeyword" value="selectMethod"><span
+								class="keyword">selectMethod</span></span> 设置为 <span
+								sdata="langKeyword" value="cursor"><span class="keyword">cursor</span></span>
+							的情况相比，针对每个结果集创建、读取和关闭服务器游标在客户端和服务器端都会使用更多的资源。
+						</p></li>
+					<li><p>
+							通过使用 <b>getAsciiStream</b>、<b>getBinaryStream,</b> 或 <b>getCharacterStream</b>
+							方法（而不是 <b>getBlob</b> 或 <b>getClob</b> 方法），将大文本或二进制值作为流进行读取。从版本
+							1.2 开始，<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							类提供了新的 <b>get&lt;Type&gt;Stream</b> 方法来实现此目的。
+						</p></li>
+					<li><p>
+							确保在 SELECT 语句中将可能具有大值的列放在列列表的最后，并且使用 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							的 <b>get&lt;Type&gt;Stream</b> 方法按选择列时的顺序来访问这些列。
+						</p></li>
+					<li><p>
+							确保在用来创建 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							的 SQL 语句的参数列表中，最后声明可能具有大值的 OUT 参数。此外，确保使用 <a
+								href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+							的 <b>get&lt;Type&gt;Stream</b> 方法，按照声明 OUT 参数时的顺序访问这些参数。
+						</p></li>
+					<li><p>避免同时对同一连接执行一条以上的语句。如果在处理上一条语句的结果之前执行另一条语句，可能导致将未处理的结果缓冲到应用程序内存中。</p></li>
+					<li><p>
+							但在某些情况下，使用 <span sdata="langKeyword" value="selectMethod=cursor"><span
+								class="keyword">selectMethod=cursor</span></span> 而不是 <span
+								sdata="langKeyword" value="responseBuffering=adaptive"><span
+								class="keyword">responseBuffering=adaptive</span></span> 可能更有利，例如：
+						</p>
+						<ul>
+							<li><p>
+									如果应用程序对只进只读结果集的处理速度很慢（例如，在某些用户输入后再读取每一行），则使用 <span
+										sdata="langKeyword" value="selectMethod=cursor"><span
+										class="keyword">selectMethod=cursor</span></span> 代替 <span
+										sdata="langKeyword" value="responseBuffering=adaptive"><span
+										class="keyword">responseBuffering=adaptive</span></span> 可以有助于减少 SQL
+									Server 使用的资源。
+								</p></li>
+							<li><p>
+									如果应用程序在同一连接上同时处理两个或更多的只进只读结果集，则处理这些结果集时，使用 <span
+										sdata="langKeyword" value="selectMethod=cursor"><span
+										class="keyword">selectMethod=cursor</span></span> 代替 <span
+										sdata="langKeyword" value="responseBuffering=adaptive"><span
+										class="keyword">responseBuffering=adaptive</span></span>
+									可能有助于减少驱动程序需要的内存。
+								</p></li>
+						</ul>
+						<p>在这两种情况下，需要考虑创建、读取和关闭服务器游标的开销。</p></li>
+				</ul>
+				<p>此外，下面的列表针对可滚动的结果集和只进的可更新结果集提供了一些建议：</p>
+				<ul>
+					<li><p>
+							对于可滚动结果集，在提取行块时，驱动程序始终会将 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							对象的 <a href="7bc96930-b0c9-42f6-8df9-1d8d824408b3.htm">getFetchSize</a>
+							方法所指示的行数读入内存，即使在启用了自适应缓冲的情况下也是如此。如果滚动导致 <b>OutOfMemoryError</b>，您可以调用
+							<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							对象的 <a href="233bf4f8-4758-42d0-a80b-33e34fa78027.htm">setFetchSize</a>
+							方法将提取大小设置为较少的行数（如果必要，甚至可减小到 1 行），从而减少提取的行数。如果这样还是无法防止 <b>OutOfMemoryError,
+							</b>，则应避免在可滚动的结果集中包含非常大的列。
+						</p></li>
+					<li><p>
+							对于只进的可更新结果集，在提取行块时，驱动程序通常会将 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							对象的 <a href="7bc96930-b0c9-42f6-8df9-1d8d824408b3.htm">getFetchSize</a>
+							方法所指示的行数读入内存，即使在该连接上启用了自适应缓冲的情况下也是如此。如果调用 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							对象的 <a href="60248447-6908-4036-a779-a501453cd553.htm">next</a>
+							方法导致 <b>OutOfMemoryError</b>，您可以调用 <a
+								href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+							对象的 <a href="233bf4f8-4758-42d0-a80b-33e34fa78027.htm">setFetchSize</a>
+							方法将提取大小设置为较少的行数（如果必要，甚至可减小到 1 行），从而减少提取的行数。执行该语句前，也可以调用 <a
+								href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+							对象的 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+							方法并提供参数“<span sdata="langKeyword" value="adaptive"><span
+								class="keyword">adaptive</span></span>”来强制驱动程序不缓冲任何行。因为该结果集是不可滚动的，所以如果应用程序使用
+							<b>get&lt;Type&gt;Stream</b>
+							方法之一访问大型列值，驱动程序将会在应用程序读取该值后立即将其丢弃，正如对只进只读结果集所做的那样。
+						</p></li>
+				</ul>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="e1592499-b87b-45ee-bab8-beaba8fde841.htm">借助 JDBC
+							驱动程序提高性能和可靠性</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

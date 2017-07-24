@@ -1,0 +1,617 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>设置连接属性</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="连接属性" />
+<meta name="Microsoft.Help.Id"
+	content="f1b62700-f046-488d-bd6b-a5cd8fc345b7" />
+<meta name="Description" content="可以通过多种方式指定连接字符串的属性：" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">设置连接属性</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>可以通过多种方式指定连接字符串的属性：</p>
+				<ul>
+					<li><p>
+							当使用 <b>DriverManager</b> 类进行连接时，在连接 URL 中通过“名称=值”属性进行指定。
+						</p></li>
+					<li><p>
+							在 <b>DriverManager</b> 类中 <b>Connect</b> 方法的 <span
+								class="parameter" sdata="paramReference">Properties</span>
+							参数中通过“名称=值”属性进行指定。
+						</p></li>
+					<li><p>在驱动程序数据源的适当的 setter 方法中指定值。例如：</p>
+						<div class="sampleCode">
+							<span codeLanguage="other"><pre>
+									<span class="label">datasource.setServerName(value)</span><br /><span
+										class="label">datasource.setDatabaseName(value)</span>
+								</pre></span>
+						</div></li>
+				</ul>
+			</div>
+			<h1 class="heading">备注</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>属性名不区分大小写，重复的属性名将按以下顺序进行解析：</p>
+				<ol>
+					<li><p>API 参数（如用户和密码）</p></li>
+					<li><p>属性集合。</p></li>
+					<li><p>连接字符串中的最后一个实例。</p></li>
+				</ol>
+				<p>此外，属性名允许使用未知的值，JDBC 驱动程序不会对这些值进行大小写验证。</p>
+				<p>允许使用同义词，并按顺序进行解析，如同处理重复的属性名。</p>
+				<p>下表列出了 JDBC 驱动程序当前可用的所有连接字符串属性。</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>属性</p></th>
+							<th><p>类型</p></th>
+							<th><p>默认值</p></th>
+							<th><p>说明</p></th>
+						</tr>
+						<tr>
+							<td><p>applicationIntent</p></td>
+							<td><p>String</p></td>
+							<td><p>
+									<span sdata="langKeyword" value="ReadWrite"><span
+										class="keyword">ReadWrite</span></span>
+								</p></td>
+							<td><p>
+									连接到服务器时，声明应用程序工作负荷类型。可能的值为 <span sdata="langKeyword"
+										value="ReadOnly"><span class="keyword">ReadOnly</span></span>
+									和 <span sdata="langKeyword" value="ReadWrite"><span
+										class="keyword">ReadWrite</span></span>。有关详细信息，请参阅<span sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>applicationName</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>null</p></td>
+							<td><p>如果未提供名称，则使用应用程序名称或“Microsoft JDBC Driver for SQL
+									Server”。用于在各种 SQL Server 分析和日志记录工具中标识特定的应用程序。</p></td>
+						</tr>
+						<tr>
+							<td><p>authenticationScheme</p></td>
+							<td><p>String</p></td>
+							<td><p>“NativeAuthentication”</p></td>
+							<td><p>
+									指示您的应用程序要使用哪一种集成安全性。可能的值为 <span sdata="langKeyword"
+										value="JavaKerberos"><span class="keyword">JavaKerberos</span></span>
+									和默认的 <span sdata="langKeyword" value="NativeAuthentication"><span
+										class="keyword">NativeAuthentication</span></span>。
+								</p>
+								<p>
+									使用 <span sdata="langKeyword"
+										value="authenticationScheme=JavaKerberos"><span
+										class="keyword">authenticationScheme=JavaKerberos</span></span>
+									时，您必须在 <span sdata="langKeyword" value="serverName"><span
+										class="keyword">serverName</span></span> 属性中指定完全限定的域名
+									(FQDN)。否则，将出现错误（Kerberos 数据库中找不到服务器）。
+								</p>
+								<p>
+									有关使用 <span sdata="langKeyword" value="authenticationScheme"><span
+										class="keyword">authenticationScheme</span></span> 的详细信息，请参阅<span
+										sdata="link"><a
+										href="687802dc-042a-4363-89aa-741685d165b3.htm">使用
+											Kerberos 集成身份验证连接到 SQL Server</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>databaseName、database</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>null</p></td>
+							<td><p>要连接到的数据库名称。如果未声明，则连接到默认的数据库。</p></td>
+						</tr>
+						<tr>
+							<td><p>disableStatementPooling</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>true</p></td>
+							<td><p>当前仅支持值“true”。如果设置为“false”，将出现异常。</p></td>
+						</tr>
+						<tr>
+							<td><p>encrypt</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>false</p></td>
+							<td><p>如果设置为“true”，则指定在服务器安装了证书的情况下，SQL Server
+									将为在客户端与服务器之间发送的所有数据使用安全套接字层 (SSL) 加密。默认值为 false。</p></td>
+						</tr>
+						<tr>
+							<td><p>failoverPartner</p></td>
+							<td><p>String</p></td>
+							<td><p>null</p></td>
+							<td><p>在数据库镜像配置中使用的故障转移服务器名称。与主服务器进行初始连接时若发生失败，则会使用此属性；建立初始连接后，将忽略此属性。必须与
+									databaseName 属性结合使用。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>驱动程序不支持将故障转移伙伴实例的服务器实例端口号指定为连接字符串中 failoverPartner
+										属性的一部分。但是，支持在同一连接字符串中指定主体服务器实例的 serverName、instanceName 和
+										portNumber 属性以及故障转移伙伴实例的 failoverPartner 属性。</p>
+								</div>
+								<p>
+									如果您在 <span sdata="langKeyword" value="Server"><span
+										class="keyword">Server</span></span>
+									连接属性中指定虚拟机名称，则无法使用数据库镜像。有关详细信息，请参阅<span sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>hostNameInCertificate</p></td>
+							<td><p>String</p></td>
+							<td><p>null</p></td>
+							<td><p>要用于验证 SQL Server SSL 证书的主机名。</p>
+								<p>
+									如果未指定 hostNameInCertificate 属性或此属性设置为空，则 Microsoft JDBC Driver
+									for SQL Server 将使用连接 URL 上的 <span sdata="langKeyword"
+										value="serverName"><span class="keyword">serverName</span></span>
+									属性值作为主机名来验证 SQL Server SSL 证书。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										此属性与 <span sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性和 <span sdata="langKeyword"
+											value="trustServerCertificate"><span class="keyword">trustServerCertificate</span></span>
+										属性结合使用。当且仅当 <span sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性设置为“true”且 <span
+											sdata="langKeyword" value="trustServerCertificate"><span
+											class="keyword">trustServerCertificate</span></span>
+										设置为“false”时，此属性才影响证书验证。确保传递给 <span sdata="langKeyword"
+											value="hostNameInCertificate"><span class="keyword">hostNameInCertificate</span></span>
+										的值与服务器证书的公用名 (CN) 或使用者替代名称 (SAN) 中的 DNS 名称完全匹配，以便成功建立 SSL
+										连接。有关详细信息，请参阅<span sdata="link"><a
+											href="073f3b9e-8edd-4815-88ea-de0655d0325e.htm">了解 SSL 支持</a></span>。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>instanceName</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>null</p></td>
+							<td><p>要连接到的 SQL Server 实例名。如果未指定，则连接到默认实例。对于
+									instanceName 和端口均已指定的情况，请参阅有关端口的备注。</p>
+								<p>
+									如果您在 <span sdata="langKeyword" value="Server"><span
+										class="keyword">Server</span></span> 连接属性中指定虚拟机名称，则无法使用 <span
+										sdata="langKeyword" value="instanceName"><span
+										class="keyword">instanceName</span></span> 连接属性。有关详细信息，请参阅<span
+										sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>integratedSecurity</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>false</p></td>
+							<td><p>设置为“true”表示 SQL Server 将使用 Windows
+									凭据来验证应用程序用户的身份。如果为“true”，则 JDBC
+									驱动程序将搜索本地计算机凭据缓存，以寻找在登录计算机或网络时已提供的凭据。如果为“false”，则必须提供用户名和密码。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>只有 Microsoft Windows 操作系统才支持此连接属性。</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>lastUpdateCount</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>true</p></td>
+							<td><p>如果值为“true”，则仅返回传递给服务器的 SQL 语句的最终更新计数，它可用于单个的
+									SELECT、INSERT 或 DELETE
+									语句中，以忽略由服务器触发器引起的其他更新计数。将此属性设置为“false”可导致所有更新计数都被返回，包括由服务器触发器返回的更新计数。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										此属性仅当与 <a href="10ae662a-ce3c-4b24-875c-5c2df319d93b.htm">executeUpdate</a>
+										方法一起使用时才适用。其他所有 <b>execute</b> 方法返回所有结果和更新计数。
+									</p>
+									<p>此属性仅影响由服务器触发器返回的更新计数，而不影响作为触发器执行结果的一部分的结果集或错误。</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>lockTimeout</p></td>
+							<td><p>int</p></td>
+							<td><p>-1</p></td>
+							<td><p>
+									数据库报告锁定超时之前要等待的毫秒数。默认行为是无限期等待。如果指定，该值将成为此连接上所有语句的默认值。请注意，可以使用<span
+										class="code"> Statement.setQueryTimeout() </span>设置特定语句的超时值。该值可为
+									0，这表示无需等待。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>loginTimeout</p></td>
+							<td><p>int [0..65535]</p></td>
+							<td><p>15</p></td>
+							<td><p>因连接失败而中止连接之前驱动程序应等待的秒数。零值表示该超时为默认系统超时，默认情况下指定为 15
+									秒。非零值为因连接失败而中止连接之前驱动程序应等待的秒数。</p>
+								<p>
+									如果您在 <span sdata="langKeyword" value="Server"><span
+										class="keyword">Server</span></span>
+									连接属性中指定虚拟机名称，则应指定三分钟或更长的超时值，以便失败连接有足够的时间连接成功。有关详细信息，请参阅<span
+										sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>multiSubnetFailover</p></td>
+							<td><p>Boolean</p></td>
+							<td><p>false</p></td>
+							<td><p>
+									连接到 SQL Server 2012 可用性组的可用性组侦听器或 SQL Server 2012
+									故障转移群集实例时，始终指定 <span sdata="langKeyword"
+										value="multiSubnetFailover=true"><span class="keyword">multiSubnetFailover=true</span></span>。<span
+										sdata="langKeyword" value="multiSubnetFailover=true"><span
+										class="keyword">multiSubnetFailover=true</span></span> 配置 Microsoft
+									JDBC Driver for SQL Server
+									以便更快检测当前活动服务器并与之连接。可能的值为“True”和“False”。有关详细信息，请参阅<span
+										sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p>
+								<p>
+									您可以通过编程方式使用 <a href="b5eaad8a-31ef-44ac-af11-d5caa13ac3e2.htm">getPropertyInfo</a>、<a
+										href="1e8cb175-5f4c-4208-b4f5-3646990a30e3.htm">getMultiSubnetFailover</a>
+									和 <a href="7ffd282d-c2f6-4d1b-a7a6-859d18b388aa.htm">setMultiSubnetFailover</a>
+									访问 <span sdata="langKeyword" value="multiSubnetFailover"><span
+										class="keyword">multiSubnetFailover</span></span> 连接属性。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>packetSize</p></td>
+							<td><p>int [-1| 0 | 512..32767]</p></td>
+							<td><p>8000</p></td>
+							<td><p>用来与 SQL Server 通信的网络包大小，以字节为单位指定。值为 -1
+									表示使用服务器默认数据包大小。值 0 表示使用最大值 32767。如果将此属性设置为可接受范围外的值，将出现异常。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										当启用加密 (encrypt=true) 时，建议您不要使用 packetSize
+										属性。否则，驱动程序可能引发连接错误。有关详细信息，请参阅 <a
+											href="097434fd-2b74-411c-a5ed-eba04481dde5.htm">SQLServerDataSource</a>
+										类的 <a href="5d490edc-a223-4870-a838-784952497e5f.htm">setPacketSize</a>
+										方法。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>password</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>null</p></td>
+							<td><p>数据库密码。</p></td>
+						</tr>
+						<tr>
+							<td><p>portNumber、port</p></td>
+							<td><p>int [0..65535]</p></td>
+							<td><p>1433</p></td>
+							<td><p>
+									SQL Server 侦听的端口。如果在连接字符串中指定了端口号，则不会向 sqlbrowser 发出请求。如果端口和
+									instanceName 都已指定，则将建立到指定端口的连接。但是，将对 <span sdata="langKeyword"
+										value="instanceName"><span class="keyword">instanceName</span></span>
+									进行验证，如果它与端口不符，将引发错误。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>建议始终指定端口号，因为这比使用 sqlbrowser 更安全。</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>responseBuffering</p></td>
+							<td><p>String</p>
+								<p>["full"|"adaptive"]</p></td>
+							<td><p>adaptive</p></td>
+							<td><p>如果此属性设置为“adaptive”，将只在需要时才缓冲尽可能少的数据。默认模式为“adaptive”。</p>
+								<p>如果此属性设置为“full”，当执行语句时，将从服务器读取整个结果集。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p />
+									<p>
+										将 JDBC 驱动程序从版本 1.2
+										升级后，默认缓冲行为将为“adaptive”。如果应用程序从未设置“responseBuffering”属性，而您需要在应用程序中保留版本
+										1.2 的默认行为，则必须在连接属性中或使用 <a
+											href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>
+										对象的 <a href="9f489835-6cda-4c8c-b139-079639a169cf.htm">setResponseBuffering</a>
+										方法将 responseBufferring 属性设置为“full”。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>selectMethod</p></td>
+							<td><p>String</p>
+								<p>["direct"|"cursor"]</p></td>
+							<td><p>direct</p></td>
+							<td><p>如果该属性设置为“cursor”，则对基于 TYPE_FORWARD_ONLY 和
+									CONCUR_READ_ONLY
+									游标的连接创建的每个查询，都会创建一个数据库游标。通常仅当应用程序生成的结果集非常大，以至于客户端内存无法完全容纳时，才需要使用该属性。如果将该属性设置为“cursor”，则客户端内存中仅保留数目有限的结果集行。默认行为是在客户端内存中保留所有结果集的行。在应用程序需要处理所有行时，此行为可提供最快性能。</p></td>
+						</tr>
+						<tr>
+							<td><p>sendStringParametersAsUnicode</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>true</p></td>
+							<td><p>
+									如果 <span sdata="langKeyword"
+										value="sendStringParametersAsUnicode"><span
+										class="keyword">sendStringParametersAsUnicode</span></span>
+									属性设置为“true”，则以 Unicode 格式将字符串参数发送到服务器。
+								</p>
+								<p>
+									如果 <span sdata="langKeyword"
+										value="sendStringParametersAsUnicode"><span
+										class="keyword">sendStringParametersAsUnicode</span></span>
+									属性设置为“false”，则以非 Unicode 格式（例如 ASCII/MBCS 而不是
+									Unicode）将字符串参数发送到服务器。
+								</p>
+								<p>
+									<span sdata="langKeyword" value="sendStringParametersAsUnicode"><span
+										class="keyword">sendStringParametersAsUnicode</span></span>
+									属性的默认值为“true”。
+								</p>
+								<p />
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										只有在发送 <span sdata="langKeyword" value="CHAR"><span
+											class="keyword">CHAR</span></span>、<span sdata="langKeyword"
+											value="VARCHAR"><span class="keyword">VARCHAR</span></span> 或
+										<span sdata="langKeyword" value="LONGVARCHAR"><span
+											class="keyword">LONGVARCHAR</span></span> JDBC 类型的参数值时才检查 <span
+											sdata="langKeyword" value="sendStringParametersAsUnicode"><span
+											class="keyword">sendStringParametersAsUnicode</span></span> 属性。新的
+										JDBC 4.0 区域字符方法（例如 <a
+											href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+										类和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+										类的 <b>setNString</b>、<b>setNCharacterStream</b> 和 <b>setNClob</b>
+										方法）始终以 Unicode 格式将参数值发送给服务器，而与此属性的设置无关。
+									</p>
+									<p>
+										为了获得 <span sdata="langKeyword" value="CHAR"><span
+											class="keyword">CHAR</span></span>、<span sdata="langKeyword"
+											value="VARCHAR"><span class="keyword">VARCHAR</span></span> 和
+										<span sdata="langKeyword" value="LONGVARCHAR"><span
+											class="keyword">LONGVARCHAR</span></span> JDBC 数据类型的最佳性能，应用程序应将 <span
+											sdata="langKeyword" value="sendStringParametersAsUnicode"><span
+											class="keyword">sendStringParametersAsUnicode</span></span>
+										属性设置为“false”，并使用 <a
+											href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+										和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+										类的 <b>setString</b>、<b>setCharacterStream</b> 和 <b>setClob</b>
+										非区域字符方法。
+									</p>
+									<p>
+										当应用程序将 <span sdata="langKeyword"
+											value="sendStringParametersAsUnicode"><span
+											class="keyword">sendStringParametersAsUnicode</span></span>
+										属性设置为“false”，并在服务器端使用非区域字符方法访问 Unicode 数据类型（例如，<span
+											sdata="langKeyword" value="nchar"><span
+											class="keyword">nchar</span></span>、<span sdata="langKeyword"
+											value="nvarchar"><span class="keyword">nvarchar</span></span>
+										和 <span sdata="langKeyword" value="ntext"><span
+											class="keyword">ntext</span></span>）时，如果数据库排序规则不支持非区域字符方法传递的字符串参数中的字符，则有些数据可能会丢失。
+									</p>
+									<p>
+										请注意，对于 <span sdata="langKeyword" value="NCHAR"><span
+											class="keyword">NCHAR</span></span>、<span sdata="langKeyword"
+											value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>
+										和 <span sdata="langKeyword" value="LONGNVARCHAR"><span
+											class="keyword">LONGNVARCHAR</span></span> JDBC 数据类型，应用程序应使用 <a
+											href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+										和 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+										类的 <b>setNString</b>、<b>setNCharacterStream</b> 和 <b>setNClob</b>
+										区域字符方法。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>sendTimeAsDatetime</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>true</p></td>
+							<td><p>SQL Server JDBC Driver 3.0 中新增了此属性。</p>
+								<p>
+									如果设置为 true，java.sql.Time 值将作为 SQL Server <span
+										sdata="langKeyword" value="datetime"><span
+										class="keyword">datetime</span></span> 值发送到服务器。
+								</p>
+								<p>
+									如果设置为 false，java.sql.Time 值将作为 SQL Server <span
+										sdata="langKeyword" value="time"><span class="keyword">time</span></span>
+									值发送到服务器。
+								</p>
+								<p>
+									还可以使用 <a href="705a0494-b5e2-43db-940a-1b8cec550cdb.htm">SQLServerDataSource.setSendTimeAsDatetime</a>
+									通过编程方式修改 <span sdata="langKeyword" value="sendTimeAsDatetime"><span
+										class="keyword">sendTimeAsDatetime</span></span>。
+								</p>
+								<p>在将来的版本中此属性的默认值可能会更改。</p>
+								<p>
+									有关 Microsoft JDBC Driver for SQL Server 在将 java.sql.Time
+									值发送到服务器之前如何配置这些值的详细信息，请参阅<span sdata="link"><a
+										href="07eb00dd-621a-46f9-a5a5-8cab4d6058b5.htm">配置如何将
+											java.sql.Time 值发送到服务器</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>serverName、server</p></td>
+							<td><p>String</p></td>
+							<td><p>null</p></td>
+							<td><p>运行 SQL Server 的计算机。</p>
+								<p>
+									您还可指定 AlwaysOn 可用性组 可用性组的虚拟机名称。有关详细信息，请参阅<span sdata="link"><a
+										href="62de4be6-b027-427d-a7e5-352960e42877.htm">JDBC
+											驱动程序对高可用性和灾难恢复的支持</a></span>。
+								</p></td>
+						</tr>
+						<tr>
+							<td><p>trustServerCertificate</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>false</p></td>
+							<td><p>如果设置为“true”，则指定 Microsoft JDBC Driver for SQL
+									Server 将不会验证 SQL Server SSL 证书。</p>
+								<p>如果设置为“true”，当使用 SSL 对通信层加密时，将自动信任 SQL Server SSL 证书。</p>
+								<p>
+									如果设置为“false”，则 Microsoft JDBC Driver for SQL Server 将验证服务器 SSL
+									证书。如果服务器证书验证失败，驱动程序将报错并终止连接。默认值为“false”。确保传递给 <span
+										sdata="langKeyword" value="serverName"><span
+										class="keyword">serverName</span></span> 的值与服务器证书的公用名 (CN) 或使用者替代名称
+									(SAN) 中的 DNS 名称完全匹配，以便成功建立 SSL 连接。有关详细信息，请参阅<span sdata="link"><a
+										href="073f3b9e-8edd-4815-88ea-de0655d0325e.htm">了解 SSL 支持</a></span>。
+								</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										此属性与 <span sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性结合使用。当且仅当 <span
+											sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性设置为“true”时，此属性才影响服务器 SSL
+										证书验证。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>trustStore</p></td>
+							<td><p>String</p></td>
+							<td><p>null</p></td>
+							<td><p>指向证书 trustStore 文件的路径（包括文件名）。trustStore
+									文件包含客户端信任的证书的列表。</p>
+								<p>如果未指定此属性或此属性设置为空，则驱动程序将依赖于信任关系管理器工厂的查找规则以确定要使用哪一个证书存储区。</p>
+								<p>默认的 SunX509 TrustManagerFactory 试图按以下搜索顺序查找信任的材料：</p>
+								<ul>
+									<li><p>由“javax.net.ssl.trustStore”Java 虚拟机 (JVM)
+											系统属性指定的文件。</p></li>
+									<li><p>“&lt;java 主文件夹&gt;/lib/security/jssecacerts”文件。</p></li>
+									<li><p>“&lt;java 主文件夹&gt;/lib/security/cacerts”文件。</p></li>
+								</ul>
+								<p>有关详细信息，请参阅 Sun Microsystems 网站上的 SUNX509 TrustManager
+									接口文档。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										当且仅当 <span sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性设置为“true”且 <span
+											sdata="langKeyword" value="trustServerCertificate"><span
+											class="keyword">trustServerCertificate</span></span>
+										属性设置为“false”时，此属性才影响证书 trustStore 查找。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>trustStorePassword</p></td>
+							<td><p>String</p></td>
+							<td><p>null</p></td>
+							<td><p>用于检查 trustStore 数据完整性的密码。</p>
+								<p>如果设置了 trustStore 属性，但未设置 trustStorePassword 属性，则不检查
+									trustStore 的完整性。</p>
+								<p>如果未指定 trustStore 和 trustStorePassword 属性，驱动程序将使用 JVM
+									系统属性“javax.net.ssl.trustStore”和“javax.net.ssl.trustStorePassword”。如果未指定“javax.net.ssl.trustStorePassword”系统属性，则不检查
+									trustStore 的完整性。</p>
+								<p>如果未指定 trustStore 属性，但设置了 trustStorePassword 属性，JDBC
+									驱动程序将使用由“javax.net.ssl.trustStore”指定作为信任存储区的文件，并使用指定的
+									trustStorePassword 检查信任存储区的完整性。当客户端应用程序不希望在 JVM
+									系统属性中存储密码时，这一点可能是必需的。</p>
+								<div style="margin: .5em 1.5em .5em 1.5em">
+									<b></b>
+									<p>
+										当且仅当 <span sdata="langKeyword" value="encrypt"><span
+											class="keyword">encrypt</span></span> 属性设置为“true”且 <span
+											sdata="langKeyword" value="trustServerCertificate"><span
+											class="keyword">trustServerCertificate</span></span>
+										属性设置为“false”时，trustStorePassword 属性才影响证书 trustStore 查找。
+									</p>
+								</div></td>
+						</tr>
+						<tr>
+							<td><p>userName、user</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>null</p></td>
+							<td><p>数据库用户。</p></td>
+						</tr>
+						<tr>
+							<td><p>workstationID</p></td>
+							<td><p>String</p>
+								<p>[&lt;=128 个字符]</p></td>
+							<td><p>&lt;空字符串&gt;</p></td>
+							<td><p>工作站 ID。用于在各种 SQL Server
+									探查和日志记录工具中标识特定的工作站。如果未指定任何内容，则使用 &lt;空字符串&gt;。</p></td>
+						</tr>
+						<tr>
+							<td><p>xopenStates</p></td>
+							<td><p>boolean</p>
+								<p>["true"|"false"]</p></td>
+							<td><p>false</p></td>
+							<td><p>设置为“true”将指定驱动程序在异常时返回 XOPEN 兼容的状态代码。默认将返回 SQL 99
+									状态代码。</p></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>Microsoft JDBC Driver for SQL Server 采用服务器的连接属性默认值，只有
+						ANSI_DEFAULTS 和 IMPLICIT_TRANSACTIONS 除外。Microsoft JDBC Driver for
+						SQL Server 将 ANSI_DEFAULTS 自动设置为 ON，将 IMPLICIT_TRANSACTIONS 自动设置为
+						OFF。</p>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="94bcfbe3-f00e-4774-bda8-bb7577518fec.htm">通过 JDBC
+							驱动程序连接到 SQL Server</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

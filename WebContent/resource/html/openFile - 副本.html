@@ -1,0 +1,76 @@
+<div data-dojo-type="dojox.form.Manager" id="openFileForm" style="width: 100%; height: 100%;" encType="multipart/form-data">
+ <table style="width: 100%;">
+   <tbody>
+     <tr>
+       <td align="right" style="font-weight: bold; width: 70px;">
+         文件来源：</td>
+       <td>
+        <input showlabel="true" id="localFileSystem" type="radio" data-dojo-type="dijit.form.RadioButton" name="fileSource" value="local" intermediateChanges="false" iconClass="dijitNoIcon" checked="checked"></input>
+        <label for="localFileSystem">
+         本地文件系统</label>
+        <input showlabel="true" id="psmSystem" type="radio" data-dojo-type="dijit.form.RadioButton" name="fileSource" intermediateChanges="false" iconClass="dijitNoIcon" value="psm"></input>
+        <label for="psmSystem">
+          CSE系统</label>
+      </td>
+     </tr>
+     <tr>
+       <td align="right" style="font-weight: bold;">
+        文件类型：</td>
+       <td>
+        <select id="fileType" name="fileType" data-dojo-type="dijit.form.Select" type="text" value="默认流程文件(*.xml)" intermediateChanges="false" emptyLabel="&amp;#160;" scrollOnFocus="true" autoWidth="true" onChange="fileTypeChanged">
+          <option value="default" selected="selected">
+            默认流程文件(*.xml)</option>
+          <option value="fromUengine">
+            Uengine流程文件(*.XPD,*.upd)</option>
+          <option value="fromCSEEditor">
+            CSE_Editor流程文件(*.workflow)</option>
+          <option value="fromModelCenter">
+            ModelCenter流程文件(*.pxc)</option>
+        </select>
+      </td>
+     </tr>
+     <tr>
+       <td align="right" style="font-weight: bold;">
+         文件地址：</td>
+       <td style="padding-left: 2px;">        
+        <input id="unifiedFileInput" name="fileUrl" type="text" data-dojo-type="dijit.form.ValidationTextBox" required="true" regExp="^.*?\.xml$" intermediateChanges="false" trim="false" uppercase="false" lowercase="false" propercase="false" invalidMessage="您输入的文件不是默认流程文件格式(*.xml)" style="width: 153px;"></input>
+        <input type="button" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="浏览" iconClass="dijitNoIcon" onClick="browseProcessFile"></input>       
+      	<input id="localFileInput" type="file" style="display:none"></input>
+	  </td>
+     </tr>
+   </tbody>
+ </table>
+ <div style="text-align: center;">
+  <input type="submit" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="确定" iconClass="dijitNoIcon"></input>
+  <input type="button" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onclick="dijit.byId('openFileDlg').hide();"></input>
+ </div>
+	<script type="dojo/method" event="onSubmit">
+		var values = this.gatherFormValues(["fileSource","fileType","fileUrl"]);
+		var documentURL = values.fileUrl;
+		var needTransfer = values.fileType=="default" ? false : true;
+        setTimeout(function(){
+            var processStr,defer;
+            var processContent = {content:""};
+            if(needTransfer){
+                if(values.fileSource=="local"){
+                    defer = processSwitch(getFileContentFromLocal(documentURL),processContent,values.fileType);
+                    defer.then(function(){
+                        return recoverProcessAnsyn(processContent.content);
+                    }).then(deleteTempFile).then(hideProgress);
+                }else{
+                    alert("功能尚未实现");
+                }
+            }else{
+                if(values.fileSource=="local"){
+                    processStr = getFileContentFromLocal(documentURL);
+                }else{
+                    alert("功能尚未实现");
+                }
+                recoverProcessAnsyn(processStr).then(hideProgress);
+            }
+        },300);
+        dijit.byId("openFileDlg").hide();
+        dijit.byId("progressDlg").show();
+        return false;
+	</script>
+</div>

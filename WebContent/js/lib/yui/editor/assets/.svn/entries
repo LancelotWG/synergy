@@ -1,0 +1,55 @@
+8
+
+dir
+5048
+http://192.168.0.100/svn/trunk/PSM/Editor/processdesigner/lib/yui/editor/assets
+http://192.168.0.100/svn
+
+
+
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3b7ddcfd-8522-0410-b790-dbbf41f9375a
+
+editor-core.css
+file
+
+
+
+
+2012-05-28T08:18:55.558107Z
+9b3dcf95d800dfe798631fd494a2baef
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+
+skins
+dir
+
+simpleeditor-core.css
+file
+
+
+
+
+2012-05-28T08:18:55.558107Z
+7c9e944b65107bc6f2fe9ab676e0e4a8
+2012-05-28T02:46:46.128369Z
+5033
+wanshujia
+

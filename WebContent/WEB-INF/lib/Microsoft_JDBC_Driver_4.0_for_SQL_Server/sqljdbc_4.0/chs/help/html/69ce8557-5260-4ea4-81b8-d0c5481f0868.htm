@@ -1,0 +1,77 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>保护连接字符串</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="连接字符串安全性" />
+<meta name="Microsoft.Help.Id"
+	content="69ce8557-5260-4ea4-81b8-d0c5481f0868" />
+<meta name="Description"
+	content="帮助保护应用程序的最重要目标之一是保护对数据源的访问。要限制对数据源的访问，必须采取防范措施（例如用户 ID、密码和数据源名称）来帮助保护连接信息。以纯文本的形式存储用户 ID 和密码（例如在源代码中）会造成严重的安全问题。即使在外部源中对包含用户 ID 和密码信息的代码提供已编译的版本，编译的代码仍有可能被反汇编，从而暴露用户 ID 和密码。因此，请勿在代码中包含用户 ID 和密码之类的重要信息。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">保护连接字符串</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>帮助保护应用程序的最重要目标之一是保护对数据源的访问。要限制对数据源的访问，必须采取防范措施（例如用户
+					ID、密码和数据源名称）来帮助保护连接信息。以纯文本的形式存储用户 ID
+					和密码（例如在源代码中）会造成严重的安全问题。即使在外部源中对包含用户 ID
+					和密码信息的代码提供已编译的版本，编译的代码仍有可能被反汇编，从而暴露用户 ID 和密码。因此，请勿在代码中包含用户 ID
+					和密码之类的重要信息。</p>
+				<p>强烈建议不要在应用程序源代码中存储密码和连接
+					URL。而是考虑将密码存储在限制访问的单独文件中。可以向应用程序的运行上下文授予该文件的访问权限。</p>
+				<p>另一种方法将经过加密的密码存储在一个文件中。确保使用的加密 API
+					不需要在其他位置存储密钥，并且不是由用户的密码派生而来。例如，可以考虑使用基于证书的公钥/私钥对，或使用以下方法：双方使用密钥一致协议（Diffie-Hellman
+					算法）生成相同的加密密钥，从而无需传输密钥。</p>
+				<p>如果从外部源（例如用户提供的用户 ID
+					和密码）获取连接字符串信息，则必须验证来自该源的所有输入，以确保这些信息遵循正确的格式，并且不包含影响连接的其他参数。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="90724ec6-a9cb-43ef-903e-793f89410bc0.htm">保护 JDBC Driver
+							应用程序</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

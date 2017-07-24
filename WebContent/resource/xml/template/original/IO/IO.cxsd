@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='GBK'?>
+<!-- Schema file written by Blueprint -->
+<schema targetNamespace="IO" xmlns="http://www.w3.org/2001/XMLSchema">
+   <annotation>
+      <appInfo>
+         <meta.schema
+            name="IO"
+            />
+      </appInfo>
+      <documentation>
+         
+      </documentation>
+   </annotation>
+
+
+
+
+
+
+
+
+</schema>

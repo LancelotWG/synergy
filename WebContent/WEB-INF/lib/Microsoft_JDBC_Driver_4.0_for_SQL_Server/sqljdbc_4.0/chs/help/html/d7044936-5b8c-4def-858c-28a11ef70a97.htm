@@ -1,0 +1,469 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用基本数据类型</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="基本数据类型" />
+<meta name="Microsoft.Help.Id"
+	content="d7044936-5b8c-4def-858c-28a11ef70a97" />
+<meta name="Description"
+	content="Microsoft JDBC Driver for SQL Server 使用 JDBC 基本数据类型将 SQL Server 数据类型转换为 Java 编程语言能够理解的格式，反之亦然。JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者包括 SQLXML 数据类型和 National (Unicode) 数据类型，例如 NCHAR、NVARCHAR、LONGNVARCHAR 和 NCLOB。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用基本数据类型</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					Microsoft JDBC Driver for SQL Server 使用 JDBC 基本数据类型将 SQL Server
+					数据类型转换为 Java 编程语言能够理解的格式，反之亦然。JDBC 驱动程序提供对 JDBC 4.0 API 的支持，后者包括 <span
+						sdata="langKeyword" value="SQLXML"><span class="keyword">SQLXML</span></span>
+					数据类型和 National (Unicode) 数据类型，例如 <span sdata="langKeyword"
+						value="NCHAR"><span class="keyword">NCHAR</span></span>、<span
+						sdata="langKeyword" value="NVARCHAR"><span class="keyword">NVARCHAR</span></span>、<span
+						sdata="langKeyword" value="LONGNVARCHAR"><span
+						class="keyword">LONGNVARCHAR</span></span> 和 <span sdata="langKeyword"
+						value="NCLOB"><span class="keyword">NCLOB</span></span>。
+				</p>
+			</div>
+			<h1 class="heading">数据类型映射</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>下表列出了基本 SQL Server、JDBC 和 Java 编程语言数据类型之间的默认映射：</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>SQL Server 类型</p></th>
+							<th><p>JDBC 类型 (java.sql.Types)</p></th>
+							<th><p>Java 语言类型</p></th>
+						</tr>
+						<tr>
+							<td><p>bigint</p></td>
+							<td><p>BIGINT</p></td>
+							<td><p>long</p></td>
+						</tr>
+						<tr>
+							<td><p>binary</p></td>
+							<td><p>BINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p>bit</p></td>
+							<td><p>BIT</p></td>
+							<td><p>布尔型</p></td>
+						</tr>
+						<tr>
+							<td><p>char</p></td>
+							<td><p>CHAR</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>date</p></td>
+							<td><p>DATE</p></td>
+							<td><p>java.sql.Date</p></td>
+						</tr>
+						<tr>
+							<td><p>datetime</p></td>
+							<td><p>TIMESTAMP</p></td>
+							<td><p>java.sql.Timestamp</p></td>
+						</tr>
+						<tr>
+							<td><p>datetime2</p></td>
+							<td><p>TIMESTAMP</p></td>
+							<td><p>java.sql.Timestamp</p></td>
+						</tr>
+						<tr>
+							<td><p>datetimeoffset (2)</p></td>
+							<td><p>microsoft.sql.Types.DATETIMEOFFSET</p></td>
+							<td><p>microsoft.sql.DateTimeOffset</p></td>
+						</tr>
+						<tr>
+							<td><p>decimal</p></td>
+							<td><p>DECIMAL</p></td>
+							<td><p>java.math.BigDecimal</p></td>
+						</tr>
+						<tr>
+							<td><p>float</p></td>
+							<td><p>DOUBLE</p></td>
+							<td><p>double</p></td>
+						</tr>
+						<tr>
+							<td><p>image</p></td>
+							<td><p>LONGVARBINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p>int</p></td>
+							<td><p>INTEGER</p></td>
+							<td><p>int</p></td>
+						</tr>
+						<tr>
+							<td><p>money</p></td>
+							<td><p>DECIMAL</p></td>
+							<td><p>java.math.BigDecimal</p></td>
+						</tr>
+						<tr>
+							<td><p>nchar</p></td>
+							<td><p>CHAR</p>
+								<p>NCHAR (Java SE 6.0)</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>ntext</p></td>
+							<td><p>LONGVARCHAR</p>
+								<p>LONGNVARCHAR (Java SE 6.0)</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>numeric</p></td>
+							<td><p>NUMERIC</p></td>
+							<td><p>java.math.BigDecimal</p></td>
+						</tr>
+						<tr>
+							<td><p>nvarchar</p></td>
+							<td><p>VARCHAR</p>
+								<p>NVARCHAR (Java SE 6.0)</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>nvarchar(max)</p></td>
+							<td><p>VARCHAR</p>
+								<p>NVARCHAR (Java SE 6.0)</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>real</p></td>
+							<td><p>REAL</p></td>
+							<td><p>float</p></td>
+						</tr>
+						<tr>
+							<td><p>smalldatetime</p></td>
+							<td><p>TIMESTAMP</p></td>
+							<td><p>java.sql.Timestamp</p></td>
+						</tr>
+						<tr>
+							<td><p>smallint</p></td>
+							<td><p>SMALLINT</p></td>
+							<td><p>short</p></td>
+						</tr>
+						<tr>
+							<td><p>smallmoney</p></td>
+							<td><p>DECIMAL</p></td>
+							<td><p>java.math.BigDecimal</p></td>
+						</tr>
+						<tr>
+							<td><p>text</p></td>
+							<td><p>LONGVARCHAR</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>time</p></td>
+							<td><p>TIME (1)</p></td>
+							<td><p>java.sql.Time (1)</p></td>
+						</tr>
+						<tr>
+							<td><p>timestamp</p></td>
+							<td><p>BINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p>tinyint</p></td>
+							<td><p>TINYINT</p></td>
+							<td><p>short</p></td>
+						</tr>
+						<tr>
+							<td><p>udt</p></td>
+							<td><p>VARBINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p>uniqueidentifier</p></td>
+							<td><p>CHAR</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>varbinary</p></td>
+							<td><p>VARBINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p>varbinary(max)</p></td>
+							<td><p>VARBINARY</p></td>
+							<td><p>byte[]</p></td>
+						</tr>
+						<tr>
+							<td><p /></td>
+							<td><p /></td>
+							<td><p /></td>
+						</tr>
+						<tr>
+							<td><p>varchar</p></td>
+							<td><p>VARCHAR</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>varchar(max)</p></td>
+							<td><p>VARCHAR</p></td>
+							<td><p>字符串</p></td>
+						</tr>
+						<tr>
+							<td><p>xml</p></td>
+							<td><p>LONGVARCHAR</p>
+								<p>LONGNVARCHAR (Java SE 6.0)</p></td>
+							<td><p>字符串</p>
+								<p>SQLXML</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>
+					(1) 若要将 java.sql.Time 与时间 SQL Server 类型一起使用，您必须将 <span
+						sdata="langKeyword" value="sendTimeAsDatetime"><span
+						class="keyword">sendTimeAsDatetime</span></span> 连接属性设置为 false。
+				</p>
+				<p>
+					(2) 您可以通过编程方式使用 <span sdata="link"><a
+						href="20bbeacd-ccca-4a46-8184-ff941ae2ec5f.htm">DateTimeOffset
+							类</a></span>访问 <span sdata="langKeyword" value="datetimeoffset"><span
+						class="keyword">datetimeoffset</span></span> 的值。
+				</p>
+				<p>JDBC 驱动程序目前不支持 SQL Server sqlvariant 数据类型。如果使用查询从包含
+					sqlvariant 数据类型列的表中检索数据，则会发生异常。</p>
+				<p>
+					以下几部分提供了如何使用 JDBC 驱动程序和基本数据类型的实例。有关如何在 Java
+					应用程序中使用基本数据类型的更多详细实例，请参阅<span sdata="link"><a
+						href="59ac80cf-fc66-4493-933d-38e479c5f54d.htm">基本数据类型示例</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">以字符串的格式检索数据</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须从映射到任意 JDBC 基本数据类型的数据源检索数据，并以字符串的格式查看这些数据，或者如果不需要强类型的数据，则可以使用 <a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>
+					类的 <a href="f81dde01-d328-4b32-8871-1efac645b68e.htm">getString</a>
+					方法，如下所示：
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>String SQL = "SELECT TOP 10 * FROM Person.Contact";
+Statement stmt = con.createStatement();
+ResultSet rs = stmt.executeQuery(SQL);
+
+while (rs.next()) {
+   System.out.println(rs.getString(4) + " " + rs.getString(6));
+}
+rs.close();
+stmt.close();
+
+</pre></span>
+					</div>
+				</div>
+			</div>
+			<h1 class="heading">按数据类型检索数据</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须从数据源检索数据，并且已知检索的数据类型，则应该使用 <b>SQLServerResultSet</b> 类的 <b>get&lt;Type&gt;</b>
+					方法（也称为 <span class="term">getter 方法</span>）之一。通过 <b>get&lt;Type&gt;</b>
+					方法可以使用列名或列索引，如下所示：
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>ResultSet rs = stmt.executeQuery("SELECT lname, job_id FROM employee
+   WHERE (lname = 'Brown')");
+rs.next();
+short empJobID = rs.getShort("job_id");
+rs.close();
+stmt.close();
+
+</pre></span>
+					</div>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>
+						JDBC 驱动程序不支持 <b>getUnicodeStream</b> 方法和带有小数位的 <b>getBigDecimal</b>
+						方法，它们已过时。
+					</p>
+				</div>
+			</div>
+			<h1 class="heading">按数据类型更新数据</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须更新数据源中字段的值，应使用 <b>SQLServerResultSet</b> 类的 <b>update&lt;Type&gt;</b>
+					方法之一。在下面的实例中，<a href="2bb0319e-12cb-4604-a7e3-b22a24b02296.htm">updateInt</a>
+					方法与 <a href="cfced0ca-a281-40dc-8d2f-370d5f0bf12b.htm">updateRow</a>
+					方法结合起来用于更新数据源中的数据：
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE); 
+ResultSet rs = stmt.executeQuery("SELECT lname, job_id FROM employee
+   WHERE (lname = 'Brown')");
+rs.next();
+short empJobID = rs.getInt(2);
+empJobID++;
+rs.first();
+rs.updateInt(2, empJobID);
+rs.updateRow();
+rs.close();
+stmt.close();
+
+</pre></span>
+					</div>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>JDBC Driver 无法更新列名长度超过 127 个字符的 SQL Server 列。如果尝试更新名称长度超过
+						127 个字符的列，将引发异常。</p>
+				</div>
+			</div>
+			<h1 class="heading">通过参数化查询来更新数据</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须通过使用参数化查询来更新数据源中的数据，可以使用 <a
+						href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+					类的 <b>set&lt;Type&gt;</b> 方法（也称为 <span class="term">setter
+						方法</span>）之一来设置参数的数据类型。在下面的实例中，<a
+						href="bd4e4085-f704-4a73-b6a7-7d443d564728.htm">prepareStatement</a>
+					方法用于预编译参数化查询，然后在调用 <a
+						href="ca534c6b-ef4d-4ae8-8cc3-514728623cff.htm">executeUpdate</a>
+					方法前，使用 <a href="25dabdc9-c60f-485a-87eb-306067964765.htm">setString</a>
+					方法设置参数的字符串值。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>PreparedStatement pstmt = con.prepareStatement("UPDATE employee SET
+   fname = ? WHERE (lname = 'Brown')");
+String first = "Bob";
+pstmt.setString(1, first);
+int rowCount = pstmt.executeUpdate();
+pstmt.close();
+
+</pre></span>
+					</div>
+				</div>
+				<p>
+					有关参数化查询的详细信息，请参阅<span sdata="link"><a
+						href="3202b88f-ce13-44dd-982c-c6a3b0260378.htm">使用带参数的 SQL 语句</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">向存储过程传递参数</h1>
+			<div id="sectionSection5" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须向存储过程传递带类型的参数，则可使用 <a
+						href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>
+					类的一个 <b>set&lt;Type&gt;</b> 方法通过索引或名称来设置此参数。在下面的实例中，<a
+						href="265b024c-898a-4bd0-98b5-f06076717b9e.htm">prepareCall</a>
+					方法用于设置对存储过程的调用，然后在调用 <a
+						href="599cf463-e19f-4baa-bacb-513cad7c6cd8.htm">executeQuery</a>
+					方法之前，使用 <a href="f38b97b5-d4f0-4f74-a33d-740241a85842.htm">setString</a>
+					方法设置调用的参数。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>CallableStatement cstmt = con.prepareCall("{call employee_jobid(?)}");
+String lname = "Brown";
+cstmt.setString(1, lname);
+Resultset rs = cstmt.executeQuery();
+rs.close();
+cstmt.close();
+
+</pre></span>
+					</div>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>在此实例中，将返回一个结果集，包含此存储过程的运行结果。</p>
+				</div>
+				<p>
+					有关通过存储过程和输入参数来使用 JDBC 驱动程序的详细信息，请参阅<span sdata="link"><a
+						href="8f491b70-7d1b-42bd-964f-9a8b86af5eaa.htm">使用带有输入参数的存储过程</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">从存储过程检索参数</h1>
+			<div id="sectionSection6" class="section" name="collapseableSection"
+				style="">
+				<p>
+					如果必须从存储过程检索参数，则必须首先使用 <b>SQLServerCallableStatement</b> 类的 <a
+						href="82f8d608-efc1-4af8-a985-ec25d19420aa.htm">registerOutParameter</a>
+					方法通过名称或索引注册一个输出参数，然后在调用存储过程后，将返回的输出参数分配给合适的变量。在下面的实例中，使用 <b>prepareCall</b>
+					方法设置对存储过程的调用，使用 <b>registerOutParameter</b> 方法设置输出参数，然后在调用 <b>executeQuery</b>
+					方法前，使用 <a href="f38b97b5-d4f0-4f74-a33d-740241a85842.htm">setString</a>
+					方法设置调用的参数。使用 <a href="9e3c51bc-7285-4f28-92c8-cfa05e49da9e.htm">getShort</a>
+					方法来检索此存储过程的输出参数返回的值。
+				</p>
+				<div name="snippetGroup">
+					<div class="sampleCode">
+						<span codeLanguage="Java"><pre>CallableStatement cstmt = con.prepareCall("{call employee_jobid (?, ?)}");
+cstmt.registerOutParameter(2, java.sql.Types.SMALLINT);
+String lname = "Brown";
+cstmt.setString(1, lname);
+Resultset rs = cstmt.executeQuery();
+short empJobID = cstmt.getShort(2);
+rs.close();
+cstmt.close();
+
+</pre></span>
+					</div>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>除返回的输出参数外，还可能返回一个结果集，包含此存储过程的运行结果。</p>
+				</div>
+				<p>
+					有关如何通过存储过程和输出参数来使用 JDBC 驱动程序的详细信息，请参阅<span sdata="link"><a
+						href="1c006f27-7e99-43d5-974c-7b782659290c.htm">使用带有输出参数的存储过程</a></span>。
+				</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7802328d-4d23-4775-9573-4169b127d258.htm">了解 JDBC
+							驱动程序数据类型</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

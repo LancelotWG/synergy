@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 前台登录 -->
+	<package name="workflow.user" extends="workflow-default">
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<!-- 验证用户登录的拦截器 -->
+			<interceptor name="loginInterceptor" class="com.nwpu.lwg.action.interceptor.UserLoginInterceptor"/>
+			<interceptor-stack name="userDefaultStack">
+				<interceptor-ref name="loginInterceptor"/>
+    			<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+	</package>
+	<!-- 用户Action -->
+	<package name="workflow.action" extends="workflow.user" namespace="/user">
+		<action name="user_*" method="{1}" class="userAction">
+		<!-- 用户主页面 -->
+        <result name="userOperate">/WEB-INF/pages/user/operate/user_operate.jsp</result>
+		<!-- <interceptor-ref name="userDefaultStack"/> -->
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.nwpu.lwg.model.project.Workflow" table="tb_workflow">
+		<id name="id" column="id" type="java.lang.Integer">
+			<generator class="native" />
+		</id>
+		<property name="name" type="string" not-null="true" length="50">
+			<column name="name" />
+		</property>
+		<property name="build_time" type="date" not-null="true">
+			<column name="build_time" />
+		</property>
+		<many-to-one name="build_person" column="build_person_id" class="com.nwpu.lwg.model.user.User" lazy="false" fetch="select" outer-join="true" not-null="true"></many-to-one>
+		<set name="users" table="tb_role" lazy="false" fetch="select" outer-join="true" inverse="false" cascade="none">
+			<key column="workflow_id"/>
+			<many-to-many class="com.nwpu.lwg.model.user.User" lazy="false" fetch="select" outer-join="true" column="user_id"/>
+		</set>
+	</class>
+</hibernate-mapping>

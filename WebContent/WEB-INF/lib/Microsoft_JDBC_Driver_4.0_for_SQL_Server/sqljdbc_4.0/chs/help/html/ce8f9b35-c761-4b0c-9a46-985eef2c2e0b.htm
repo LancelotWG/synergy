@@ -1,0 +1,76 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>不使用时关闭对象</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="关闭对象" />
+<meta name="Microsoft.Help.Id"
+	content="ce8f9b35-c761-4b0c-9a46-985eef2c2e0b" />
+<meta name="Description"
+	content="处理 Microsoft JDBC Driver for SQL Server 的对象（尤其是 SQLServerResultSet，或者某个 Statement 对象，例如 SQLServerStatement、SQLServerPreparedStatement 或 SQLServerCallableStatement）时，如果不再需要这些对象，应使用其 close 方法来显式关闭它们。这样可以尽快地释放驱动程序和服务器资源，而不是等待 Java 虚拟机垃圾收集器执行此操作，从而提高性能。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">不使用时关闭对象</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					处理 Microsoft JDBC Driver for SQL Server 的对象（尤其是 <a
+						href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a>，或者某个
+					<b>Statement</b> 对象，例如 <a
+						href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a>、<a
+						href="a8481c06-fbba-432b-8c69-4f4619c20ad4.htm">SQLServerPreparedStatement</a>
+					或 <a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a>）时，如果不再需要这些对象，应使用其
+					<b>close</b> 方法来显式关闭它们。这样可以尽快地释放驱动程序和服务器资源，而不是等待 Java
+					虚拟机垃圾收集器执行此操作，从而提高性能。
+				</p>
+				<p>当您使用滚动锁定时，要在服务器上保持良好的并发性能，则关闭对象尤其重要。上一次访问的提取缓冲区中的滚动锁定会一直保持，直到关闭结果集。类似地，语句准备的句柄会一直保留，直到关闭此语句。如果您对多条语句重复使用一个连接，则在让语句退出作用域之前关闭这些语句会使服务器过早地清除已准备的句柄。</p>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="e1592499-b87b-45ee-bab8-beaba8fde841.htm">借助 JDBC
+							驱动程序提高性能和可靠性</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

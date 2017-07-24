@@ -1,0 +1,131 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>访问扩展事件日志中的诊断信息</title>
+<meta name="Language" content="zh-CN" />
+<meta name="Microsoft.Help.Id"
+	content="a79e9468-2257-4536-91f1-73b008c376c3" />
+<meta name="Description"
+	content="在 Microsoft JDBC Driver 4.0 for SQL Server 中，更新了跟踪功能（Tracing Driver Operation），以便更易于将客户端事件与诊断信息关联，如连接失败可查看服务器的连接环形缓冲区和扩展事件日志中的应用程序性能信息。有关读取扩展事件日志的信息，请参阅查看事件会话数据http://msdn.microsoft.com/zh-CN/library/hh710068(SQL.110).aspx 。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">访问扩展事件日志中的诊断信息</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>
+					在 Microsoft JDBC Driver 4.0 for SQL Server 中，更新了跟踪功能（<span
+						sdata="link"><a
+						href="723aeae7-6504-4585-ba8b-3525115bea8b.htm">跟踪驱动程序操作</a></span>），以便更易于将客户端事件与诊断信息关联，如连接失败可查看服务器的连接环形缓冲区和扩展事件日志中的应用程序性能信息。有关读取扩展事件日志的信息，请参阅<a
+						href="http://msdn.microsoft.com/zh-CN/library/hh710068(SQL.110).aspx ">查看事件会话数据</a>。
+				</p>
+			</div>
+			<h1 class="heading">详细信息</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					对于连接操作，Microsoft JDBC Driver for SQL Server 将发送一个客户端连接
+					ID。如果连接失败，您可以访问连接环形缓冲区（<a
+						href="http://go.microsoft.com/fwlink/?LinkId=207752">在 SQL
+						Server 2008 中使用连接环形缓冲区解决连接问题</a>），查找 <span sdata="langKeyword"
+						value="ClientConnectionID"><span class="keyword">ClientConnectionID</span></span>
+					字段并获取有关连接失败的诊断信息。仅在出错时在环形缓冲区中记录客户端连接 ID。（如果在发送预登录数据包前连接失败，将不生成客户端连接
+					ID。）客户端连接 ID 是 16 字节的 GUID。如果将 <span sdata="langKeyword"
+						value="client_connection_id"><span class="keyword">client_connection_id</span></span>
+					操作添加到扩展事件会话中的事件，还可以在扩展事件目标输出中找到客户端连接
+					ID。如果需要进一步的客户端驱动程序诊断帮助，可以启用跟踪并重新运行连接命令，查看跟踪内容中的 <span
+						sdata="langKeyword" value="ClientConnectionID"><span
+						class="keyword">ClientConnectionID</span></span> 字段。
+				</p>
+				<p>
+					可以使用 <span sdata="link"><a
+						href="031c01e2-2c65-4fe4-9700-fdbcc7a39f30.htm">ISQLServerConnection
+							接口</a></span> 通过编程方式获取客户端连接 ID。该连接 ID 还存在于任何与连接相关的异常中。
+				</p>
+				<p>
+					存在连接错误时，服务器的 BID 跟踪信息和连接环形缓冲区中的客户端连接 ID
+					可以帮助将客户端连接与服务器上的连接关联。有关服务器上的 BID 跟踪的详细信息，请参阅<a
+						href="http://go.microsoft.com/fwlink/?LinkId=125805">数据访问跟踪</a>。请注意，该数据访问跟踪文章还包含有关执行数据访问跟踪的信息，这些信息并不适用于
+					Microsoft JDBC Driver for SQL Server；有关使用 Microsoft JDBC Driver for
+					SQL Server 执行数据访问跟踪的信息，请参阅<span sdata="link"><a
+						href="723aeae7-6504-4585-ba8b-3525115bea8b.htm">跟踪驱动程序操作</a></span>。
+				</p>
+				<p>JDBC Driver 还会发送特定于线程的活动 ID。如果在启用了 TRACK_CAUSAILITY
+					选项的情况下开始扩展事件会话，则会在会话中捕获该活动 ID。对于与活动连接有关的性能问题，您可以从客户端的跟踪中获取活动
+					ID（ActivityID 字段），然后在扩展事件输出中找到该活动 ID。扩展事件中的活动 ID 是一个 16 字节
+					GUID（与客户端连接 ID 的 GUID 不同），附有一个四字节的序列号。序列号代表线程内某个请求的顺序。ActivityId 会为
+					SQL 批处理语句和 RPC 请求发送。为了能将 ActivityId 发送到服务器，您首先需要在
+					Logging.Properties 文件中指定以下键值对：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>com.microsoft.sqlserver.jdbc.traceactivity = on</pre></span>
+				</div>
+				<p>
+					有关详细信息，请参阅<span sdata="link"><a
+						href="723aeae7-6504-4585-ba8b-3525115bea8b.htm">跟踪驱动程序操作</a></span>。跟踪标志与对应的
+					JDBC 对象记录程序一起使用，以决定是否在 JDBC 驱动程序中跟踪和发送 ActivityId。除了更新
+					Logging.Properties 文件以外，还需要在 FINER 或更高级别启用
+					com.microsoft.sqlserver.jdbc 记录程序。如果您想为特定类发出的请求将 ActivityId
+					发送到服务器，则需要在 FINER 或 FINEST 级别启用对应的类记录程序。例如，如果类是
+					SQLServerStatement，则启用
+					com.microsoft.sqlserver.jdbc.SQLServerStatement 记录程序。
+				</p>
+				<p>下面是一个示例，该示例使用 Transact-SQL 来启动将存储于环形缓冲区中并记录从 RPC 上的客户端发送的活动
+					ID 和批处理操作的扩展事件会话：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>create event session MySession on server
+add event connectivity_ring_buffer_recorded,
+add event sql_statement_starting (action (client_connection_id)),
+add event sql_statement_completed (action (client_connection_id)),
+add event rpc_starting (action (client_connection_id)),
+add event rpc_completed (action (client_connection_id))
+add target ring_buffer with (track_causality=on)</pre></span>
+				</div>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="723e2680-a0c5-4a7d-a319-1e49e41078cf.htm">诊断与 JDBC
+							驱动程序有关的问题</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

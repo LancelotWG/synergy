@@ -1,0 +1,36 @@
+<div data-dojo-type="dijit.layout.BorderContainer" data-dojo-props='style:"height:300px; width:400px"'>
+	<div data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"left", style:"width:130px"' align="left">
+		<p><b>当前可用主题:</b></p>
+			<div style="height:30px">
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="ThemeType" id="tundra_radio"  value="tundra" onChange="changeTheme('tundra','tundra_radio')"/>
+				<label for="tundra_radio">Tundra</label>
+			</div>
+			<div style="height:30px">
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="ThemeType" id="nihilo_radio"  value="nihilo" onChange="this,changeTheme('nihilo','nihilo_radio')"/>
+				<label for="nihilo_radio">Nihilo</label>
+			</div>
+			<div style="height:30px">
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="ThemeType" id="claro_radio" value="claro" onChange="this,changeTheme('claro','claro_radio')"/> 
+				<label for="claro_radio">Claro</label>
+			</div>
+			<div style="height:30px">	
+				<input type="radio" data-dojo-type="dijit.form.RadioButton" name="ThemeType" id="soria_radio" value="soria" onChange="this,changeTheme('soria','soria_radio')"/> 
+				<label for="soria_radio">Soria</label>
+			</div>
+	</div>
+	<div data-dojo-type="dijit.layout.ContentPane" data-dojo-props='region:"center"' align="left">
+		<p><b>预览效果:</b></p>
+		<div dojoType="dijit.Calendar"></div>
+	</div>
+</div>
+<div align="left">
+	<input id="remember_theme" name="remember_theme" data-dojo-type="dijit.form.CheckBox"> 
+	保存当前主题
+	<span id="expires_theme" data-dojo-type="dijit.InlineEditBox" data-dojo-props='editor:"dijit.form.NumberSpinner", editorParams:{constraints: {places:0}, autoSave:true,required:true}, width:"30px", title:"Click to edit"'>30</span>
+	天?
+</div>
+<div style="margin-top:20px;" align="center">
+	<button data-dojo-type="dijit.form.Button" data-dojo-props='type:"button", onClick:saveThemeIntoCookie'>确定</button>
+	<button data-dojo-type="dijit.form.Button" data-dojo-props='type:"button", onClick:function(){ dijit.byId("themeDlg").onCancel(); } 
+			'>取消</button>
+</div>

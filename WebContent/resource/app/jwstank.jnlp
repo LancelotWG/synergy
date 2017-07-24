@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>  
+<!-- jnlp spec必须是1.0以上版本，次数用的是1.0+；  
+ codebase 属性指出搜索应用程序资源的顶级URL。  
+ href 属性设置是为了让应用程序并入 Java Web Start 应用程序管理器-->  
+<jnlp spec="1.0+" codebase="http://localhost:8080/WorkflowFromLWG0.9.9/resource/app" href="jwstank.jnlp">  
+<!-- information 标记（如 title、vendor 等）用于提供来自 Java Web Start 应用程序管理器的关于应用程序的附加信息。 homepage ref 属性是专门用于指向 Web URL 从而用户可以去提供了关于应用程序的更多的信息的 Web 页面。最有趣的 information 标记是 offline-allowed 属性；该属性决定了客户机 Java 应用程序是否能离线启动。当离线运行客户机 Java 应用程序时，Java Web Start 将继续判定来自 Web 服务器的最新的文件；在多数情况下，这个方案将引起快速的超时（因为位置被指定要离线启动），并且应用程序从本地高速缓存启动 -->  
+    <information>  
+<!--title ：应用程序标题 vendor:供应商；title/vendor元素必须，会显示在”javaws  -viewer”命令打开的应用程序缓存查看器(Java Application Cache Viewer)中 -->  
+        <title>NetJava Application </title>  
+        <vendor>NetJava</vendor>  
+<!--description：对应用程序的描述，可以有多对<description> </description>，可有可无的 -->  
+        <description>NetJava Application </description>  
+<!--offline-allowed：选择项，允许离线启动，可以使用javaws –offine命令 -->  
+        <offline-allowed/>  
+    </information>  
+<!-- resource 标记考虑到 JNLP 文件指定应用程序使用哪些 JAR 文件和如何下载 JAR 文件；即，是急切的还是不紧不慢的。这个特性在当用户要下载大量的文件而对用户来说不是所有的文件都是客户机执行所需要的时是非常有帮助的。缺省的，多数资源是急切的下载的，在这样情况下，JAR 文件和资源在应用程序启动前被下载。不紧不慢的下载的资源只有当 Java 虚拟机（JVM）触发从应用程序载入资源或文件时才被下载。不紧不慢的下载资源的一个示例是客户机的帮助文件；考虑到了客户机的更快的启动和执行，只有在用户实际上向客户机请求帮助文件时，才会下载这些文件。然而，一旦用户请求了一个帮助文件，在请求过程中适当的 JAR 就会被下载，并伴有一个通知用户大致的下载时间的窗口 -->  
+    <resources>  
+<!--指定客户端需要安装的j2se版本，下面指定为1.6+，如果版本是1.4,在连接此JNLP文件时会提示更新J2se版本 -->  
+        <j2se version="1.6+"/>  
+<!--指定要下载到本地的jar文件(注意：所有的文件都需要打包才能够下载)，可以包含一些资源文件，如icons/configuration files,但是都必须使用类的getResource()方法获取 -->  
+        <jar href="JNLP-TEST.jar"/>  
+    </resources>  
+<!--指定操作系统以及jdk版本-->  
+    <resources os="Windows">  
+        <j2se version="1.6+"/>  
+    </resources>  
+<!--Application-desc必须，指定Web Start启动时执行jar文件中的哪个类 -->  
+    <application-desc main-class="SwingComponent"> 
+		<argument>holle world!</argument>
+	</application-desc>	
+<!-- security 属性。缺省的，任何从 Java Web Start 客户机启动的 Java 应用程序在一个安全的、受限制的环境执行，该环境中不允许进行本地文件访问、与其它计算机的网络连接等等。然而，对于要对客户机和网络可以完全访问的特性丰富的客户机来说， all-permissions 值是用于给予客户机完全访问的权限的。为具有对本地机的完全访问，Java 应用程序所使用和装入的所有 JAR 文件和资源必须被数字签名 -->  
+    <security>  
+        <all-permissions/>  
+    </security>  
+</jnlp>  

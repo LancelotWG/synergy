@@ -1,0 +1,290 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:MSHelp="http://msdn.microsoft.com/mshelp"
+	xmlns:mshelp="http://msdn.microsoft.com/mshelp"
+	xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" />
+<META NAME="save" CONTENT="history" />
+<title>使用 SQL 转义序列</title>
+<meta name="Language" content="zh-CN" />
+<meta name="System.Keywords" content="SQL 转义序列" />
+<meta name="Microsoft.Help.Id"
+	content="00f9e25a-088e-4ac6-aa75-43eacace8f03" />
+<meta name="Description"
+	content="按照 JDBC API 的定义，Microsoft JDBC Driver for SQL Server 支持使用 SQL 转义序列。转义序列用于 SQL 语句内，以告诉驱动程序应以不同的方式处理 SQL 字符串的转义部分。当 JDBC 驱动程序处理 SQL 字符串的转义部分时，它会将字符串的这一部分转换为 SQL Server 可以理解的 SQL 代码。" />
+<meta name="Microsoft.Help.ContentType" content="Concepts" />
+<link rel="stylesheet" type="text/css" href="../local/Classic.css" />
+<script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script>
+<script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script>
+</head>
+<body>
+	<div id="header">
+		<table id="bottomTable" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="left"><span id="headerBold">使用 SQL 转义序列</span></td>
+			</tr>
+		</table>
+		<table id="gradientTable">
+			<tr>
+				<td class="nsrBottom" background="../icons/gradient.gif" />
+			</tr>
+		</table>
+	</div>
+	<div id="mainSection">
+		<div id="mainBody">
+			<div class="introduction">
+				<p>按照 JDBC API 的定义，Microsoft JDBC Driver for SQL Server 支持使用 SQL
+					转义序列。转义序列用于 SQL 语句内，以告诉驱动程序应以不同的方式处理 SQL 字符串的转义部分。当 JDBC 驱动程序处理 SQL
+					字符串的转义部分时，它会将字符串的这一部分转换为 SQL Server 可以理解的 SQL 代码。</p>
+				<p>JDBC API 需要五种类型的转义序列，JDBC 驱动程序支持所有这些转义序列：</p>
+				<ul>
+					<li><p>LIKE 通配符文本</p></li>
+					<li><p>函数处理</p></li>
+					<li><p>日期和时间文本</p></li>
+					<li><p>存储过程调用</p></li>
+					<li><p>外部联接</p></li>
+				</ul>
+				<p>JDBC 驱动程序使用的转义序列语法如下所示：</p>
+				<p>
+					<span class="code">{keyword ...parameters...}</span>
+				</p>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>SQL 转义处理对于 JDBC 驱动程序始终是打开的。</p>
+				</div>
+				<p>以下各部分介绍五种类型的转义序列以及 JDBC 驱动程序如何支持它们。</p>
+			</div>
+			<h1 class="heading">LIKE 通配符文本</h1>
+			<div id="sectionSection0" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 驱动程序支持 <span class="code">{escape 'escape character'}</span>
+					语法，以便将 LIKE 子句通配符用作文本。例如，以下代码将返回 col3 的值，其中 col2
+					的值实际上以下划线开始（而不是对其使用通配符）。
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>ResultSet rst = stmt.executeQuery("SELECT col3 FROM test1 WHERE col2 
+LIKE '\\_%' {escape '\\'}");</pre></span>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>转义序列必须位于 SQL 语句的结尾。如果一个命令字符串中有多个 SQL 语句，则转义序列需要位于每个相关 SQL
+						语句的结尾。</p>
+				</div>
+			</div>
+			<h1 class="heading">函数处理</h1>
+			<div id="sectionSection1" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 驱动程序使用以下语法在 SQL 语句中支持函数转义序列：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>{fn functionName}</pre></span>
+				</div>
+				<p>
+					其中，<span class="code">functionName</span> 是由 JDBC 驱动程序支持的函数。例如：
+				</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>SELECT {fn UCASE(Name)} FROM Employee</pre></span>
+				</div>
+				<p>下表列出当使用函数转义序列时，JDBC 驱动程序支持的各种函数：</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>字符串函数</p></th>
+							<th><p>数值函数</p></th>
+							<th><p>日期时间函数</p></th>
+							<th><p>系统函数</p></th>
+						</tr>
+						<tr>
+							<td><p>ASCII</p>
+								<p>CHAR</p>
+								<p>CONCAT</p>
+								<p>DIFFERENCE</p>
+								<p>INSERT</p>
+								<p>LCASE</p>
+								<p>LEFT</p>
+								<p>LENGTH</p>
+								<p>LOCATE</p>
+								<p>LTRIM</p>
+								<p>REPEAT</p>
+								<p>REPLACE</p>
+								<p>RIGHT</p>
+								<p>RTRIM</p>
+								<p>SOUNDEX</p>
+								<p>SPACE</p>
+								<p>SUBSTRING</p>
+								<p>UCASE</p></td>
+							<td><p>ABS</p>
+								<p>ACOS</p>
+								<p>ASIN</p>
+								<p>ATAN</p>
+								<p>ATAN2</p>
+								<p>CEILING</p>
+								<p>COS</p>
+								<p>COT</p>
+								<p>DEGREES</p>
+								<p>EXP</p>
+								<p>FLOOR</p>
+								<p>LOG</p>
+								<p>LOG10</p>
+								<p>MOD</p>
+								<p>PI</p>
+								<p>POWER</p>
+								<p>RADIANS</p>
+								<p>RAND</p>
+								<p>ROUND</p>
+								<p>SIGN</p>
+								<p>SIN</p>
+								<p>SQRT</p>
+								<p>TAN</p>
+								<p>TRUNCATE</p></td>
+							<td><p>CURDATE</p>
+								<p>CURTIME</p>
+								<p>DAYNAME</p>
+								<p>DAYOFMONTH</p>
+								<p>DAYOFWEEK</p>
+								<p>DAYOFYEAR</p>
+								<p>EXTRACT</p>
+								<p>HOUR</p>
+								<p>MINUTE</p>
+								<p>MONTH</p>
+								<p>MONTHNAME</p>
+								<p>NOW</p>
+								<p>QUARTER</p>
+								<p>SECOND</p>
+								<p>TIMESTAMPADD</p>
+								<p>TIMESTAMPDIFF</p>
+								<p>WEEK</p>
+								<p>YEAR</p></td>
+							<td><p>DATABASE</p>
+								<p>IFNULL</p>
+								<p>USER</p></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin: .5em 1.5em .5em 1.5em">
+					<b></b>
+					<p>如果您试图使用数据库不支持的函数，则将发生错误。</p>
+				</div>
+			</div>
+			<h1 class="heading">日期和时间文本</h1>
+			<div id="sectionSection2" class="section" name="collapseableSection"
+				style="">
+				<p>用于日期、时间和时间戳文本的转义语法如下所示：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>{literal-type 'value'}</pre></span>
+				</div>
+				<p>
+					其中，<span class="code">literal-type</span> 为以下值之一：
+				</p>
+				<div class="tableSection">
+					<table width="50%" cellspacing="2" cellpadding="5" frame="lhs">
+						<tr>
+							<th><p>文本类型</p></th>
+							<th><p>说明</p></th>
+							<th><p>值格式</p></th>
+						</tr>
+						<tr>
+							<td><p>d</p></td>
+							<td><p>日期</p></td>
+							<td><p>yyyy-mm-dd</p></td>
+						</tr>
+						<tr>
+							<td><p>t</p></td>
+							<td><p>时间</p></td>
+							<td><p>hh:mm:ss [1]</p></td>
+						</tr>
+						<tr>
+							<td><p>ts</p></td>
+							<td><p>时间戳</p></td>
+							<td><p>yyyy-mm-dd hh:mm:ss[.f...]</p></td>
+						</tr>
+					</table>
+				</div>
+				<p>例如：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>UPDATE Orders SET OpenDate={d '2005-01-31'} 
+WHERE OrderID=1025</pre></span>
+				</div>
+			</div>
+			<h1 class="heading">存储过程调用</h1>
+			<div id="sectionSection3" class="section" name="collapseableSection"
+				style="">
+				<p>
+					JDBC 驱动程序对于存储过程调用支持 <span class="code">{? = call
+						proc_name(?,...)}</span> 和 <span class="code">{call
+						proc_name(?,...)}</span> 转义语法，具体取决于您是否需要处理返回参数。
+				</p>
+				<p>过程是存储在数据库中的可执行对象。通常，它是一个或更多的已经预编译的 SQL 语句。调用存储过程的转义序列语法如下所示：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>{[?=]call procedure-name[([parameter][,[parameter]]...)]}</pre></span>
+				</div>
+				<p>
+					其中，<span class="code">procedure-name</span> 指定存储过程的名称，<span
+						class="code">parameter</span> 指定存储过程参数。
+				</p>
+				<p>
+					有关将 <span class="code">call</span> 转义序列用于存储过程的详细信息，请参阅<span
+						sdata="link"><a
+						href="0041f9e1-09b6-4487-b052-afd636c8e89a.htm">使用带有存储过程的语句</a></span>。
+				</p>
+			</div>
+			<h1 class="heading">外部联接</h1>
+			<div id="sectionSection4" class="section" name="collapseableSection"
+				style="">
+				<p>JDBC 驱动程序支持 SQL92 左联接、右联接和完全外部联接语法。外部联接的转义序列如下所示：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>{oj outer-join}</pre></span>
+				</div>
+				<p>其中，外部联接为：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>table-reference {LEFT | RIGHT | FULL} OUTER JOIN  
+{table-reference | outer-join} ON search-condition</pre></span>
+				</div>
+				<p>
+					其中，<span class="code">table-reference</span> 为表名，<span class="code">search-condition</span>
+					为您要用于这些表的联接条件。
+				</p>
+				<p>例如：</p>
+				<div class="sampleCode">
+					<span codeLanguage="other"><pre>SELECT Customers.CustID, Customers.Name, Orders.OrderID, Orders.Status 
+   FROM {oj Customers LEFT OUTER JOIN 
+      Orders ON Customers.CustID=Orders.CustID} 
+   WHERE Orders.Status='OPEN'</pre></span>
+				</div>
+				<p>JDBC 驱动程序支持以下外部联接转义序列：</p>
+				<ul>
+					<li><p>左外部联接</p></li>
+					<li><p>右外部联接</p></li>
+					<li><p>完全外部联接</p></li>
+					<li><p>嵌套外部联接</p></li>
+				</ul>
+			</div>
+			<span id="seeAlsoSpan"><h1 class="heading">请参阅</h1></span>
+			<div id="seeAlsoSection" class="section" name="collapseableSection"
+				style="">
+				<div class="seeAlsoStyle">
+					<span sdata="link"><a
+						href="7f8f3e8f-841e-4449-9154-b5366870121f.htm">通过 JDBC
+							驱动程序使用语句</a></span>
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="section">
+			<span id="feedbackarea">发送有关本主题的<a
+				href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\d感谢您提供反馈。开发人员写作组将利用您的反馈来改进文档质量。我们在审阅您的反馈时，可能会给您发送电子邮件提出问题或询问您对某个解决方案的意见。您的电子邮件地址不会被用于其他用途，我们在完成审阅之后即会将其删除。%0\A有关%20Microsoft%20隐私策略的其他信息，请参阅%20http://privacy.microsoft.com/zh-CN/default.aspx。%0\A%0\d','客户反馈');">反馈</a>至
+				Microsoft。
+			</span><span id="copyrightarea"><p>
+					<a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012
+						Microsoft。保留所有权利。</a>
+				</p></span>
+		</div>
+	</div>
+</body>
+</html>

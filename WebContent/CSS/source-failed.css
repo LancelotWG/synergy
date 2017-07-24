@@ -1,0 +1,45 @@
+Process{display:block;}
+Process name,description,startDate,endDate,processVariables,roles,children{
+	display:block;text-indent:1em;
+}
+Process processVariables ProcessVariable{
+	display:block;text-indent:1em;
+}
+Process processVariables ProcessVariable name,type{
+	display:block;text-indent:1em;
+}
+Process roles Role{
+	display:block;text-indent:1em;
+}
+Process roles Role name,actualWorker{
+	display:block;text-indent:1em;
+}
+Parallel{display:block;text-indent:1em;}
+Parallel name,description,isCooperative,cooperVariables,children{
+	display:block;text-indent:1em;
+}
+Parallel cooperVariables cooperVariable{
+	display:block;text-indent:1em;
+}
+Parallel cooperVariables cooperVariable variableName,cooperType,sourceTask,targetTask{
+	display:block;text-indent:1em;
+}
+Sequence.Branch{display:block;text-indent:1em;}
+Sequence.Branch name,description,children{display:block;text-indent:1em;}
+ForEach{display:block;text-indent:1em;}
+ForEach name,description,children,Condition{display:block;text-indent:1em;}
+ForEach Condition Name,Content,LeftOperandType,LeftOperand,Operator,RightOperandType,RightOperand{
+	display:block;text-indent:1em;
+}
+Sequence{display:block;text-indent:1em;}
+Sequence name,description,children{display:block;text-indent:1em;}
+Catia,ProE{display:block;text-indent:1em;}
+Catia,ProE name,description,startDate,endDate,Role,dataMapping{display:block;text-indent:1em;}
+Catia,ProE Role name,endpoint{display:block;text-indent:1em;}
+Catia,ProE dataMapping Mapping{display:block;text-indent:1em;}
+Catia,ProE dataMapping Mapping VariableName,VariableDirection,AssociatedFile,bindingField{display:block;text-indent:1em;}
+IfElse{display:block;text-indent:1em;}
+IfElse name,description,children,Condition,UseElseBranch{display:block;text-indent:1em;}
+IfElse Condition Name,Content,LeftOperandType,LeftOperand,Operator,RightOperandType,RightOperand{
+	display:block;text-indent:1em;
+}

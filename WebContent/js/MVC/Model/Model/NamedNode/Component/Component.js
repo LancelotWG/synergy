@@ -1153,6 +1153,6 @@ dojo.declare("Component",NamedNode,{
 		dataConfigureUploadDlg.hide();
 	},
 	dataConfigureViewer:function(){
-		
+
 	}
 });

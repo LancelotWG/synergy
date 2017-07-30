@@ -1151,5 +1151,8 @@ dojo.declare("Component",NamedNode,{
 		//
 		var dataConfigureUploadDlg = dijit.byId("dataConfigureUploadDlg");
 		dataConfigureUploadDlg.hide();
+	},
+	dataConfigureViewer:function(){
+		
 	}
 });

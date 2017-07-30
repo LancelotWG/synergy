@@ -332,8 +332,11 @@ dojo.declare("MenuManager",dojo.Stateful,{
                     if(roleControl(1, configuringComponent.type)){
 
                     }else{
-                        alert("对不起！您无权限配置该模块数据。");
-                        return ;
+                        if(confirm("对不起！您无权限配置该模块数据。但可查看数据配置，是否查看？")){
+
+                        }else{
+                            return ;
+                        }
                     }
                 }else{
                     alert("该模块数据无需配置！");

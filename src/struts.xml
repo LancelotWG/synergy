@@ -4,6 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.action.excludePattern" value="/ws/BaseNetAction"></constant>
+	<constant name="struts.action.excludePattern" value="/SR/FileServer"></constant>
 	<!-- 前后台公共视图的映射 -->
 	<include file="com/nwpu/lwg/action/struts-default.xml" />
 	<!-- 后台管理的Struts2配置文件 -->

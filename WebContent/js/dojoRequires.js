@@ -60,6 +60,7 @@ dojo.require("dojox.grid.LazyTreeGrid");
 dojo.require("dojox.form.TriStateCheckBox");
 dojo.require("dojox.grid.cells.dijit");
 dojo.require("dijit.tree.ForestStoreModel");
+dojo.require("dijit.tree.ObjectStoreModel");
 dojo.require("dojo.domReady!");
 
 

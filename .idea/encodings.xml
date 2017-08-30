@@ -12,9 +12,11 @@
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/componentDataDefinition.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/dataConfigure.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/dataConfigureUpload.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/dataConfigureViewer.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/newProject.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/openFile.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/openProject.html" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/WebContent/resource/html/saveDialog.html" charset="GB2312" />
     <file url="file://$PROJECT_DIR$/WebContent/resource/html/setComponentPropertyDialog.html" charset="GB2312" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

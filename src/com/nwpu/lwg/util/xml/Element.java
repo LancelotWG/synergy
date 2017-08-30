@@ -1,6 +1,7 @@
 package com.nwpu.lwg.util.xml;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Element {
@@ -11,7 +12,7 @@ public class Element {
 	private String name;
 	
 	//  Ù–‘
-	private Map<String, XMLAttribute> attributes = new HashMap<>();
+	private Map<String, XMLAttribute> attributes = new LinkedHashMap<>();
 
 	
 

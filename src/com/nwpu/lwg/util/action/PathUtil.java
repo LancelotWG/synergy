@@ -20,6 +20,8 @@ public class PathUtil {
 	public static String output = "output\\";
 	public static String temp = "temp\\";
 	public static String[] component = { "CL\\", "IO\\", "RM\\" };
+	public static String[] dataConfigXSDForward = { "Cl", "IO", "Rm" };
+	public static String[] dataConfigForward = { "cl", "io", "rm" };
 	public static String os = "OS\\";
 	public static String bus = "BUS\\";
 	public static String logic = "logic\\";
@@ -27,6 +29,9 @@ public class PathUtil {
 	/*public static String[] modelConfigName = {"CL_MOD.cfg","IO_MOD.cfg","RM_MOD.cfg"};*/
 	public static String logicFile = "_LOGIC.cfg";
 	public static String modelFile = "_MOD.cfg";
+	
+	public static String dataConfigXSD = "Config.cxsd";
+	public static String dataConfig = ".cfg";
 	
 	private PathUtil() {
 

@@ -1,14 +1,17 @@
 package com.nwpu.lwg.util.xml;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.dom4j.XPath;
 import org.dom4j.io.SAXReader;
 
 import com.nwpu.lwg.util.constant.XMLConstants;

@@ -333,7 +333,8 @@ dojo.declare("MenuManager",dojo.Stateful,{
 
                     }else{
                         if(confirm("对不起！您无权限配置该模块数据。但可查看数据配置，是否查看？")){
-
+                            configuringComponent.dataConfigureViewer();
+                            return;
                         }else{
                             return ;
                         }

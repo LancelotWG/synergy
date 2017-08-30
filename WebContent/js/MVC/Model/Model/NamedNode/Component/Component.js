@@ -77,6 +77,10 @@ dojo.declare("Component",NamedNode,{
 	inputUploader:null,
 	outputCompleteUploader:null,
 	myself:null,
+	dataConfigureTree:null,
+	dataConfigureData:null,
+	treeModel:null,
+	treeStore:null,
 	constructor: function(args){
 		//this.fillProps();
 		this.dataFlow = {
@@ -1058,13 +1062,13 @@ dojo.declare("Component",NamedNode,{
 			this.outputCompleteUploader = new qq.FineUploader({
 				// Pass the HTML element here
 				element: document.getElementById('dataConfigureUploadPath'),
-				autoUpload: false,
+				autoUpload: true,
 				multiple: true,
 				validation:{
-					allowedExtensions:['cxsd']
+					allowedExtensions:['cfg']
 				},
 				request: {
-					endpoint: "user_uploadBusConfigure.xhtml?processName="+os.mainProcess.name
+					endpoint: "user_uploadDataConfigure.xhtml?processName="+os.mainProcess.name + "&modelType=" + parent.type
 				},
 				callbacks: {
 					onComplete: function(id, fileName, responseJSON){
@@ -1147,12 +1151,110 @@ dojo.declare("Component",NamedNode,{
 	},
 	dataConfigureUploadApply:function(){
 		//
-
+		//this.outputCompleteUploader.uploadStoredFiles();
 		//
 		var dataConfigureUploadDlg = dijit.byId("dataConfigureUploadDlg");
 		dataConfigureUploadDlg.hide();
 	},
 	dataConfigureViewer:function(){
-
+		var parent = this;
+		var dataConfigureViewerDlg = dijit.byId("dataConfigureViewerDlg");
+		dojo.xhrGet({
+			url: "user_loadDataConfigure.xhtml?templateName=original&type=" + parent.type + "&version=" + parent.version + "&processName=" + os.mainProcess.name,
+			handleAs: "json",
+			load: function (data) {
+				parent.dataConfigureData = data;
+				dataConfigureViewerDlg.show();
+			},
+			error: function (e) {
+				//if (confirm("用户数据加载失败，是否重试？"))
+				//parent._loadSubComponent();
+			}
+		});
+		var isFirst = true;
+		var create = function () {
+			if(isFirst) {
+				isFirst = false;
+				parent.treeStore = new dojo.store.Memory({ // 创建store
+					data : parent.dataConfigureData,
+					getChildren: function(object){ // 实现getChildren方法
+						return this.query({parent: this.getIdentity(object)});
+					}
+				});
+				parent.treeModel = new dijit.tree.ObjectStoreModel({ // 使用store创建model
+					store: parent.treeStore,
+					query: {id: "root"},
+					checkedRoot: true
+				});
+				parent.dataConfigureTree = new dijit.Tree({ // 创建树
+					// 树id，可以根据该id使用registry模块的byId方法获取组件对象。
+					model : parent.treeModel,
+					showRoot : true, // 是否显示树根
+					openOnClick : true, // 单击展开
+					persist: false,  // 持久化到cookie，记住上次打开树时候的状态
+					autoExpand : false, // 自动展开所有层次的节点
+					openOnDblClick : true // 双击展开
+				}, "dataConfigure_Tree").placeAt(dojo.byId("dataConfigureTree"));
+				parent.dataConfigureTree.startup();
+				parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onLoad', parent.dataConfigureTree.expandAll);
+				parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onLoad', function(){
+					setTimeout(function(){
+						parent.dataConfigureTree.collapseAll();
+						parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onClick',parent.fillAttributes);
+						parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onOpen',parent.fillAttributes);
+						parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onClose',parent.fillAttributes);
+					},1000);
+				});
+			}
+		};
+		if(parent.dataConfigureTree != null){
+			//parent.treeStore.revert();
+			parent.dataConfigureTree.destroy();
+			dojo.byId("dataConfigureTreeDIV").innerHTML = "<div id='dataConfigureTree' ></div>";
+			parent.treeStore = new dojo.store.Memory({ // 创建store
+				data : parent.dataConfigureData,
+				getChildren: function(object){ // 实现getChildren方法
+					return this.query({parent: this.getIdentity(object)});
+				}
+			});
+			parent.treeModel = new dijit.tree.ObjectStoreModel({ // 使用store创建model
+				store: parent.treeStore,
+				query: {id: "root"},
+				checkedRoot: true
+			});
+			parent.dataConfigureTree = new dijit.Tree({ // 创建树
+				 // 树id，可以根据该id使用registry模块的byId方法获取组件对象。
+				model : parent.treeModel,
+				showRoot : true, // 是否显示树根
+				openOnClick : true, // 单击展开
+				persist: false,  // 持久化到cookie，记住上次打开树时候的状态
+				autoExpand : false, // 自动展开所有层次的节点
+				openOnDblClick : true // 双击展开
+			}, "dataConfigure_Tree").placeAt(dojo.byId("dataConfigureTree"));
+			parent.dataConfigureTree.startup();
+			parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onLoad', parent.dataConfigureTree.expandAll);
+			parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onLoad', function(){
+				setTimeout(function(){
+					parent.dataConfigureTree.collapseAll();
+					parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onClick',parent.fillAttributes);
+					parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onOpen',parent.fillAttributes);
+					parent.dataConfigureTree.connect(parent.dataConfigureTree, 'onClose',parent.fillAttributes);
+				},1000);
+			});
+		}
+		dojo.connect(dataConfigureViewerDlg, "onDownloadEnd", create);
+	},
+	fillAttributes:function(event){
+		var attr = dojo.byId("dataConfigureAttribute");
+		var html = "<table class='table-7'><thead><tr><th style='width: 150px'>属性名</th><th style='width: 220px'>属性值</th></tr></thead><tbody>";
+		var attribute = event.attributes
+		for(var i in attribute) {//不使用过滤
+			//console.log(i,":",attribute[i]);
+			var label = attribute[i].documentLabel != ""? attribute[i].documentLabel:attribute[i].name;
+			var value = attribute[i].value;
+			html += ("<tr>" + "<td>" +label + "</td><td>" + value + "</td></tr>")
+		}
+		html += "</tbody>"
+		attr.innerHTML = html;
 	}
 });

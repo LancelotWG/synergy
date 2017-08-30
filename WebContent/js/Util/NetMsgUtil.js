@@ -15,6 +15,7 @@ dojo.declare("NetMsgUtil",dojo.Stateful,{
     msgProtection:7,
     msgRoleChange:8,//用户权限变化
     msgUserOnline:9,//用户上下线
+    msgUserChat:10,
     //消息响应与请求(类型)
     typeRequest:0,
     typeResponse:1,

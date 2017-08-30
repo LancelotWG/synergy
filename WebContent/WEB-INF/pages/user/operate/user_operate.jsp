@@ -49,6 +49,7 @@
             @import "<%=request.getContextPath()%>/js/lib/dojo/dojox/form/resources/TriStateCheckBox.css";
             @import "<%=request.getContextPath()%>/js/lib/dojo/dojox/grid/enhanced/resources/claroEnhancedGrid.css";
             @import "<%=request.getContextPath()%>/js/lib/dojo/dojox/grid/enhanced/resources/EnhancedGrid_rtl.css";
+
         </style>
         <!--使用@import引入gantt.css会导致在兼容性视图中无法正常显示甘特图-->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/CSS/gantt.css">
@@ -120,6 +121,7 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/MVC/Control/NetController.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/MVC/Control/NetMsg.js"></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/js/MVC/Control/UserDataController.js"></script>
+
 
         <script type="text/javascript">
             //服务器实际地址
@@ -301,7 +303,11 @@
                         <div style="width: 100%; height:85%; float:left;" id="currentRoleMark"></div>
                     </div>
                     <div dojoType="dijit.layout.ContentPane"  region="center" style="height: 80%;" splitter="true" >
-                            工程人员对话框
+                        <span>工程人员对话框</span></br>
+                        <iframe class="userMessagesBox" name="userMessagesBox" id="userMessagesBox" style="height:95px;width:673px;border:1px solid #bbb;" frameborder="0" marginHeight="0" marginwidth="0" src="about:blank">
+                        </iframe></br>
+                        请输入：<input id="userMessageInput" type="text" name="dialogBox" size=60/>
+                        <button id="sendMessageButton" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="发送" iconClass="dijitNoIcon" onClick='mainFrame.sendUserMessage'></button>
                      </div>
                 </div>
             <!--</div>-->
@@ -352,6 +358,11 @@
                                 deleteTempFiles(tempProcessFileUrl);
                     </script>-->
                 </div>
+
+                <span data-dojo-type="js.Dialog" id="dataConfigureViewerDlg" title="数据配置查看器" href="user_requestHTML.xhtml?href=dataConfigureViewer"
+                extractContent="false" preventCache="true" preload="false" refreshOnShow="true" duration="400"
+                autofocus="autofocus" draggable="true" closable="true" style="min-width: 720px; height: 450px; width: 720px;">
+                </span>
 
                 <span data-dojo-type="js.Dialog" id="dataConfigureUploadDlg" title="数据配置(2)" href="user_requestHTML.xhtml?href=dataConfigureUpload"
                     extractContent="false" preventCache="true" preload="false" refreshOnShow="true" duration="400"

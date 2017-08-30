@@ -50,7 +50,13 @@ import com.nwpu.lwg.util.action.transmission.MultipartUploadFileParser;
 import com.nwpu.lwg.util.action.transmission.RequestUploadFileParser;
 import com.nwpu.lwg.util.constant.ControlUtil;
 import com.nwpu.lwg.util.constant.SeparatorUtil;
+import com.nwpu.lwg.util.xml.XMLElement;
+import com.nwpu.lwg.util.xml.XMLReader;
+import com.nwpu.lwg.util.xml.XSDElement;
+import com.nwpu.lwg.util.xml.XSDReader;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
 
 @Scope("prototype")
 @Controller("userAction")
@@ -807,6 +813,8 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 	}
 
 	// 用户编辑文件保存
+	//许改造已完成最终XML输出文件的存储
+	//
 	public void saveUserProcess() throws Exception {
 		String webUrl = httpRequest.getRealPath("/");
 		// User activeUser = (User) session.get("user");
@@ -897,7 +905,6 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		// String userName = activeUser.getName();
 		String model = httpRequest.getParameter("model");
 		String contextName = httpRequest.getParameter("contextName");
-		;
 		String webUrl = httpRequest.getRealPath("/");
 		if (model.equals("template")) {
 			String templateName = httpRequest.getParameter("templateName");
@@ -921,6 +928,97 @@ public class UserAction extends BaseAction implements ModelDriven<User> {
 		}
 		DataTransmission.closeWriter(response);
 		return;
+	}
+	
+	//加载dataConfigure
+	public void loadDataConfigure() throws Exception {
+		responseHeadConfig();
+		response.setContentType("text/html");
+		try {
+			httpRequest.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e2) {
+			// TODO 自动生成的 catch 块
+			e2.printStackTrace();
+		}
+		String webUrl = httpRequest.getRealPath("/");
+		String processName = httpRequest.getParameter("processName");
+		String templateName = httpRequest.getParameter("templateName");
+		String type = httpRequest.getParameter("type");
+		String version = httpRequest.getParameter("version");
+		String XSDFileName = "";
+		String XMLFileName = "";
+		String XMLFileNamePath = "";
+		String templatePath = null;
+		String path = null;
+		if (type.equals(ControlUtil.ComponentIO)) {
+			templatePath = PathUtil.getTemplateModelPath(webUrl, templateName, ControlUtil.ElementType.IO, version);
+			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName, ControlUtil.ElementType.IO);
+			XSDFileName = PathUtil.dataConfigXSDForward[1] + PathUtil.dataConfigXSD;
+			XMLFileName = PathUtil.dataConfigForward[1] + PathUtil.dataConfig;
+		} else if (type.equals(ControlUtil.ComponentRM)) {
+			templatePath = PathUtil.getTemplateModelPath(webUrl, templateName, ControlUtil.ElementType.RM, version);
+			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName, ControlUtil.ElementType.RM);
+			XSDFileName = PathUtil.dataConfigXSDForward[2] + PathUtil.dataConfigXSD;
+			XMLFileName = PathUtil.dataConfigForward[2] + PathUtil.dataConfig;
+		} else if (type.equals(ControlUtil.ComponentCL)) {
+			templatePath = PathUtil.getTemplateModelPath(webUrl, templateName, ControlUtil.ElementType.CL, version);
+			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName, ControlUtil.ElementType.CL);
+			XSDFileName = PathUtil.dataConfigXSDForward[0] + PathUtil.dataConfigXSD;
+			XMLFileName = PathUtil.dataConfigForward[0] + PathUtil.dataConfig;
+		}
+		XSDFileName = templatePath + XSDFileName;
+		XMLFileNamePath = path + XMLFileName;
+		File XMLFile = new File(XMLFileNamePath);
+		if(XMLFile.exists()){
+			
+		}else{
+			XMLFileNamePath = templatePath + XMLFileName;
+		}
+		XMLReader xmlReader = new XMLReader();
+		XSDReader xsdReader = new XSDReader();
+		Map<String, XSDElement> nodes = xsdReader.paserXSD(XSDFileName);
+		xmlReader.map = nodes;
+		XMLElement xmlElement = xmlReader.parserXML(XMLFileNamePath);
+		List<XMLElement> list = xmlReader.list;	
+		JSONArray jsonArray = JSONArray.fromObject(list);	
+		String json = jsonArray.toString();
+		
+		//System.out.println(json);
+		//System.out.println(jsonObject);
+		System.out.println(jsonArray);
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		out.print(jsonArray);
+		out.flush();
+		out.close();
+		return;
+	}
+	
+	//上传dataConfigure
+	public void uploadDataConfigure() throws Exception {
+		String webUrl = httpRequest.getRealPath("/");
+		User activeUser = (User) session.get("user");
+		String userName = activeUser.getName();
+ 		String processName = httpRequest.getParameter("processName");
+ 		String modelType = httpRequest.getParameter("modelType");
+ 		String path = "";
+ 		if (modelType.equals("IO")) {
+ 			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName,
+ 					ControlUtil.ElementType.IO);
+		} else if (modelType.equals("RM")) {
+			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName,
+					ControlUtil.ElementType.RM);
+		} else if (modelType.equals("CL")) {
+			path = PathUtil.getPath(webUrl, ControlUtil.OperationModel.group, processName, processName,
+					ControlUtil.ElementType.CL);
+		}
+		
+		DataTransmission.upload(httpRequest, response, path, null, ControlUtil.ClientTransmissionType.file,
+				ControlUtil.ServerType.cfg);
 	}
 
 	// 上传BusConfigure

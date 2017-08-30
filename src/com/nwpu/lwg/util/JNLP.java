@@ -16,5 +16,4 @@ public class JNLP {
             System.out.println(key + "=" + map.get(key));
         }
 	}
-
 }

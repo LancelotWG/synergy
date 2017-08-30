@@ -20,7 +20,9 @@ public class XMLReader {
 	private static final String JSON_FITERINGSELECT_STR_1 = "{identifier:\"id\",label: \"name\", items:";
 	private static final String JSON_FITERINGSELECT_STR_2 = "}";
 	
-	private Map<String, XSDElement> map = new HashMap<String, XSDElement>();
+	public Map<String, XSDElement> map = new HashMap<String, XSDElement>();
+	public List<XMLElement> list = new ArrayList<XMLElement>();
+	private XMLElement root;
 	
 	public XMLElement parserXML(String XMLPath) throws Exception {
 		// 创建SAXReader对象
@@ -30,7 +32,10 @@ public class XMLReader {
 		// 获取根节点元素对象
 		Element root = document.getRootElement().element("root");
 		// 遍历
-		return listNodes(root);
+		this.root = listNodes(root);
+		//xmlChild.setParent("null");
+		this.list.add(this.root);
+		return this.root;
 	}
 	
 	// 遍历当前节点下的所有节点
@@ -38,7 +43,21 @@ public class XMLReader {
 		XMLElement xmlNode = new XMLElement();
 		
 		String name = node.getName();
-		xmlNode.setName(name);
+		String text = "";
+		String label = "";
+		XSDAnnotation xsdAnnotation = map.get(name).getAnnotation();
+		if(xsdAnnotation != null){
+			text = xsdAnnotation.getDocunmentText();
+			label =  xsdAnnotation.getDocumentLabel();
+			if(label == null || label.equals("")){
+				xmlNode.setName(name);
+			}else{
+				xmlNode.setName(label);
+			}
+		}else{
+			xmlNode.setName(name);
+		}
+		xmlNode.setId(name);
 		//System.out.println("当前节点的名称：" + name);
 		// 首先获取当前节点的所有属性节点
 		List<Attribute> list = node.attributes();
@@ -73,7 +92,10 @@ public class XMLReader {
 		while (iterator.hasNext()) {
 			Element e = iterator.next();
 			XMLElement xmlChild = listNodes(e);
+			xmlChild.setParent(name);
+			this.list.add(xmlChild);
 			xmlNode.addElement(e.getName(), xmlChild);
+			xmlNode.addChildren(xmlChild);
 		}
 		return xmlNode;
 	}
@@ -87,14 +109,15 @@ public class XMLReader {
 			Map<String, XSDElement> nodes = xsdReader.paserXSD("RmConfig.cxsd");
 			xmlReader.map = nodes;
 			XMLElement xmlElement = xmlReader.parserXML("rm.cfg");
-			
-			JSONObject jsonObject = JSONObject.fromObject(xmlElement);	
-			JSONArray jsonArray = JSONArray.fromObject(nodes);	
+			List<XMLElement> list = xmlReader.list;
+			List<XMLElement> list2 = xmlElement.getChildren();
+			JSONArray jsonObject = JSONArray.fromObject(xmlElement.getChildren());	
+			JSONArray jsonArray = JSONArray.fromObject(list);	
 			String json = jsonArray.toString();
 			
 			//System.out.println(json);
-			System.out.println(jsonObject);
-			
+			//System.out.println(jsonObject);
+			System.out.println(jsonArray);
 			//xmlReader.showJson();
 			int a = 1;
 		} catch (Exception ex) {

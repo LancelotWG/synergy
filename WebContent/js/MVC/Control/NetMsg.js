@@ -63,6 +63,9 @@ dojo.declare("NetMsg",dojo.Stateful,{
             case NetMsgUtil.prototype.msgUserOnline:
                 this._parseUserOnline();
                 break;
+            case NetMsgUtil.prototype.msgUserChat:
+                this._parseUserChat();
+                break;
         }
     },
     msgSend:function(){
@@ -633,6 +636,12 @@ dojo.declare("NetMsg",dojo.Stateful,{
         this._parseDataAdd(this.additiveAttribute[0]);
         this._parseAttributesAdd(this.additiveAttribute[1]);
     },
+    _parseUserChat:function(){
+        this._parseOperateAdd("userChat");
+        this._parseDataAdd(userName);
+        this._parseAttributesAdd(this.data);
+        this._parseAttributeAdd((new Date()).toLocaleTimeString());
+    },
     /*_parseDataClassAdd:function(operate){
         if(this.data instanceof Sequence.Process){
             this._parseDataAdd("Process");
@@ -711,6 +720,8 @@ dojo.declare("NetMsg",dojo.Stateful,{
             this._unParseRoleChangeData(data);
         }else if(operate == "userOnline"){
             this._unParseUserOnlineData(data);
+        }else if(operate == "userChat"){
+            this._unParseUserChatData(data);
         }
     },
     _unParseNewData:function(string){
@@ -1174,6 +1185,24 @@ dojo.declare("NetMsg",dojo.Stateful,{
     _unParseUserOnlineData:function(string){
         var values = string.split("*");
         mainFrame.usersOnline(values[1], values[0]);
+        var frame = window.frames["userMessagesBox"];
+        if(values[0] == "0"){
+            frame.document.body.innerHTML += ("<div style='color: #FF0000'>System: " + values[1] + " 下线 " + "<i>"
+            + (new Date()).toLocaleTimeString() + "</i></div>");
+            frame.scrollTo(0,frame.document.body.scrollHeight);
+        }else{
+            frame.document.body.innerHTML += ("<div style='color: #0B8CD4'>System: " + values[1] + " 上线 " + "<i>"
+            + (new Date()).toLocaleTimeString() + "</i></div>");
+            frame.scrollTo(0,frame.document.body.scrollHeight);
+        }
+    },
+    _unParseUserChatData:function(string){
+        var values = string.split("*");
+        var value = values[1].split("#");
+        var frame = window.frames["userMessagesBox"];
+        frame.document.body.innerHTML += (values[0] + ": " + value[0] + " " + "<i style='color: #0000cc'>"
+        + value[1] + "</i><br>");
+        frame.scrollTo(0,frame.document.body.scrollHeight);
     },
     _createComponent:function(string){
         var value = string.split("#");

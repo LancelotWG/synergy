@@ -1712,5 +1712,18 @@ dojo.declare("MainFrame",dojo.Stateful,{
     },
     _createCurrentRoleMark:function(){
 
+    },
+    sendUserMessage:function(){
+        var message = dojo.byId("userMessageInput");
+        if(user.role[0] == "0" && user.role[1] == "null" && user.role[2] == "0"){
+            alert("对不起您未进入工程中，无法发送有效消息，请打开工程或创建工程。");
+        }else{
+            var msg = new NetMsg(NetMsgUtil.prototype.msgUserChat,message.getValue(),null);
+            msg.msgSend();
+            var frame = window.frames["userMessagesBox"];
+            frame.document.body.innerHTML += (userName + ": " + message.getValue() + " " + "<i style='color: #0000cc'>" + (new Date()).toLocaleTimeString() + "</i><br>");
+            frame.scrollTo(0,frame.document.body.scrollHeight);
+            message.setValue("");
+        }
     }
 });

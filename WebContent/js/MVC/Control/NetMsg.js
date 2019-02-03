@@ -283,11 +283,13 @@ dojo.declare("NetMsg",dojo.Stateful,{
                     //BusConnect
                     this._parseAttributesAdd("BusConnect");
                     this._parseAttributeAdd(child.name);
+                    //修改支持未配置完成的数据保存
                     if(child.busConnect.isConfigure){
                         this._parseAttributeAdd(NetMsgUtil.prototype.configured);
                         this._parseAttributeAdd(NetMsgUtil.prototype.dataSerialization(child.busConnect.dataFlow));
                     }else{
                         this._parseAttributeAdd(NetMsgUtil.prototype.notConfigure);
+                        this._parseAttributeAdd(NetMsgUtil.prototype.dataSerialization(child.busConnect.dataFlow));
                     }
                     //可扩展属性
                 }
@@ -522,10 +524,11 @@ dojo.declare("NetMsg",dojo.Stateful,{
                             var theGUI = busConnect.node;
                             dojo.place(theGUI, comp.componentNode, "after");
                             comp.addBusConnect(busConnect);
-                            if(value[2] == "1"){
+                            if(value[3] != undefined){
                                 busConnect.dataFlow = NetMsgUtil.prototype.dataDeserialization(value[3]);
                                 busConnect._dataFlowDeepCopy(0);
                             }
+                            busConnect.isConfigure = value[2];
                             comp.parent.validate();
                         }
                     }
